@@ -3,7 +3,7 @@ package project;
 public class Main {
 
     public static void main(String[] args){
-        System.out.println("Tarans gay TEST");
+        System.out.println("This is a git test.");
     }
 
 }
