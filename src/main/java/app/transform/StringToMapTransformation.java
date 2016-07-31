@@ -31,12 +31,11 @@ public class StringToMapTransformation {
         Node parentNode = dataMap.get(parentNodeName);
         Node childNode = dataMap.get(childNodeName);
 
-        if (parentNode == null && childNode == null){
+        if (parentNode == null){
             parentNode = new Node(parentNodeName);
-            childNode = new Node(childNodeName);
-        } else if (parentNode == null){
-            parentNode = new Node(parentNodeName);
-        } else if (childNode == null){
+        }
+
+        if (childNode == null){
             childNode = new Node(childNodeName);
         }
 
