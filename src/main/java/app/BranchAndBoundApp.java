@@ -5,6 +5,7 @@ import app.exceptions.AppException;
 import app.input.DigraphFileReader;
 import app.transform.IDataTransformer;
 import app.transform.TransformModuleFactory;
+import app.utils.MapUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,7 +50,8 @@ public class BranchAndBoundApp {
     private void init() throws AppException, IOException {
         String fileContents = digraphFileReader.readDigraphFile();
         Map<String, Node> dataMap = dataTransformer.transformIntoMap(fileContents);
-
+        Node root = MapUtils.findRoot(dataMap);
+        
         Iterator<String> keyIterator = dataMap.keySet().iterator();
         while (keyIterator.hasNext()) {
             System.out.println(dataMap.get(keyIterator.next()));
