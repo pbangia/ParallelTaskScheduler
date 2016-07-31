@@ -9,6 +9,7 @@ import app.transform.DataTransformer;
 import app.transform.TransformModuleFactory;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 public class BranchAndBoundApp {
@@ -33,10 +34,9 @@ public class BranchAndBoundApp {
     /**
      * Starting point for the branch and bound application.
      */
-    public void start() {
+    public void start() throws EmptyFileContentsException, IOException, InvalidFileContentsException {
         loadModules();
         init();
-        // more method calls underneath
     }
 
     /**
@@ -47,22 +47,10 @@ public class BranchAndBoundApp {
         this.digraphFileReader = InputModuleFactory.createReader();
     }
 
-    private void init() {
-        String fileContents = readFile();
+    private void init() throws EmptyFileContentsException, IOException, InvalidFileContentsException {
+        String fileContents = digraphFileReader.readDigraphFile(inputFile);
         Map<String, Node> dataMap = dataTransformer.transformIntoMap(fileContents);
         System.out.println(fileContents);
-    }
-
-    private String readFile() {
-        String fileContents = null;
-        try {
-            fileContents = digraphFileReader.readDigraphFile(inputFile);
-        } catch (InvalidFileContentsException e) {
-            // print error log message
-        } catch (EmptyFileContentsException e) {
-            // print error log message
-        }
-        return fileContents;
     }
 
 }

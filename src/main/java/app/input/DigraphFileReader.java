@@ -9,16 +9,10 @@ import java.io.IOException;
 
 public class DigraphFileReader {
 
-    public String readDigraphFile(File digraphFile) throws EmptyFileContentsException, InvalidFileContentsException {
-        String fileText = null;
-        try {
-            fileText = FileUtils.readFileToString(digraphFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-            // TODO add error log message
-        }
+    public String readDigraphFile(File digraphFile) throws EmptyFileContentsException, InvalidFileContentsException, IOException {
+        String fileText = FileUtils.readFileToString(digraphFile);
 
-        if (fileText == null){
+        if (fileText == null || fileText.length() == 0){
             throw new EmptyFileContentsException("File contents are empty.");
         }
 
