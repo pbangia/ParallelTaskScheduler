@@ -4,6 +4,7 @@ import app.data.Node;
 import app.exceptions.input.EmptyFileContentsException;
 import app.exceptions.input.InvalidFileContentsException;
 import app.input.DigraphFileReader;
+import app.input.InputModuleFactory;
 import app.transform.DataTransformer;
 import app.transform.TransformModuleFactory;
 
@@ -13,6 +14,7 @@ import java.util.Map;
 public class BranchAndBoundApp {
 
     private DataTransformer dataTransformer;
+    private DigraphFileReader digraphFileReader;
     private File inputFile;
     private String outputFilename;
     private int numThreads;
@@ -42,6 +44,7 @@ public class BranchAndBoundApp {
      */
     public void loadModules(){
         this.dataTransformer = TransformModuleFactory.createTransformer();
+        this.digraphFileReader = InputModuleFactory.createReader();
     }
 
     private void init() {
@@ -53,7 +56,7 @@ public class BranchAndBoundApp {
     private String readFile() {
         String fileContents = null;
         try {
-            fileContents = DigraphFileReader.readDigraphFile(inputFile);
+            fileContents = digraphFileReader.readDigraphFile(inputFile);
         } catch (InvalidFileContentsException e) {
             // print error log message
         } catch (EmptyFileContentsException e) {

@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class DigraphFileReader {
 
-    public static String readDigraphFile(File digraphFile) throws EmptyFileContentsException, InvalidFileContentsException {
+    public String readDigraphFile(File digraphFile) throws EmptyFileContentsException, InvalidFileContentsException {
         String fileText = null;
         try {
             fileText = FileUtils.readFileToString(digraphFile);
@@ -22,8 +22,27 @@ public class DigraphFileReader {
             throw new EmptyFileContentsException("File contents are empty.");
         }
 
-        DigraphFileParser fileParser = new DigraphFileParser(fileText);
-        return fileParser.parse();
+        return parse(fileText);
+    }
+
+    private String parse(String fileText) throws InvalidFileContentsException {
+        if (!validFileText(fileText)){
+            throw new InvalidFileContentsException("Invalid text found in file.");
+        }
+
+        return fileText.substring(fileText.indexOf("{") + 1, fileText.indexOf("}"));
+    }
+
+    private boolean validFileText(String fileText) {
+        // TODO more guard clauses required
+        if (!fileText.contains("{")){
+            return false;
+        }
+        if (!fileText.contains("}")){
+            return false;
+        }
+
+        return true;
     }
 
 
