@@ -6,6 +6,8 @@ import app.input.DigraphFileReader;
 import app.transform.IDataTransformer;
 import app.transform.TransformModuleFactory;
 import app.utils.MapUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +15,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class BranchAndBoundApp {
+
+    private static Logger logger = LoggerFactory.getLogger(BranchAndBoundApp.class);
 
     private IDataTransformer dataTransformer;
     private DigraphFileReader digraphFileReader;
@@ -51,7 +55,7 @@ public class BranchAndBoundApp {
         String fileContents = digraphFileReader.readDigraphFile();
         Map<String, Node> dataMap = dataTransformer.transformIntoMap(fileContents);
         Node root = MapUtils.findRoot(dataMap);
-        
+
         Iterator<String> keyIterator = dataMap.keySet().iterator();
         while (keyIterator.hasNext()) {
             System.out.println(dataMap.get(keyIterator.next()));

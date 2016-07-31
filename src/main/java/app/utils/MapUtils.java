@@ -3,6 +3,8 @@ package app.utils;
 import app.data.Node;
 import app.exceptions.utils.DisjointDigraphFoundException;
 import app.exceptions.utils.NoRootFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,6 +12,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class MapUtils {
+
+    private static Logger logger = LoggerFactory.getLogger(MapUtils.class);
 
     public static Node findRoot(Map<String, Node> dataMap) throws NoRootFoundException, DisjointDigraphFoundException {
 

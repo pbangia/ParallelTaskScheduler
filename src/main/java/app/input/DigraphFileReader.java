@@ -3,11 +3,15 @@ package app.input;
 import app.exceptions.input.EmptyFileContentsException;
 import app.exceptions.input.InvalidFileContentsException;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 
 public class DigraphFileReader {
+
+    private static Logger logger = LoggerFactory.getLogger(DigraphFileReader.class);
 
     private File digraphFile;
 

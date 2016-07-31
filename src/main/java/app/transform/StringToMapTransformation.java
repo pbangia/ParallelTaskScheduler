@@ -1,12 +1,16 @@
 package app.transform;
 
 import app.data.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 import static app.input.InputSyntax.DEPENDENCY_ARROW;
 
 public class StringToMapTransformation {
+
+    private static Logger logger = LoggerFactory.getLogger(StringToMapTransformation.class);
 
     void parseNodeDeclaration(String definition, Map<String, Node> dataMap) {
 

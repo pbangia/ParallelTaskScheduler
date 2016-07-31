@@ -2,6 +2,8 @@ package app.transform;
 
 import app.data.Node;
 import app.exceptions.transform.EmptyMapException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +15,8 @@ import static app.input.InputSyntax.DEPENDENCY_ARROW;
  * Singleton DataTransformer class
  */
 public class DataTransformer implements IDataTransformer {
+
+    private static Logger logger = LoggerFactory.getLogger(DataTransformer.class);
 
     private StringToMapTransformation toMapTransformation;
 
