@@ -4,6 +4,7 @@ import app.data.Node;
 
 import java.util.Map;
 
+import static app.input.InputSyntax.DEFINITION_DELIMITER;
 import static app.input.InputSyntax.DEPENDENCY_ARROW;
 
 public class StringToMapTransformation {
@@ -34,14 +35,13 @@ public class StringToMapTransformation {
         if (parentNode == null && childNode == null){
             parentNode = new Node(parentNodeName);
             childNode = new Node(childNodeName);
-            parentNode.addChild(childNode, dependencyWeight);
         } else if (parentNode == null){
             parentNode = new Node(parentNodeName);
-            parentNode.addChild(childNode, dependencyWeight);
         } else if (childNode == null){
             childNode = new Node(childNodeName);
-            parentNode.addChild(childNode, dependencyWeight);
         }
+
+        parentNode.addChild(childNode, dependencyWeight);
 
         dataMap.put(parentNodeName, parentNode);
         dataMap.put(childNodeName, childNode);
