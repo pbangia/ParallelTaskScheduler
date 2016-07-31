@@ -2,12 +2,9 @@ package app;
 
 import app.data.Node;
 import app.exceptions.AppException;
-import app.exceptions.input.EmptyFileContentsException;
-import app.exceptions.input.InvalidFileContentsException;
 import app.input.DigraphFileReader;
 import app.transform.IDataTransformer;
 import app.transform.TransformModuleFactory;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,7 +41,7 @@ public class BranchAndBoundApp {
     /**
      * Loads any modules required to run the application.
      */
-    public void loadModules(){
+    public void loadModules() {
         this.digraphFileReader = new DigraphFileReader(inputFile);
         this.dataTransformer = TransformModuleFactory.createTransformer();
     }
@@ -54,7 +51,7 @@ public class BranchAndBoundApp {
         Map<String, Node> dataMap = dataTransformer.transformIntoMap(fileContents);
 
         Iterator<String> keyIterator = dataMap.keySet().iterator();
-        while (keyIterator.hasNext()){
+        while (keyIterator.hasNext()) {
             System.out.println(dataMap.get(keyIterator.next()));
         }
     }

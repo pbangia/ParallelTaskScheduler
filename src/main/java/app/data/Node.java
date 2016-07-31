@@ -40,14 +40,14 @@ public class Node {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("------------------------------------\n");
-        sb.append("Name: " + name +  "\t" + "Weight: " + weight + "\n");
+        sb.append("Name: " + name + "\t" + "Weight: " + weight + "\n");
         sb.append("Children:\n");
 
         Iterator<Node> childrenNodeIterator = childrenMap.keySet().iterator();
-        while (childrenNodeIterator.hasNext()){
+        while (childrenNodeIterator.hasNext()) {
             Node childNode = childrenNodeIterator.next();
             String childName = childNode.getName();
             Integer dependencyWeight = childrenMap.get(childNode);

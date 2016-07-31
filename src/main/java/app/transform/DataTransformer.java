@@ -16,7 +16,7 @@ public class DataTransformer implements IDataTransformer {
 
     private StringToMapTransformation toMapTransformation;
 
-    public DataTransformer(StringToMapTransformation stringToMapTransformation){
+    public DataTransformer(StringToMapTransformation stringToMapTransformation) {
         this.toMapTransformation = stringToMapTransformation;
     }
 
@@ -34,7 +34,7 @@ public class DataTransformer implements IDataTransformer {
             }
         }
 
-        if (dataMap.size() == 0){
+        if (dataMap.size() == 0) {
             throw new EmptyMapException("The provided digraph has no nodes or dependencies.");
         }
 

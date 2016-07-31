@@ -18,7 +18,7 @@ public class DigraphFileReader {
     public String readDigraphFile() throws EmptyFileContentsException, InvalidFileContentsException, IOException {
         String fileText = FileUtils.readFileToString(digraphFile);
 
-        if (fileText == null || fileText.length() == 0){
+        if (fileText == null || fileText.length() == 0) {
             throw new EmptyFileContentsException("File contents are empty.");
         }
 
@@ -26,7 +26,7 @@ public class DigraphFileReader {
     }
 
     private String parse(String fileText) throws InvalidFileContentsException {
-        if (!validFileText(fileText)){
+        if (!validFileText(fileText)) {
             throw new InvalidFileContentsException("Invalid text found in file.");
         }
 
@@ -35,10 +35,10 @@ public class DigraphFileReader {
 
     private boolean validFileText(String fileText) {
         // TODO more guard clauses required
-        if (!fileText.contains("{")){
+        if (!fileText.contains("{")) {
             return false;
         }
-        if (!fileText.contains("}")){
+        if (!fileText.contains("}")) {
             return false;
         }
 
