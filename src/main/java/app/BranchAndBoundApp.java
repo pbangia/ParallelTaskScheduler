@@ -11,6 +11,7 @@ import app.transform.TransformModuleFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Map;
 
 public class BranchAndBoundApp {
@@ -51,7 +52,11 @@ public class BranchAndBoundApp {
     private void init() throws EmptyFileContentsException, IOException, InvalidFileContentsException {
         String fileContents = digraphFileReader.readDigraphFile();
         Map<String, Node> dataMap = dataTransformer.transformIntoMap(fileContents);
-        System.out.println(fileContents);
+
+        Iterator<String> keyIterator = dataMap.keySet().iterator();
+        while (keyIterator.hasNext()){
+            System.out.println(dataMap.get(keyIterator.next()));
+        }
     }
 
 }
