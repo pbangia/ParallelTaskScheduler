@@ -6,6 +6,7 @@ import app.exceptions.input.InvalidFileContentsException;
 import app.input.DigraphFileReader;
 import app.input.InputModuleFactory;
 import app.transform.DataTransformer;
+import app.transform.IDataTransformer;
 import app.transform.TransformModuleFactory;
 
 import java.io.File;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 public class BranchAndBoundApp {
 
-    private DataTransformer dataTransformer;
+    private IDataTransformer dataTransformer;
     private DigraphFileReader digraphFileReader;
     private File inputFile;
     private String outputFilename;
