@@ -45,11 +45,11 @@ public class BranchAndBoundApp {
      */
     public void loadModules(){
         this.dataTransformer = TransformModuleFactory.createTransformer();
-        this.digraphFileReader = InputModuleFactory.createReader();
+        this.digraphFileReader = InputModuleFactory.createReader(inputFile);
     }
 
     private void init() throws EmptyFileContentsException, IOException, InvalidFileContentsException {
-        String fileContents = digraphFileReader.readDigraphFile(inputFile);
+        String fileContents = digraphFileReader.readDigraphFile();
         Map<String, Node> dataMap = dataTransformer.transformIntoMap(fileContents);
         System.out.println(fileContents);
     }

@@ -9,7 +9,13 @@ import java.io.IOException;
 
 public class DigraphFileReader {
 
-    public String readDigraphFile(File digraphFile) throws EmptyFileContentsException, InvalidFileContentsException, IOException {
+    private File digraphFile;
+
+    public DigraphFileReader(File inputFile) {
+        this.digraphFile = digraphFile;
+    }
+
+    public String readDigraphFile() throws EmptyFileContentsException, InvalidFileContentsException, IOException {
         String fileText = FileUtils.readFileToString(digraphFile);
 
         if (fileText == null || fileText.length() == 0){
