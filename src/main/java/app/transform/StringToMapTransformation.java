@@ -4,7 +4,6 @@ import app.data.Node;
 
 import java.util.Map;
 
-import static app.input.InputSyntax.DEFINITION_DELIMITER;
 import static app.input.InputSyntax.DEPENDENCY_ARROW;
 
 public class StringToMapTransformation {
