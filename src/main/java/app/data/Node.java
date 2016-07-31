@@ -7,7 +7,7 @@ public class Node {
 
     private String name;
     private int weight;
-    private Map<String, Integer> childrenMap = new ConcurrentHashMap<String, Integer>();
+    private Map<Node, Integer> childrenMap = new ConcurrentHashMap<Node, Integer>();
 
     public Node(String name) {
         this.name = name;
@@ -30,12 +30,12 @@ public class Node {
         this.weight = weight;
     }
 
-    public Map<String, Integer> getChildrenMap() {
+    public Map<Node, Integer> getChildrenMap() {
         return childrenMap;
     }
 
-    public void addChild(String childName, int proccessingWeight) {
-        childrenMap.put(childName, proccessingWeight);
+    public void addChild(Node child, int proccessingWeight) {
+        childrenMap.put(child, proccessingWeight);
     }
 
 }

@@ -1,10 +1,13 @@
 package app;
 
+import app.data.Node;
 import app.exceptions.input.EmptyFileContentsException;
 import app.exceptions.input.InvalidFileContentsException;
 import app.input.DigraphFileReader;
+import app.transform.DataTransformer;
 
 import java.io.File;
+import java.util.Map;
 
 public class BranchAndBoundApp {
 
@@ -36,6 +39,7 @@ public class BranchAndBoundApp {
      */
     private void init() {
         String fileContents = readFile();
+        Map<String, Node> dataMap = DataTransformer.get().transformIntoMap(fileContents);
         System.out.println(fileContents);
     }
 
