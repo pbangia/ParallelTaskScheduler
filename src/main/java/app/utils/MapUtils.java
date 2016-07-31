@@ -1,7 +1,6 @@
 package app.utils;
 
 import app.data.Node;
-import app.exceptions.utils.DisjointDigraphFoundException;
 import app.exceptions.utils.NoRootFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,7 @@ public class MapUtils {
 
     private static Logger logger = LoggerFactory.getLogger(MapUtils.class);
 
-    public static Node findRoot(Map<String, Node> dataMap) throws NoRootFoundException, DisjointDigraphFoundException {
+    public static Node findRoot(Map<String, Node> dataMap) throws NoRootFoundException {
 
         Set<Node> nodeSet = new HashSet<Node>();
 
@@ -40,10 +39,8 @@ public class MapUtils {
             }
         }
 
-        if (nodeSet.size() == 0){
+        if (nodeSet.size() != 1){
             throw new NoRootFoundException("Could not find a root for the digraph provided.");
-        } else if (nodeSet.size() > 1){
-            throw new DisjointDigraphFoundException("Digraph provided is not connected!");
         } else{
             return nodeSet.iterator().next();
         }
