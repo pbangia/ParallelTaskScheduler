@@ -12,7 +12,7 @@ public class DigraphFileReader {
     private File digraphFile;
 
     public DigraphFileReader(File inputFile) {
-        this.digraphFile = digraphFile;
+        this.digraphFile = inputFile;
     }
 
     public String readDigraphFile() throws EmptyFileContentsException, InvalidFileContentsException, IOException {

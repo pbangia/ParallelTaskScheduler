@@ -1,5 +1,6 @@
 package app.data;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -34,8 +35,26 @@ public class Node {
         return childrenMap;
     }
 
-    public void addChild(Node child, int proccessingWeight) {
-        childrenMap.put(child, proccessingWeight);
+    public void addChild(Node child, int dependencyWeight) {
+        childrenMap.put(child, dependencyWeight);
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("------------------------------------\n");
+        sb.append("Name: " + name +  "\t" + "Weight: " + weight + "\n");
+        sb.append("Children:\n");
+
+        Iterator<Node> childrenNodeIterator = childrenMap.keySet().iterator();
+        while (childrenNodeIterator.hasNext()){
+            Node childNode = childrenNodeIterator.next();
+            String childName = childNode.getName();
+            Integer dependencyWeight = childrenMap.get(childNode);
+            sb.append("\t" + "Child name: " + childName + ", " + "Dependency weight: " + dependencyWeight + "\n");
+        }
+        sb.append("------------------------------------\n");
+        return sb.toString();
     }
 
 }
