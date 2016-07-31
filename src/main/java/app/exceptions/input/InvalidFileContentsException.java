@@ -1,6 +1,8 @@
 package app.exceptions.input;
 
-public class InvalidFileContentsException extends Exception {
+import app.exceptions.AppException;
+
+public class InvalidFileContentsException extends AppException {
 
     public InvalidFileContentsException(String message) {
         super(message);

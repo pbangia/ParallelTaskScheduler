@@ -1,6 +1,8 @@
 package app.exceptions.input;
 
-public class EmptyFileContentsException extends Exception {
+import app.exceptions.AppException;
+
+public class EmptyFileContentsException extends AppException {
 
     public EmptyFileContentsException(String message) {
         super(message);

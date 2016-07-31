@@ -1,6 +1,7 @@
 package project;
 
 import app.BranchAndBoundApp;
+import app.exceptions.AppException;
 import app.exceptions.input.EmptyFileContentsException;
 import app.exceptions.input.InvalidFileContentsException;
 
@@ -17,11 +18,11 @@ public class Main {
         BranchAndBoundApp app = new BranchAndBoundApp(inputFile, null, 0, 0, false);
         try {
             app.start();
-        } catch (EmptyFileContentsException e) {
-            e.printStackTrace();
         } catch (IOException e) {
+            // add error log message
             e.printStackTrace();
-        } catch (InvalidFileContentsException e) {
+        } catch (AppException e) {
+            // add error log message
             e.printStackTrace();
         }
 

@@ -1,6 +1,7 @@
 package app.transform;
 
 import app.data.Node;
+import app.exceptions.transform.EmptyMapException;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,7 +20,7 @@ public class DataTransformer implements IDataTransformer {
         this.toMapTransformation = stringToMapTransformation;
     }
 
-    public Map<String, Node> transformIntoMap(String data) {
+    public Map<String, Node> transformIntoMap(String data) throws EmptyMapException {
 
         Map<String, Node> dataMap = new ConcurrentHashMap<String, Node>();
         String[] definitions = data.split(DEFINITION_DELIMITER);
@@ -31,6 +32,10 @@ public class DataTransformer implements IDataTransformer {
             } else {
                 toMapTransformation.parseNodeDeclaration(definition, dataMap);
             }
+        }
+
+        if (dataMap.size() == 0){
+            throw new EmptyMapException("The provided digraph has no nodes or dependencies.");
         }
 
         return dataMap;
