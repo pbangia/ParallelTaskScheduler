@@ -44,8 +44,8 @@ public class BranchAndBoundApp {
      * Loads any modules required to run the application.
      */
     public void loadModules(){
-        this.dataTransformer = TransformModuleFactory.createTransformer();
         this.digraphFileReader = InputModuleFactory.createReader(inputFile);
+        this.dataTransformer = TransformModuleFactory.createTransformer();
     }
 
     private void init() throws EmptyFileContentsException, IOException, InvalidFileContentsException {
