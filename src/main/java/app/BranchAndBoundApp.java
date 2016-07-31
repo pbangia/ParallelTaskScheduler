@@ -5,12 +5,14 @@ import app.exceptions.input.EmptyFileContentsException;
 import app.exceptions.input.InvalidFileContentsException;
 import app.input.DigraphFileReader;
 import app.transform.DataTransformer;
+import app.transform.TransformModuleFactory;
 
 import java.io.File;
 import java.util.Map;
 
 public class BranchAndBoundApp {
 
+    private DataTransformer dataTransformer;
     private File inputFile;
     private String outputFilename;
     private int numThreads;
@@ -30,6 +32,7 @@ public class BranchAndBoundApp {
      * Starting point for the branch and bound application.
      */
     public void start() {
+        loadModules();
         init();
         // more method calls underneath
     }
@@ -37,9 +40,13 @@ public class BranchAndBoundApp {
     /**
      * Loads any modules required to run the application.
      */
+    public void loadModules(){
+        this.dataTransformer = TransformModuleFactory.createTransformer();
+    }
+
     private void init() {
         String fileContents = readFile();
-        Map<String, Node> dataMap = DataTransformer.get().transformIntoMap(fileContents);
+        Map<String, Node> dataMap = dataTransformer.transformIntoMap(fileContents);
         System.out.println(fileContents);
     }
 

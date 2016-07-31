@@ -5,23 +5,19 @@ import app.data.Node;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static app.input.InputSyntax.DEFINITION_DELIMITER;
+import static app.input.InputSyntax.DEPENDENCY_ARROW;
+
 /**
  * Singleton DataTransformer class
  */
-public class DataTransformer {
+public class DataTransformer implements IDataTransformer {
 
-    private static final String DEFINITION_DELIMITER = ";";
-    private static final String DEPENDENCY_ARROW = "->";
-    private static DataTransformer instance;
+    private StringToMapTransformation toMapTransformation;
 
-    public static DataTransformer get() {
-        if (instance == null) {
-            instance = new DataTransformer();
-        }
-
-        return instance;
+    public DataTransformer(StringToMapTransformation stringToMapTransformation){
+        this.toMapTransformation = stringToMapTransformation;
     }
-
 
     public Map<String, Node> transformIntoMap(String data) {
 
@@ -31,9 +27,9 @@ public class DataTransformer {
             if (definition.trim().length() == 0) {
                 continue;
             } else if (definition.contains(DEPENDENCY_ARROW)) {
-                parseNodeDependency(definition, dataMap);
+                toMapTransformation.parseNodeDependency(definition, dataMap);
             } else {
-                parseNodeDeclaration(definition, dataMap);
+                toMapTransformation.parseNodeDeclaration(definition, dataMap);
             }
         }
 
@@ -46,40 +42,4 @@ public class DataTransformer {
         return null;
     }
 
-    private void parseNodeDeclaration(String definition, Map<String, Node> dataMap) {
-        String nodeName = definition.substring(0, definition.indexOf("[")).trim();
-        int nodeWeight = Integer.parseInt(definition.substring(definition.indexOf("=") + 1, definition.indexOf("]")));
-        Node node = dataMap.get(nodeName);
-
-        if (node == null){
-            node = new Node(nodeName, nodeWeight);
-            dataMap.put(nodeName, node);
-        } else{
-            node.setWeight(nodeWeight);
-        }
-    }
-
-    private void parseNodeDependency(String definition, Map<String, Node> dataMap) {
-        String parentNodeName = definition.substring(0, definition.indexOf(DEPENDENCY_ARROW)).trim();
-        String childNodeName = definition.substring(definition.indexOf(DEPENDENCY_ARROW) + 2, definition.indexOf("[")).trim();
-        int dependencyWeight = Integer.parseInt(definition.substring(definition.indexOf("=") + 1, definition.indexOf("]")));
-
-        Node parentNode = dataMap.get(parentNodeName);
-        Node childNode = dataMap.get(childNodeName);
-
-        if (parentNode == null && childNode == null){
-            parentNode = new Node(parentNodeName);
-            childNode = new Node(childNodeName);
-            parentNode.addChild(childNode, dependencyWeight);
-        } else if (parentNode == null){
-            parentNode = new Node(parentNodeName);
-            parentNode.addChild(childNode, dependencyWeight);
-        } else if (childNode == null){
-            childNode = new Node(childNodeName);
-            parentNode.addChild(childNode, dependencyWeight);
-        }
-
-        dataMap.put(parentNodeName, parentNode);
-        dataMap.put(childNodeName, childNode);
-    }
 }
