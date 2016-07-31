@@ -4,7 +4,6 @@ import app.data.Node;
 import app.exceptions.input.EmptyFileContentsException;
 import app.exceptions.input.InvalidFileContentsException;
 import app.input.DigraphFileReader;
-import app.input.InputModuleFactory;
 import app.transform.IDataTransformer;
 import app.transform.TransformModuleFactory;
 
@@ -44,7 +43,7 @@ public class BranchAndBoundApp {
      * Loads any modules required to run the application.
      */
     public void loadModules(){
-        this.digraphFileReader = InputModuleFactory.createReader(inputFile);
+        this.digraphFileReader = new DigraphFileReader(inputFile);
         this.dataTransformer = TransformModuleFactory.createTransformer();
     }
 
