@@ -1,17 +1,12 @@
 package project;
 
 import app.input.DigraphFileReader;
+import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import java.io.File;
-import java.net.URISyntaxException;
 
-import static org.junit.Assert.*;
-
-/**
- * Created by John on 1/08/2016.
- */
-public class DigraphFileReaderTest {
+public class DigraphFileReaderTest extends TestCase {
 
     private DigraphFileReader digraphReader;
     private DigraphFileReader invalidDigraphReader;
@@ -20,10 +15,12 @@ public class DigraphFileReaderTest {
 
 
     @Before
-    public void setUp() throws URISyntaxException {
-        File validInputFile = new File(Main.class.getClass().getResource("/src/test/resources/shortEx.dot").toURI());
-        File invalidInputFile = new File(Main.class.getClass().getResource("/src/test/resources/invalid.dot").toURI());
-        File emptyInputFile = new File(Main.class.getClass().getResource("/src/test/resources/empty.dot").toURI());
+    public void setUp() throws Exception {
+        super.setUp();
+
+        File validInputFile = new File(Main.class.getClass().getResource("/shortEx.dot").toURI());
+        File invalidInputFile = new File(Main.class.getClass().getResource("/invalid.dot").toURI());
+        File emptyInputFile = new File(Main.class.getClass().getResource("/empty.dot").toURI());
 
         digraphReader = new DigraphFileReader(validInputFile);
         invalidDigraphReader = new DigraphFileReader(invalidInputFile);
@@ -31,7 +28,7 @@ public class DigraphFileReaderTest {
     }
 
     @Test
-    public void NullDigraphTest() throws Exception {
+    public void testNullDigraph() throws Exception {
         try {
             digraphReaderNull.readDigraphFile();
         } catch(Exception e) {
@@ -40,7 +37,7 @@ public class DigraphFileReaderTest {
     }
 
     @Test
-    public void InvalidTextTest() throws Exception {
+    public void testInvalidText() throws Exception {
         try {
             invalidDigraphReader.readDigraphFile();
         } catch(Exception e) {
@@ -49,7 +46,7 @@ public class DigraphFileReaderTest {
     }
 
     @Test
-    public void ValidDigraphTest() throws Exception {
+    public void testValidDigraph() throws Exception {
         String expected = "a [Weight=1];";
         String result = digraphReader.readDigraphFile().trim();
 
