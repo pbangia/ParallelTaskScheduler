@@ -1,0 +1,3 @@
+digraph "short" {
+    a [Weight=1];
+}
