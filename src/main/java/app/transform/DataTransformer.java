@@ -25,6 +25,7 @@ public class DataTransformer implements IDataTransformer {
         Map<String, Node> dataMap = new ConcurrentHashMap<String, Node>();
         String[] definitions = data.split(DEFINITION_DELIMITER);
         for (String definition : definitions) {
+
             if (definition.trim().length() == 0) {
                 continue;
             } else if (definition.contains(DEPENDENCY_ARROW)) {

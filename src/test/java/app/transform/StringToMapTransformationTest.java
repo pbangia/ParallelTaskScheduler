@@ -1,21 +1,20 @@
 package app.transform;
 
 import app.data.Node;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Assert;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class StringToMapTransformationTest extends TestCase {
+public class StringToMapTransformationTest {
 
     private Map<String, Node> dataMap;
     private StringToMapTransformation toMapTransformation;
 
     @Before
     public void setUp() throws Exception {
-        super.setUp();
         toMapTransformation = new StringToMapTransformation();
         dataMap = new ConcurrentHashMap<String, Node>();
     }
@@ -24,16 +23,16 @@ public class StringToMapTransformationTest extends TestCase {
     public void testNodeDeclaration_NodeExists_UpdatesWeight(){
         String definition = "a [Weight=2]";
         dataMap.put("a", new Node("a"));
-        assertEquals(0, dataMap.get("a").getWeight());
+        Assert.assertEquals(0, dataMap.get("a").getWeight());
         toMapTransformation.parseNodeDeclaration(definition, dataMap);
-        assertEquals(2, dataMap.get("a").getWeight());
+        Assert.assertEquals(2, dataMap.get("a").getWeight());
     }
 
     @Test
     public void testNodeDeclaration_NodeDoesNotExist_CreatesNodeAndAddsToMap(){
         String definition = "a [Weight=2]";
         toMapTransformation.parseNodeDeclaration(definition, dataMap);
-        assertEquals(2, dataMap.get("a").getWeight());
+        Assert.assertEquals(2, dataMap.get("a").getWeight());
     }
 
     @Test
@@ -41,7 +40,7 @@ public class StringToMapTransformationTest extends TestCase {
         String definition = "a -> b [Weight=1]";
         dataMap.put("a", new Node("a", 100));
         toMapTransformation.parseNodeDependency(definition, dataMap);
-        assertEquals(true, dataMap.get("a").getChildrenMap().containsValue(1));
+        Assert.assertEquals(true, dataMap.get("a").getChildrenMap().containsValue(1));
     }
 
     @Test
@@ -49,14 +48,14 @@ public class StringToMapTransformationTest extends TestCase {
         String definition = "a -> b [Weight=1]";
         dataMap.put("b", new Node("b", 100));
         toMapTransformation.parseNodeDependency(definition, dataMap);
-        assertEquals(true, dataMap.get("a").getChildrenMap().containsValue(1));
+        Assert.assertEquals(true, dataMap.get("a").getChildrenMap().containsValue(1));
     }
 
     @Test
     public void testNodeDependency_ChildAndParentDoNotExist_AddsCorrectDependency(){
         String definition = "a -> b [Weight=1]";
         toMapTransformation.parseNodeDependency(definition, dataMap);
-        assertEquals(true, dataMap.get("a").getChildrenMap().containsValue(1));
+        Assert.assertEquals(true, dataMap.get("a").getChildrenMap().containsValue(1));
     }
 
     @Test
@@ -67,7 +66,7 @@ public class StringToMapTransformationTest extends TestCase {
         dataMap.put("a", a);
         dataMap.put("b", b);
         toMapTransformation.parseNodeDependency(definition, dataMap);
-        assertEquals(new Integer(1), dataMap.get("a").getChildrenMap().get(b));
+        Assert.assertEquals(new Integer(1), dataMap.get("a").getChildrenMap().get(b));
     }
 
 }
