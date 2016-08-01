@@ -9,6 +9,8 @@ public class Main {
         // Transform file to Node object (for now)
         // Proceed with rest of program
 
+        System.out.println(":3");
+
     }
 
 
