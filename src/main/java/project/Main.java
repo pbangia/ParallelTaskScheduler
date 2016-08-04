@@ -23,9 +23,7 @@ public class Main {
             // add error log message
             e.printStackTrace();
         }
-
-        System.out.println(":3");
-
+        
     }
 
 
