@@ -8,7 +8,8 @@ public class Node {
 
     private String name;
     private int weight;
-    private Map<Node, Integer> childrenMap = new ConcurrentHashMap<Node, Integer>();
+    private Map<Node, Integer> parentMap = new ConcurrentHashMap<>();
+    private Map<Node, Integer> childrenMap = new ConcurrentHashMap<>();
 
     public Node(String name) {
         this.name = name;
@@ -37,6 +38,10 @@ public class Node {
 
     public void addChild(Node child, int dependencyWeight) {
         childrenMap.put(child, dependencyWeight);
+    }
+
+    public void addParent(Node parent, int dependencyWeight){
+        parentMap.put(parent, dependencyWeight);
     }
 
     @Override

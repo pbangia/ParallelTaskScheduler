@@ -44,6 +44,7 @@ public class StringToMapTransformation {
         }
 
         parentNode.addChild(childNode, dependencyWeight);
+        childNode.addParent(parentNode, dependencyWeight);
 
         dataMap.put(parentNodeName, parentNode);
         dataMap.put(childNodeName, childNode);
