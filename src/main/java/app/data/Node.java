@@ -36,6 +36,10 @@ public class Node {
         return childrenMap;
     }
 
+    public Map<Node, Integer> getParentMap(){
+        return parentMap;
+    }
+
     public void addChild(Node child, int dependencyWeight) {
         childrenMap.put(child, dependencyWeight);
     }
