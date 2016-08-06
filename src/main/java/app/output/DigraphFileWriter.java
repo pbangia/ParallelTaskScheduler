@@ -19,7 +19,6 @@ public class DigraphFileWriter {
     }
 
     public void writeDigraphFile(String solutionMap){
-
         try {
             FileUtils.writeStringToFile(outputFile, solutionMap);
         } catch (IOException e) {
