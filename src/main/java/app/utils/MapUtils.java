@@ -11,6 +11,8 @@ public class MapUtils {
 
     private static Logger logger = LoggerFactory.getLogger(MapUtils.class);
     private List<Node> nextAvailableNodes = new ArrayList<>();
+    private Map currentNodeChildrenMap;
+    private Map depedendentParentMap;
 
     public Node findRoot(Map<String, Node> dataMap) throws NoRootFoundException {
 
@@ -45,19 +47,19 @@ public class MapUtils {
 
     }
 
-    public List<Node> getAvailableNodes(Node parentNode) {
+    public List<Node> getAvailableNodes(Node parentNode, Map<String, Node> dataMap) {
         nextAvailableNodes.clear();
 
         if (parentNode == null) {
             //call find root nodes method
         } else {
-            Map childrenMap = parentNode.getChildrenMap();
+            currentNodeChildrenMap = parentNode.getChildrenMap();
 
-            if (childrenMap.size() == 0) {
+            if (currentNodeChildrenMap.isEmpty()) {
                 return nextAvailableNodes;
             } else {
-                for(Object childrenMapKey : childrenMap.keySet()){
-
+                for(Object childrenMapKey : currentNodeChildrenMap.keySet()){
+                    depedendentParentMap = dataMap.get(childrenMapKey).getParentMap();
                 }
             }
 
