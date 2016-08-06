@@ -5,16 +5,14 @@ import app.exceptions.utils.NoRootFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class MapUtils {
 
     private static Logger logger = LoggerFactory.getLogger(MapUtils.class);
+    private List<Node> nextAvailableNodes = new ArrayList<>();
 
-    public static Node findRoot(Map<String, Node> dataMap) throws NoRootFoundException {
+    public Node findRoot(Map<String, Node> dataMap) throws NoRootFoundException {
 
         Set<Node> nodeSet = new HashSet<Node>();
 
@@ -45,5 +43,28 @@ public class MapUtils {
             return nodeSet.iterator().next();
         }
 
+    }
+
+    public List<Node> getAvailableNodes(Node parentNode) {
+        nextAvailableNodes.clear();
+
+        if (parentNode == null) {
+            //call find root nodes method
+        } else {
+            Map childrenMap = parentNode.getChildrenMap();
+
+            if (childrenMap.size() == 0) {
+                return nextAvailableNodes;
+            } else {
+                for(Object childrenMapKey : childrenMap.keySet()){
+
+                }
+            }
+
+
+        }
+
+
+        return nextAvailableNodes;
     }
 }
