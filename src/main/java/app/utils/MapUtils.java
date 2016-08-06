@@ -10,9 +10,10 @@ import java.util.*;
 public class MapUtils {
 
     private static Logger logger = LoggerFactory.getLogger(MapUtils.class);
-    private List<Node> nextAvailableNodes = new ArrayList<>();
+    private List<Object> nextAvailableNodes = new ArrayList<>();
     private Map currentNodeChildrenMap;
-    private Map depedendentParentMap;
+    private Map dependentParentMap;
+    private boolean canBeScheduled = true;
 
     public Node findRoot(Map<String, Node> dataMap) throws NoRootFoundException {
 
@@ -47,23 +48,35 @@ public class MapUtils {
 
     }
 
-    public List<Node> getAvailableNodes(Node parentNode, Map<String, Node> dataMap) {
+    public List<Object> getAvailableNodes(Node parentNode, Map<String, Node> dataMap, Set<Node> scheduledNodes) {
         nextAvailableNodes.clear();
 
         if (parentNode == null) {
             //call find root nodes method
-        } else {
-            currentNodeChildrenMap = parentNode.getChildrenMap();
 
-            if (currentNodeChildrenMap.isEmpty()) {
-                return nextAvailableNodes;
-            } else {
-                for(Object childrenMapKey : currentNodeChildrenMap.keySet()){
-                    depedendentParentMap = dataMap.get(childrenMapKey).getParentMap();
+            return nextAvailableNodes;
+        }
+
+        currentNodeChildrenMap = parentNode.getChildrenMap();
+
+        if (currentNodeChildrenMap.isEmpty()) {
+            return nextAvailableNodes;
+        }
+
+
+
+        for (Object childrenMapKey : currentNodeChildrenMap.keySet()) {
+            dependentParentMap = dataMap.get(childrenMapKey).getParentMap();
+            for (Object parentMapKey : dependentParentMap.keySet()) {
+                if (!scheduledNodes.contains(parentMapKey)) {
+                    canBeScheduled = false;
+                    break;
                 }
             }
 
-
+            if (canBeScheduled){
+                nextAvailableNodes.add(childrenMapKey);
+            }
         }
 
 
