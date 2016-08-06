@@ -14,6 +14,10 @@ public class TaskScheduler {
         this.dataMap = dataMap;
     }
 
+    public void setScheduledNodes(Node node){
+        scheduledNodes.add(node);
+    }
+
     public Set<Node> getScheduledNodes(){
 
         return scheduledNodes;
