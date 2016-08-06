@@ -20,8 +20,10 @@ public class StringToMapTransformation {
 
         if (node == null) {
             node = new Node(nodeName, nodeWeight);
+            logger.debug("Created " + nodeName + " node with a weight of " + nodeWeight);
             dataMap.put(nodeName, node);
         } else {
+            logger.debug("Updated " + nodeName + " node with a weight of " + nodeWeight);
             node.setWeight(nodeWeight);
         }
     }
@@ -37,14 +39,18 @@ public class StringToMapTransformation {
 
         if (parentNode == null) {
             parentNode = new Node(parentNodeName);
+            logger.debug("Created " + parentNodeName + " parent node");
         }
 
         if (childNode == null) {
             childNode = new Node(childNodeName);
+            logger.debug("Created " + parentNodeName + " child node");
         }
 
         parentNode.addChild(childNode, dependencyWeight);
         childNode.addParent(parentNode, dependencyWeight);
+        logger.debug("Added child/parent dependency between " + parentNodeName +
+                " and " + childNodeName + " with a weight of " + dependencyWeight);
 
         dataMap.put(parentNodeName, parentNode);
         dataMap.put(childNodeName, childNode);

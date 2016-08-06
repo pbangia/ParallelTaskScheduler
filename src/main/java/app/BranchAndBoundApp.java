@@ -54,6 +54,7 @@ public class BranchAndBoundApp {
         this.digraphFileReader = new DigraphFileReader(inputFile);
         this.dataTransformer = TransformModuleFactory.createTransformer();
         this.dataTransformer2 = TransformModuleFactory2.createTransformer();
+        logger.info("Loaded all modules required for application.");
     }
 
     private void init() throws AppException, IOException {
@@ -71,6 +72,8 @@ public class BranchAndBoundApp {
         Map<String,Integer> dataMap2 = dataTransformer2.transformIntoMap(fileContents);
         int[][] matrix = dataTransformer2.transformIntoMatrix(dataMap2,fileContents);
         System.out.println("****** MATRIX *******\n"+Arrays.deepToString(matrix));
+
+        logger.info("Initialised all required components for application.");
     }
 
 }
