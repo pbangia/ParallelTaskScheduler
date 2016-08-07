@@ -29,6 +29,7 @@ public class BranchAndBoundApp {
     private int numProcessors;
     private boolean graphRequired;
     private IDataTransformer2 dataTransformer2;
+    private MapUtils mapUtils = new MapUtils();
 
     public BranchAndBoundApp(File inputFile, String outputFilename, int numProcessors,
                              int numThreads, boolean graphRequired) {
@@ -60,7 +61,7 @@ public class BranchAndBoundApp {
     private void init() throws AppException, IOException {
         String fileContents = digraphFileReader.readDigraphFile();
         Map<String, Node> dataMap = dataTransformer.transformIntoMap(fileContents);
-        Node root = MapUtils.findRoot(dataMap);
+        Node root = mapUtils.findRoot(dataMap);
 
         Iterator<String> keyIterator = dataMap.keySet().iterator();
         while (keyIterator.hasNext()) {

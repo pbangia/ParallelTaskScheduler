@@ -10,9 +10,9 @@ import java.util.*;
 public class MapUtils {
 
     private static Logger logger = LoggerFactory.getLogger(MapUtils.class);
-    private List<Object> nextAvailableNodes = new ArrayList<>();
-    private Map currentNodeChildrenMap;
-    private Map dependentParentMap;
+    private List<Node> nextAvailableNodes = new ArrayList<>();
+    private Map<Node, Integer> currentNodeChildrenMap;
+    private Map<Node, Integer> dependentParentMap;
     private boolean canBeScheduled = true;
 
     public Node findRoot(Map<String, Node> dataMap) throws NoRootFoundException {
@@ -48,7 +48,7 @@ public class MapUtils {
 
     }
 
-    public List<Object> getAvailableNodes(Node parentNode, Map<String, Node> dataMap, Set<Node> scheduledNodes) {
+    public List<Node> getAvailableNodes(Node parentNode, Map<String, Node> dataMap, Set<Node> scheduledNodes) {
         nextAvailableNodes.clear();
 
         if (parentNode == null) {
@@ -65,9 +65,9 @@ public class MapUtils {
 
 
 
-        for (Object childrenMapKey : currentNodeChildrenMap.keySet()) {
+        for (Node childrenMapKey : currentNodeChildrenMap.keySet()) {
             dependentParentMap = dataMap.get(childrenMapKey).getParentMap();
-            for (Object parentMapKey : dependentParentMap.keySet()) {
+            for (Node parentMapKey : dependentParentMap.keySet()) {
                 if (!scheduledNodes.contains(parentMapKey)) {
                     canBeScheduled = false;
                     break;
