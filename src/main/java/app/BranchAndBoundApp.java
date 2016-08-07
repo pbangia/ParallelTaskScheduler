@@ -61,7 +61,6 @@ public class BranchAndBoundApp {
     private void init() throws AppException, IOException {
         String fileContents = digraphFileReader.readDigraphFile();
         Map<String, Node> dataMap = dataTransformer.transformIntoMap(fileContents);
-        Node root = schedulerHelper.findRoot(dataMap);
 
         Iterator<String> keyIterator = dataMap.keySet().iterator();
         while (keyIterator.hasNext()) {

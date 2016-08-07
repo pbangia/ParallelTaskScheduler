@@ -3,7 +3,6 @@ package app.schedule;
 import app.data.Node;
 import app.exceptions.AppException;
 import app.exceptions.utils.NoRootFoundException;
-import app.schedule.SchedulerHelper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,7 +35,7 @@ public class SchedulerHelperTest {
         dataMap.put("a", a);
         dataMap.put("b", b);
         dataMap.put("c", c);
-        assertEquals(a, schedulerHelper.findRoot(dataMap));
+        assertEquals(a, schedulerHelper.findRoots(dataMap));
     }
 
     @Test
@@ -61,7 +60,7 @@ public class SchedulerHelperTest {
         dataMap.put("e", e);
         dataMap.put("f", f);
         dataMap.put("g", g);
-        assertEquals(a, schedulerHelper.findRoot(dataMap));
+        assertEquals(a, schedulerHelper.findRoots(dataMap));
     }
 
 
@@ -69,7 +68,7 @@ public class SchedulerHelperTest {
     public void testFindRoot_DisconnectedGraph_ThrowsException() throws AppException {
         dataMap.put("a", new Node("a", 1));
         dataMap.put("b", new Node("b", 1));
-        schedulerHelper.findRoot(dataMap);
+        schedulerHelper.findRoots(dataMap);
     }
 
     @Test(expected = NoRootFoundException.class)
@@ -80,7 +79,7 @@ public class SchedulerHelperTest {
         dataMap.put("c", new Node("c", 1));
         dataMap.get("a").addChild(b, 1);
         dataMap.get("c").addChild(b, 1);
-        schedulerHelper.findRoot(dataMap);
+        schedulerHelper.findRoots(dataMap);
     }
 
     @Test(expected = NoRootFoundException.class)
@@ -94,7 +93,7 @@ public class SchedulerHelperTest {
         dataMap.put("a", a);
         dataMap.put("b", b);
         dataMap.put("c", c);
-        schedulerHelper.findRoot(dataMap);
+        schedulerHelper.findRoots(dataMap);
     }
 
     @Test
