@@ -11,16 +11,23 @@ public class SchedulerHelper {
 
     private static Logger logger = LoggerFactory.getLogger(SchedulerHelper.class);
 
-    public Node findRoot(Map<String, Node> dataMap) throws NoRootFoundException {
+    public List<Node> findRoots(Map<String, Node> dataMap) throws NoRootFoundException {
 
-        Set<Node> nodeSet = new HashSet<Node>();
+        Set<Node> nodeSet = new HashSet<>();
 
+        /**
+         * Add all of the Nodes to the set of nodes.
+         */
         Iterator<Map.Entry<String, Node>> entryIterator = dataMap.entrySet().iterator();
         while (entryIterator.hasNext()){
             Map.Entry<String, Node> currentEntry = entryIterator.next();
             nodeSet.add(currentEntry.getValue());
         }
 
+        /**
+         * Iterate through all of the Nodes, and for each child
+         * in the current Node, remove the child Node from the set of Nodes.
+         */
         entryIterator = dataMap.entrySet().iterator();
         while (entryIterator.hasNext()){
             Node currentNode = entryIterator.next().getValue();
@@ -36,12 +43,13 @@ public class SchedulerHelper {
             }
         }
 
-        if (nodeSet.size() != 1){
+        if (nodeSet.size() == 0){
+            logger.error("Could not find a root for the digraph provided.");
             throw new NoRootFoundException("Could not find a root for the digraph provided.");
-        } else{
-            return nodeSet.iterator().next();
         }
 
+        logger.info("Found a total of " + nodeSet.size() + " root nodes in the digraph.");
+        return new ArrayList<>(nodeSet);
     }
 
     public List<Node> getAvailableNodes(Node currentParentNode, Map<String, Node> dataMap, Set<Node> scheduledNodes) {
