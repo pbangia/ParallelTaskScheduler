@@ -44,38 +44,32 @@ public class MapUtils {
 
     }
 
-    public List<Node> getAvailableNodes(Node parentNode, Map<String, Node> dataMap, Set<Node> scheduledNodes) {
+    public List<Node> getAvailableNodes(Node currentParentNode, Map<String, Node> dataMap, Set<Node> scheduledNodes) {
 
         List<Node> nextAvailableNodes = new ArrayList<>();
-        Map<Node, Integer> currentNodeChildrenMap;
-        Map<Node, Integer> dependentParentMap;
+        
         boolean canBeScheduled;
 
-        if (parentNode == null) {
+        if (currentParentNode == null) {
             //call find root nodes method
 
             return nextAvailableNodes;
         }
 
-        currentNodeChildrenMap = parentNode.getChildrenMap();
+        Map<Node, Integer> currentNodeChildrenMap = currentParentNode.getChildrenMap();
 
-        if (currentNodeChildrenMap.isEmpty()) {
-            return nextAvailableNodes;
-        }
-
-
-        for (Node childrenMapKey : currentNodeChildrenMap.keySet()) {
+        for (Node childNode : currentNodeChildrenMap.keySet()) {
             canBeScheduled = true;
-            dependentParentMap = dataMap.get(childrenMapKey.getName()).getParentMap();
-            for (Node parentMapKey : dependentParentMap.keySet()) {
-                if (!scheduledNodes.contains(parentMapKey)) {
+            Map<Node, Integer> dependentParentMap = dataMap.get(childNode.getName()).getParentMap();
+            for (Node parentNode : dependentParentMap.keySet()) {
+                if (!scheduledNodes.contains(parentNode)) {
                     canBeScheduled = false;
                     break;
                 }
             }
 
             if (canBeScheduled) {
-                nextAvailableNodes.add(childrenMapKey);
+                nextAvailableNodes.add(childNode);
             }
         }
 
