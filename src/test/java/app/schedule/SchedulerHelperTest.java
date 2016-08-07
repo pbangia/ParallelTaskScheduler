@@ -7,20 +7,23 @@ import app.schedule.SchedulerHelper;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static org.apache.commons.collections4.CollectionUtils.isEqualCollection;
 import static org.junit.Assert.*;
 
 public class SchedulerHelperTest {
 
     private Map<String, Node> dataMap;
     private SchedulerHelper schedulerHelper;
+    private Set<Node> scheduledNodes;
 
     @Before
     public void setup(){
         dataMap = new ConcurrentHashMap<>();
         this.schedulerHelper = new SchedulerHelper();
+        this.scheduledNodes = new HashSet<>();
     }
 
     @Test
@@ -92,6 +95,28 @@ public class SchedulerHelperTest {
         dataMap.put("b", b);
         dataMap.put("c", c);
         schedulerHelper.findRoot(dataMap);
+    }
+
+    @Test
+    public void testGetAvailableNodes_OnlyOneParent_ReturnsCorrectList() throws AppException {
+        List<Node> expectedAvailableNodes = new ArrayList<>();
+        Node a = new Node("a", 1);
+        Node b = new Node("b", 1);
+        Node c = new Node("c", 1);
+        Node d = new Node("d", 1);
+        a.addChild(b, 1);
+        a.addChild(c, 1);
+        a.addChild(d, 1);
+        dataMap.put("a", a);
+        dataMap.put("b", b);
+        dataMap.put("c", c);
+        dataMap.put("d", d);
+        scheduledNodes.add(a);
+        expectedAvailableNodes.add(b);
+        expectedAvailableNodes.add(c);
+        expectedAvailableNodes.add(d);
+
+        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(a, dataMap, scheduledNodes)));
     }
 
 }
