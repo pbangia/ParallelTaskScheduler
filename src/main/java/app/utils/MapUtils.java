@@ -47,7 +47,6 @@ public class MapUtils {
     public List<Node> getAvailableNodes(Node currentParentNode, Map<String, Node> dataMap, Set<Node> scheduledNodes) {
 
         List<Node> nextAvailableNodes = new ArrayList<>();
-        
         boolean canBeScheduled;
 
         if (currentParentNode == null) {
