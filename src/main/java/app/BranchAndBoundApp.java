@@ -7,7 +7,7 @@ import app.transform.IDataTransformer;
 import app.transform.TransformModuleFactory;
 import app.transform.TransformModuleFactory2;
 import app.transform.IDataTransformer2;
-import app.utils.MapUtils;
+import app.schedule.SchedulerHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ public class BranchAndBoundApp {
     private int numProcessors;
     private boolean graphRequired;
     private IDataTransformer2 dataTransformer2;
-    private MapUtils mapUtils = new MapUtils();
+    private SchedulerHelper schedulerHelper = new SchedulerHelper();
 
     public BranchAndBoundApp(File inputFile, String outputFilename, int numProcessors,
                              int numThreads, boolean graphRequired) {
@@ -61,7 +61,7 @@ public class BranchAndBoundApp {
     private void init() throws AppException, IOException {
         String fileContents = digraphFileReader.readDigraphFile();
         Map<String, Node> dataMap = dataTransformer.transformIntoMap(fileContents);
-        Node root = mapUtils.findRoot(dataMap);
+        Node root = schedulerHelper.findRoot(dataMap);
 
         Iterator<String> keyIterator = dataMap.keySet().iterator();
         while (keyIterator.hasNext()) {

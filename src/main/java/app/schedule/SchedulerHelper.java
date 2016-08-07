@@ -1,4 +1,4 @@
-package app.utils;
+package app.schedule;
 
 import app.data.Node;
 import app.exceptions.utils.NoRootFoundException;
@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-public class MapUtils {
+public class SchedulerHelper {
 
-    private static Logger logger = LoggerFactory.getLogger(MapUtils.class);
+    private static Logger logger = LoggerFactory.getLogger(SchedulerHelper.class);
 
     public Node findRoot(Map<String, Node> dataMap) throws NoRootFoundException {
 

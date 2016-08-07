@@ -1,8 +1,9 @@
-package app.utils;
+package app.schedule;
 
 import app.data.Node;
 import app.exceptions.AppException;
 import app.exceptions.utils.NoRootFoundException;
+import app.schedule.SchedulerHelper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static org.junit.Assert.*;
 
-public class MapUtilsTest {
+public class SchedulerHelperTest {
 
     private Map<String, Node> dataMap;
 
@@ -30,7 +31,7 @@ public class MapUtilsTest {
         dataMap.put("a", a);
         dataMap.put("b", b);
         dataMap.put("c", c);
-        assertEquals(a, MapUtils.findRoot(dataMap));
+        assertEquals(a, SchedulerHelper.findRoot(dataMap));
     }
 
     @Test
@@ -55,7 +56,7 @@ public class MapUtilsTest {
         dataMap.put("e", e);
         dataMap.put("f", f);
         dataMap.put("g", g);
-        assertEquals(a, MapUtils.findRoot(dataMap));
+        assertEquals(a, SchedulerHelper.findRoot(dataMap));
     }
 
 
@@ -63,7 +64,7 @@ public class MapUtilsTest {
     public void testFindRoot_DisconnectedGraph_ThrowsException() throws AppException {
         dataMap.put("a", new Node("a", 1));
         dataMap.put("b", new Node("b", 1));
-        MapUtils.findRoot(dataMap);
+        SchedulerHelper.findRoot(dataMap);
     }
 
     @Test(expected = NoRootFoundException.class)
@@ -74,7 +75,7 @@ public class MapUtilsTest {
         dataMap.put("c", new Node("c", 1));
         dataMap.get("a").addChild(b, 1);
         dataMap.get("c").addChild(b, 1);
-        MapUtils.findRoot(dataMap);
+        SchedulerHelper.findRoot(dataMap);
     }
 
     @Test(expected = NoRootFoundException.class)
@@ -88,7 +89,7 @@ public class MapUtilsTest {
         dataMap.put("a", a);
         dataMap.put("b", b);
         dataMap.put("c", c);
-        MapUtils.findRoot(dataMap);
+        SchedulerHelper.findRoot(dataMap);
     }
 
 }
