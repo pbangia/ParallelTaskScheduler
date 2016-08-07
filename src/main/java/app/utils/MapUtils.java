@@ -64,8 +64,8 @@ public class MapUtils {
         }
 
 
-
         for (Node childrenMapKey : currentNodeChildrenMap.keySet()) {
+            canBeScheduled = true;
             dependentParentMap = dataMap.get(childrenMapKey).getParentMap();
             for (Node parentMapKey : dependentParentMap.keySet()) {
                 if (!scheduledNodes.contains(parentMapKey)) {
@@ -74,7 +74,7 @@ public class MapUtils {
                 }
             }
 
-            if (canBeScheduled){
+            if (canBeScheduled) {
                 nextAvailableNodes.add(childrenMapKey);
             }
         }
