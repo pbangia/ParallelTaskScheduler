@@ -2,6 +2,7 @@ package app.schedule;
 
 
 import app.data.Node;
+import app.exceptions.utils.NoRootFoundException;
 
 import java.util.*;
 
@@ -18,7 +19,7 @@ public class TaskScheduler {
     }
 
     //void for now as not sure what it will be returning.
-    public void scheduleTasks(){
+    public void scheduleTasks() throws NoRootFoundException {
         nextAvailableNodes = schedulerHelper.getAvailableNodes(null, dataMap, scheduledNodes);
     }
 
