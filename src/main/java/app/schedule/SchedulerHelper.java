@@ -48,7 +48,7 @@ public class SchedulerHelper {
             throw new NoRootFoundException("Could not find a root for the digraph provided.");
         }
 
-        logger.info("Found a total of " + nodeSet.size() + " root nodes in the digraph.");
+        logger.info("Found a total of " + nodeSet.size() + " root(s) nodes in the digraph.");
         return new ArrayList<>(nodeSet);
     }
 
