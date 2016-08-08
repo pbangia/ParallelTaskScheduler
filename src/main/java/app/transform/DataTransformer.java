@@ -25,21 +25,23 @@ public class DataTransformer implements IDataTransformer {
     }
 
     public Map<String, Node> transformIntoMap(String data) throws EmptyMapException {
-
+        logger.info("Starting transformation of input to map representation.");
         Map<String, Node> dataMap = new ConcurrentHashMap<String, Node>();
         String[] definitions = data.split(DEFINITION_DELIMITER);
         for (String definition : definitions) {
-
             if (definition.trim().length() == 0) {
                 continue;
             } else if (definition.contains(DEPENDENCY_ARROW)) {
+                logger.debug("Parsing node dependency: " + definition);
                 toMapTransformation.parseNodeDependency(definition, dataMap);
             } else {
+                logger.debug("Parsing node declaration: " + definition);
                 toMapTransformation.parseNodeDeclaration(definition, dataMap);
             }
         }
 
         if (dataMap.size() == 0) {
+            logger.error("ERROR: The provided digraph has no nodes or dependencies.");
             throw new EmptyMapException("The provided digraph has no nodes or dependencies.");
         }
 

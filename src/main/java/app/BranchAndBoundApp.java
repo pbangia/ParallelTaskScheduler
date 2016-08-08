@@ -7,7 +7,7 @@ import app.transform.IDataTransformer;
 import app.transform.TransformModuleFactory;
 import app.transform.TransformModuleFactory2;
 import app.transform.IDataTransformer2;
-import app.utils.MapUtils;
+import app.schedule.SchedulerHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +29,7 @@ public class BranchAndBoundApp {
     private int numProcessors;
     private boolean graphRequired;
     private IDataTransformer2 dataTransformer2;
+    private SchedulerHelper schedulerHelper = new SchedulerHelper();
 
     public BranchAndBoundApp(File inputFile, String outputFilename, int numProcessors,
                              int numThreads, boolean graphRequired) {
@@ -54,12 +55,12 @@ public class BranchAndBoundApp {
         this.digraphFileReader = new DigraphFileReader(inputFile);
         this.dataTransformer = TransformModuleFactory.createTransformer();
         this.dataTransformer2 = TransformModuleFactory2.createTransformer();
+        logger.info("Loaded all modules required for application.");
     }
 
     private void init() throws AppException, IOException {
         String fileContents = digraphFileReader.readDigraphFile();
         Map<String, Node> dataMap = dataTransformer.transformIntoMap(fileContents);
-        Node root = MapUtils.findRoot(dataMap);
 
         Iterator<String> keyIterator = dataMap.keySet().iterator();
         while (keyIterator.hasNext()) {
@@ -71,6 +72,8 @@ public class BranchAndBoundApp {
         Map<String,Integer> dataMap2 = dataTransformer2.transformIntoMap(fileContents);
         int[][] matrix = dataTransformer2.transformIntoMatrix(dataMap2,fileContents);
         System.out.println("****** MATRIX *******\n"+Arrays.deepToString(matrix));
+
+        logger.info("Initialised all required components for application.");
     }
 
 }
