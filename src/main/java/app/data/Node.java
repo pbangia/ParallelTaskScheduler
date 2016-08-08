@@ -8,8 +8,6 @@ public class Node {
 
     private String name;
     private int weight;
-    private int timestamp;
-    private boolean hasBeenScheduled = false;
     private Map<Node, Integer> parentMap = new ConcurrentHashMap<>();
     private Map<Node, Integer> childrenMap = new ConcurrentHashMap<>();
 
@@ -32,22 +30,6 @@ public class Node {
 
     public void setWeight(int weight) {
         this.weight = weight;
-    }
-
-    public int getTimestamp(){
-        return timestamp;
-    }
-
-    public void setTimestamp(int timestamp){
-        this.timestamp = timestamp;
-    }
-
-    public boolean hasBeenScheduled(){
-        return hasBeenScheduled;
-    }
-
-    public void setHasBeenScheduled(boolean hasBeenScheduled){
-        this.hasBeenScheduled = hasBeenScheduled;
     }
 
     public Map<Node, Integer> getChildrenMap() {
