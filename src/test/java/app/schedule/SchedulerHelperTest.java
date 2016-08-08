@@ -68,7 +68,22 @@ public class SchedulerHelperTest {
     }
 
     @Test
-    public void testFindRoot_ComplexDAG_ReturnsCorrectRoots2() throws AppException {
+    public void testFindRoot_DisconnectedGraph_ReturnsMultipleRoots() throws AppException {
+        Node a = new Node("a", 1);
+        Node b = new Node("b", 1);
+        Node c = new Node("c", 1);
+        dataMap.put("a", a);
+        dataMap.put("b", b);
+        dataMap.put("c", c);
+        List<Node> expectedRoots = new ArrayList<>();
+        expectedRoots.add(a);
+        expectedRoots.add(b);
+        expectedRoots.add(c);
+        assertTrue(isEqualCollection(expectedRoots, schedulerHelper.findRoots(dataMap)));
+    }
+
+    @Test
+    public void testFindRoot_NoSingleRoot_ReturnsMultipleRoots() throws AppException {
         Node a = new Node("a", 1);
         Node b = new Node("b", 1);
         Node c = new Node("c", 1);
@@ -89,38 +104,6 @@ public class SchedulerHelperTest {
         List<Node> expectedRoots = new ArrayList<>();
         expectedRoots.add(a);
         expectedRoots.add(b);
-        assertTrue(isEqualCollection(expectedRoots, schedulerHelper.findRoots(dataMap)));
-    }
-
-
-    @Test
-    public void testFindRoot_DisconnectedGraph_ReturnsMultipleRoots() throws AppException {
-        Node a = new Node("a", 1);
-        Node b = new Node("b", 1);
-        Node c = new Node("c", 1);
-        dataMap.put("a", a);
-        dataMap.put("b", b);
-        dataMap.put("c", c);
-        List<Node> expectedRoots = new ArrayList<>();
-        expectedRoots.add(a);
-        expectedRoots.add(b);
-        expectedRoots.add(c);
-        assertTrue(isEqualCollection(expectedRoots, schedulerHelper.findRoots(dataMap)));
-    }
-
-    @Test
-    public void testFindRoot_NoSingleRoot_ReturnsMultipleRoots() throws AppException {
-        Node a = new Node("a", 1);
-        Node b = new Node("b", 1);
-        Node c = new Node("c", 1);
-        dataMap.put("a", a);
-        dataMap.put("b", b);
-        dataMap.put("c", c);
-        dataMap.get("a").addChild(b, 1);
-        dataMap.get("c").addChild(b, 1);
-        List<Node> expectedRoots = new ArrayList<>();
-        expectedRoots.add(a);
-        expectedRoots.add(c);
         assertTrue(isEqualCollection(expectedRoots, schedulerHelper.findRoots(dataMap)));
     }
 
