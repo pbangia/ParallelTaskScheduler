@@ -24,13 +24,15 @@ public class TaskScheduler {
 
         PartialSolution bestPartialSolution = null;
         Stack<PartialSolution> solutionStack = new Stack<>();
+        List<Node> nextAvailableNodes = new ArrayList<>();
+
         solutionStack.push(new PartialSolution(numberOfProcessors));
 
         while (!solutionStack.empty()) {
             PartialSolution currentPartialSolution = solutionStack.pop();
             Node latestNodeAdded = currentPartialSolution.getLatestNode();
             scheduledNodes = currentPartialSolution.getScheduledNodes();
-            List<Node> nextAvailableNodes = schedulerHelper.getAvailableNodes(latestNodeAdded, dataMap, scheduledNodes);
+            nextAvailableNodes.addAll(schedulerHelper.getAvailableNodes(latestNodeAdded, dataMap, scheduledNodes));
 
             if (nextAvailableNodes.isEmpty()){
                 if (currentPartialSolution.isBetterThan(bestPartialSolution)){
