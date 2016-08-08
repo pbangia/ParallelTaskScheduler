@@ -31,14 +31,6 @@ public class PartialSolution {
         return null;
     }
 
-
-    // Returns boolean, true if this PartialSolution is worse than another partialSolution
-    public boolean isWorseThan(PartialSolution otherPartialSolution){
-        //TODO: fill me in :3
-        //returns true for now
-        return true;
-    }
-
     // Returns boolean, true if this PartialSolution is better than another partialSolution
     public boolean isBetterThan(PartialSolution otherPartialSolution){
         //TODO: fill me in :3
