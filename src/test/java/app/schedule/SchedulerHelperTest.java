@@ -26,21 +26,6 @@ public class SchedulerHelperTest {
     }
 
     @Test
-    public void testFindRoot_SimpleDAG_ReturnsCorrectRoots() throws AppException {
-        Node a = new Node("a", 1);
-        Node b = new Node("b", 1);
-        Node c = new Node("c", 1);
-        a.addChild(b, 1);
-        b.addChild(c, 1);
-        dataMap.put("a", a);
-        dataMap.put("b", b);
-        dataMap.put("c", c);
-        List<Node> expectedRoots = new ArrayList<>();
-        expectedRoots.add(a);
-        assertTrue(isEqualCollection(expectedRoots, schedulerHelper.findRoots(dataMap)));
-    }
-
-    @Test
     public void testFindRoot_ComplexDAG_ReturnsCorrectRoots() throws AppException {
         Node a = new Node("a", 1);
         Node b = new Node("b", 1);
