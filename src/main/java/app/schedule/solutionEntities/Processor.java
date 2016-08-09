@@ -12,6 +12,7 @@ public class Processor {
 
     private Queue<Node> nodeQueue = new ConcurrentLinkedQueue<>(); // DATA STRUCTURE can be a queue, linkedlist or arraylist... should probably implement the List interface
     private Map<Integer, Integer> timeStampMap = new ConcurrentHashMap<>();
+    private Map<Node, Integer> nodeEndTimeMap = new ConcurrentHashMap<>();
     private int queueSize = 0;
     private int currentTimeStamp = 0;
 
@@ -24,6 +25,7 @@ public class Processor {
         queueSize++;
         //Timestamp for when next node to be scheduled can start ie end timestamp of latest node
         currentTimeStamp += node.getWeight();
+        nodeEndTimeMap.put(node, currentTimeStamp);
     }
 
     public Queue<Node> getNodeQueue(){
