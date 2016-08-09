@@ -5,11 +5,10 @@ import app.data.Node;
 import java.util.*;
 
 public class PartialSolution {
-    private Node latestNodeAdded;
-    private int numberOfProcessors;
-    private Set<Node> scheduledNodes = new HashSet<>();
 
-    //Processor names start from 0
+    private int numberOfProcessors;
+    private Node latestNodeAdded;
+    private Set<Node> scheduledNodes = new HashSet<>();
     private List<Processor> processors = new ArrayList<>();
 
     public PartialSolution(int numberOfProcessors) {
@@ -36,14 +35,13 @@ public class PartialSolution {
         return scheduledNodes;
     }
 
-
     public boolean isBetterThan(PartialSolution otherPartialSolution) {
 
         if (otherPartialSolution == null) {
             return true;
         }
-        return this.length() < otherPartialSolution.length();
 
+        return this.length() < otherPartialSolution.length();
     }
 
     int length() {
@@ -101,6 +99,14 @@ public class PartialSolution {
             this.processors.add(processor.clone());
         }
 
+    }
+
+    public List<Processor> getProcessors() {
+        return processors;
+    }
+
+    public int getNumberOfProcessors() {
+        return numberOfProcessors;
     }
 
 }
