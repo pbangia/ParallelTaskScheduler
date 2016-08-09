@@ -2,6 +2,7 @@ package app.schedule;
 
 
 import app.data.Node;
+import app.exceptions.utils.NoRootFoundException;
 import app.schedule.solutionEntities.PartialSolution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ public class TaskScheduler {
         this.numberOfProcessors = numberOfProcessors;
     }
 
-    public PartialSolution scheduleTasks() {
+    public PartialSolution scheduleTasks() throws NoRootFoundException {
 
         PartialSolution bestPartialSolution = null;
         Stack<PartialSolution> solutionStack = new Stack<>();

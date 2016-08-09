@@ -52,15 +52,13 @@ public class SchedulerHelper {
         return new ArrayList<>(nodeSet);
     }
 
-    public List<Node> getAvailableNodes(Node currentParentNode, Map<String, Node> dataMap, Set<Node> scheduledNodes) {
+    public List<Node> getAvailableNodes(Node currentParentNode, Map<String, Node> dataMap, Set<Node> scheduledNodes) throws NoRootFoundException {
 
         List<Node> nextAvailableNodes = new ArrayList<>();
         boolean canBeScheduled;
 
         if (currentParentNode == null) {
-            //call find root nodes method
-
-            return nextAvailableNodes;
+            return findRoots(dataMap);
         }
 
         Map<Node, Integer> currentNodeChildrenMap = currentParentNode.getChildrenMap();
