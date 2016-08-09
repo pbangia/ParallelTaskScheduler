@@ -17,33 +17,37 @@ public class PartialSolutionTest {
 
     private PartialSolution firstPS;
     private PartialSolution secondPS;
-    private Node newNode;
-
+    private Node newNode1;
+    private Node newNode2;
     @Before
     public void setUp() throws Exception {
         firstPS = new PartialSolution(2);
-        secondPS = new PartialSolution(1);
-        newNode = new Node("A", 2);
+        secondPS = new PartialSolution(3);
+        newNode1 = new Node("A", 2);
+        newNode2 = new Node("B", 4);
     }
 
     @Test
     public void testIsBetterThan() throws Exception {
+        firstPS.addNodeToProcessor(newNode1, 1);
+        secondPS.addNodeToProcessor(newNode2, 2);
 
+        assertTrue(firstPS.isBetterThan(secondPS));
     }
 
     @Test
     public void testLength() throws Exception {
-        firstPS.addNodeToProcessor(newNode, 1);
+        firstPS.addNodeToProcessor(newNode1, 1);
         assertEquals(firstPS.length(), 2);
     }
 
     @Test
     public void testAddNodeToProcessor() throws Exception {
-        firstPS.addNodeToProcessor(newNode, 1);
+        firstPS.addNodeToProcessor(newNode1, 1);
 
         assertEquals(firstPS.getLatestNode().getName(), "A");
         assertEquals(firstPS.getLatestNode().getWeight(), 2);
-        assertTrue(firstPS.getScheduledNodes().contains(newNode));
+        assertTrue(firstPS.getScheduledNodes().contains(newNode1));
     }
 
     @Test
