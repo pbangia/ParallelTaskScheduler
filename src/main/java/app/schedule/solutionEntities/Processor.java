@@ -48,6 +48,12 @@ public class Processor {
         return currentTimeStamp;
     }
 
+    public int getTimeStamp(Node n) {
+        int endTime = nodeEndTimeMap.get(n);
+
+        return endTime - n.getWeight();
+    }
+
     public void setNodeQueue(Queue<Node> nodeQueue) {
         this.nodeQueue = nodeQueue;
     }

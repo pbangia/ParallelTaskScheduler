@@ -9,6 +9,7 @@ public class Node {
     private String name;
     private int weight;
     private int timestamp;
+    private int processorNumber;
     private boolean hasBeenScheduled = false;
     private Map<Node, Integer> parentMap = new ConcurrentHashMap<>();
     private Map<Node, Integer> childrenMap = new ConcurrentHashMap<>();
@@ -66,21 +67,20 @@ public class Node {
         parentMap.put(parent, dependencyWeight);
     }
 
+    public void setProcessorNumber(int processorNumber) {
+        this.processorNumber = processorNumber;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("------------------------------------\n");
-        sb.append("Name: " + name + "\t" + "Weight: " + weight + "\n");
-        sb.append("Children:\n");
 
-        Iterator<Node> childrenNodeIterator = childrenMap.keySet().iterator();
-        while (childrenNodeIterator.hasNext()) {
-            Node childNode = childrenNodeIterator.next();
-            String childName = childNode.getName();
-            Integer dependencyWeight = childrenMap.get(childNode);
-            sb.append("\t" + "Child name: " + childName + ", " + "Dependency weight: " + dependencyWeight + "\n");
-        }
-        sb.append("------------------------------------\n");
+        sb.append(this.name + "\t");
+        sb.append("[Weight=" + weight);
+        sb.append(",Start=" + timestamp);
+        sb.append(",Processor=" + processorNumber);
+        sb.append("];\n");
+
         return sb.toString();
     }
 

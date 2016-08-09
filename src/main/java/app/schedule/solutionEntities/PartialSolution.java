@@ -31,15 +31,6 @@ public class PartialSolution {
         }
     }
 
-    public Node getLatestNode() {
-        return latestNodeAdded;
-    }
-
-    public Set<Node> getScheduledNodes() {
-        return scheduledNodes;
-    }
-
-
     public boolean isBetterThan(PartialSolution otherPartialSolution) {
 
         if (otherPartialSolution == null) {
@@ -77,5 +68,16 @@ public class PartialSolution {
         }
 
     }
+
+    //Getters
+    public Node getLatestNode() {
+        return latestNodeAdded;
+    }
+    public Set<Node> getScheduledNodes() {
+        return scheduledNodes;
+    }
+    public List<Processor> getProcessors() { return processors; }
+
+
 
 }
