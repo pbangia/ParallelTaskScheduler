@@ -52,7 +52,10 @@ public class PartialSolutionTest {
 
     @Test
     public void testClone() throws Exception {
+        PartialSolution clonedSolution = new PartialSolution(0, firstPS);
 
+        assertEquals(clonedSolution.getNumberOfProcessors(), firstPS.getNumberOfProcessors());
+        assertEquals(clonedSolution.getLatestNode(), firstPS.getLatestNode());
     }
 
 }
