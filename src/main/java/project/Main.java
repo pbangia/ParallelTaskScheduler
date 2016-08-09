@@ -13,7 +13,7 @@ public class Main {
 
         String filename = "/input.dot";
         File inputFile = new File(Main.class.getClass().getResource(filename).toURI());
-        BranchAndBoundApp app = new BranchAndBoundApp(inputFile, null, 0, 0, false);
+        BranchAndBoundApp app = new BranchAndBoundApp(inputFile, null, 2, 0, false);
         try {
             app.start();
         } catch (IOException e) {

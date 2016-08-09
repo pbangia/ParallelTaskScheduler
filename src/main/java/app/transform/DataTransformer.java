@@ -32,10 +32,10 @@ public class DataTransformer implements IDataTransformer {
             if (definition.trim().length() == 0) {
                 continue;
             } else if (definition.contains(DEPENDENCY_ARROW)) {
-                logger.debug("Parsing node dependency: " + definition);
+                logger.debug("Parsing node dependency: " + definition.trim());
                 toMapTransformation.parseNodeDependency(definition, dataMap);
             } else {
-                logger.debug("Parsing node declaration: " + definition);
+                logger.debug("Parsing node declaration: " + definition.trim());
                 toMapTransformation.parseNodeDeclaration(definition, dataMap);
             }
         }

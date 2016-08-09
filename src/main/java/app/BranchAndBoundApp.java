@@ -54,6 +54,7 @@ public class BranchAndBoundApp {
         loadModules();
         Map<String, Node> dataMap = readInput();
         PartialSolution bestSolution = run(dataMap);
+
         System.out.println(outputGenerator.generateOutput(bestSolution));
     }
 
