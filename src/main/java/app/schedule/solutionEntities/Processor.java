@@ -19,11 +19,9 @@ public class Processor {
 
     public void addNodeToQueue(Node node, int waitTime) {
         nodeQueue.add(node);
-        //adding wait time to the when the last node ended. This calculates new timestamp for currrent node to be scheduled
         currentTimeStamp += waitTime;
         timeStampMap.put(queueSize, currentTimeStamp);
         queueSize++;
-        //Timestamp for when next node to be scheduled can start ie end timestamp of latest node
         currentTimeStamp += node.getWeight();
         nodeEndTimeMap.put(node, currentTimeStamp);
     }
