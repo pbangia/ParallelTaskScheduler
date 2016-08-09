@@ -2,10 +2,7 @@ package app.schedule.solutionEntities;
 
 import app.data.Node;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class PartialSolution {
     private Node latestNodeAdded;
@@ -59,10 +56,38 @@ public class PartialSolution {
         return maxDuration;
     }
 
-    public void addNodeToProcessor(Node addedNode, int processorNumber, int waitTime) {
+    public void addNodeToProcessor(Node addedNode, int processorNumber) {
         this.latestNodeAdded = addedNode;
         scheduledNodes.add(addedNode);
-        processors.get(processorNumber).addNodeToQueue(addedNode, waitTime);
+
+        Processor currentProcessor = processors.get(processorNumber);
+        Iterator<Map.Entry<Node, Integer>> parentsIterator = addedNode.getParentMap().entrySet().iterator();
+        List<Node> parentList = new ArrayList<>();
+        while (parentsIterator.hasNext()){
+            Node parent = parentsIterator.next().getKey();
+            if (!currentProcessor.getNodeEndTimeMap().containsKey(parent)){
+                parentList.add(parent);
+            }
+        }
+
+        int timeToStart = 0;
+        for (Node parent : parentList){
+            for (int i = 0; i < numberOfProcessors; i++){
+                if (processorNumber == i){
+                    continue;
+                }
+
+                if (currentProcessor.getNodeEndTimeMap().containsKey(parent)){
+                    int parentEndTime = currentProcessor.getNodeEndTimeMap().get(parent);
+                    int dependencyWeight = addedNode.getParentMap().get(parent);
+                    int tempTimeToStart = parentEndTime + dependencyWeight;
+                    if (timeToStart < tempTimeToStart){
+                        timeToStart = tempTimeToStart;
+                    }
+                }
+            }
+        }
+        processors.get(processorNumber).addNodeToQueue(addedNode, timeToStart);
     }
 
 
