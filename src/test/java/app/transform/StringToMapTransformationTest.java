@@ -1,9 +1,9 @@
 package app.transform;
 
 import app.data.Node;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

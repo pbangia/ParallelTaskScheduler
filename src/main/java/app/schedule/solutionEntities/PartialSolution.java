@@ -3,32 +3,35 @@ import app.data.*;
 
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class PartialSolution {
     private Node latestNodeAdded;
     private int numberOfProcessors;
+    private Set<Node> scheduledNodes = new HashSet<>();
 
     //Processor names start from 0
-    private List<Processor> processors;
+    private List<Processor> processors = new ArrayList<>();
 
-    //Constructor
     public PartialSolution (int numberOfProcessors){
-        this.numberOfProcessors = numberOfProcessors;
-        for (int i = 0; i < numberOfProcessors; i++){
-            //TODO: change the constuctor below depending on how Processor is done
-            processors.add(new Processor());
-        }
+        this(numberOfProcessors, null);
     }
 
+    public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone){
+        this.numberOfProcessors = numberOfProcessors;
+        for (int i = 0; i < numberOfProcessors; i++){
+            processors.add(new Processor());
+
+        }
+        clone(solutionToClone);
+    }
     // Returns last node added to PartialSolution
     public Node getLatestNode(){
-        //TODO: fill me in :
         return latestNodeAdded;
     }
 
     public Set<Node> getScheduledNodes(){
-        //TODO: get the scheduled nodes
-        return null;
+        return scheduledNodes;
     }
 
     // Returns boolean, true if this PartialSolution is better than another partialSolution
@@ -38,16 +41,15 @@ public class PartialSolution {
         return true;
     }
 
-    // Adds a node to a specified processor
-    public void addNodeToProcessor(Node addedNode, int processorNumber){
-        //TODO: fill me in :3
-        //add a node to a processor
-        //set the latest node added
+    public void addNodeToProcessor(Node addedNode, int processorNumber, int waitTime){
+        this.latestNodeAdded=addedNode;
+        scheduledNodes.add(addedNode);
+        processors.get(processorNumber).addNodeToQueue(addedNode,waitTime);
     }
 
 
     // This method clones a PartialSolution
-    public void clone(PartialSolution clonedSolution){
+    void clone(PartialSolution clonedSolution){
         this.latestNodeAdded = clonedSolution.getLatestNode();
         //TODO: finish off the method
         //needs to clone the processors also, make sure its not copying the object address but actually copying the fields
