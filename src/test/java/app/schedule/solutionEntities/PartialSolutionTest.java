@@ -5,8 +5,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.Set;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,9 +14,14 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static org.junit.Assert.*;
 
 public class PartialSolutionTest {
+
+    private PartialSolution firstPS;
+    private PartialSolution secondPS;
+
     @Before
     public void setUp() throws Exception {
-
+        firstPS = new PartialSolution(2);
+        secondPS = new PartialSolution(1);
     }
 
     @Test
@@ -32,7 +36,12 @@ public class PartialSolutionTest {
 
     @Test
     public void testAddNodeToProcessor() throws Exception {
+        Node newNode = new Node("A", 2);
+        firstPS.addNodeToProcessor(newNode, 1, 2);
 
+        assertEquals(firstPS.getLatestNode().getName(), "A");
+        assertEquals(firstPS.getLatestNode().getWeight(), 2);
+        assertTrue(firstPS.getScheduledNodes().contains(newNode));
     }
 
     @Test
