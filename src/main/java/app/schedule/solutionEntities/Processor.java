@@ -36,6 +36,10 @@ public class Processor {
         return timeStampMap;
     }
 
+    public  Map<Node, Integer> getNodeEndTimeMap() {
+        return  nodeEndTimeMap;
+    }
+
     public int getQueueSize() {
         return queueSize;
     }
@@ -52,6 +56,10 @@ public class Processor {
         this.timeStampMap = timeStampMap;
     }
 
+    public void setNodeEndTimeMap(Map<Node, Integer> nodeEndTimeMap) {
+        this.nodeEndTimeMap = nodeEndTimeMap;
+    }
+
     public void setQueueSize(int queueSize) {
         this.queueSize = queueSize;
     }
@@ -63,9 +71,11 @@ public class Processor {
     public Processor clone() {
         Processor newProcessor = new Processor();
         Queue<Node> clq = new ConcurrentLinkedQueue<Node>(this.nodeQueue);
-        Map<Integer, Integer> newMap = new ConcurrentHashMap<>(this.timeStampMap);
+        Map<Integer, Integer> newTimeStampMap = new ConcurrentHashMap<>(this.timeStampMap);
+        Map<Node, Integer> newNodeEndTimeMap = new ConcurrentHashMap<>(this.nodeEndTimeMap);
         newProcessor.setNodeQueue(clq);
-        newProcessor.setTimeStampMap(newMap);
+        newProcessor.setTimeStampMap(newTimeStampMap);
+        newProcessor.setNodeEndTimeMap(newNodeEndTimeMap);
         newProcessor.setCurrentTimeStamp(this.currentTimeStamp);
         newProcessor.setQueueSize(this.queueSize);
         return newProcessor;
