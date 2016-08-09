@@ -60,18 +60,23 @@ public class TaskScheduler {
 
     // This function should probably be in scheduler helper, it gets the list of partialSolutions possible based on
     // the current solution and the node being added
+    //declare a new list to store the partail solutions
+    //constructs new partial solution object
+    //clones the current solution
+    //adds the node being scheduled into a processor depending on loop counter
+    //generates a partial solution for each processor
+    //adds the new partial solution to the list of partial solutions possible
 
     public List<PartialSolution> getAvailablePartialSolutions(Node nodeAdded, PartialSolution currentPartialSolution, int numberOfProcessors) {
-        //declare a new list to store the partail solutions
+
         List<PartialSolution> availablePartialSolutions = new ArrayList<>();
-        //generates a partial solution for each processor
+
         for (int i = 0; i < numberOfProcessors; i++) {
-            //constructs new partial solution object
+
             PartialSolution newPartialSolution = new PartialSolution(numberOfProcessors);
-            //clones the current solution
-            //adds the node being scheduled into a processor depending on loop counter
+
             newPartialSolution.addNodeToProcessor(nodeAdded, i, 0);
-            //adds the new partial solution to the list of partial solutions possible
+
             availablePartialSolutions.add(newPartialSolution);
         }
         return availablePartialSolutions;
