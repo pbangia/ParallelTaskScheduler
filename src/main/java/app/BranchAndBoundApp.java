@@ -3,19 +3,19 @@ package app;
 import app.data.Node;
 import app.exceptions.AppException;
 import app.input.DigraphFileReader;
+import app.schedule.SchedulerHelper;
 import app.transform.IDataTransformer;
+import app.transform.IDataTransformer2;
 import app.transform.TransformModuleFactory;
 import app.transform.TransformModuleFactory2;
-import app.transform.IDataTransformer2;
-import app.schedule.SchedulerHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Arrays;
 
 public class BranchAndBoundApp {
 
@@ -69,9 +69,9 @@ public class BranchAndBoundApp {
 
         /* Matrix */
 
-        Map<String,Integer> dataMap2 = dataTransformer2.transformIntoMap(fileContents);
-        int[][] matrix = dataTransformer2.transformIntoMatrix(dataMap2,fileContents);
-        System.out.println("****** MATRIX *******\n"+Arrays.deepToString(matrix));
+        Map<String, Integer> dataMap2 = dataTransformer2.transformIntoMap(fileContents);
+        int[][] matrix = dataTransformer2.transformIntoMatrix(dataMap2, fileContents);
+        System.out.println("****** MATRIX *******\n" + Arrays.deepToString(matrix));
 
         logger.info("Initialised all required components for application.");
     }

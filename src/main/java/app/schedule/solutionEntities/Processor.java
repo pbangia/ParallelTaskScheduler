@@ -16,7 +16,7 @@ public class Processor {
     private int currentTimeStamp = 0;
 
 
-    public void addNodeToQueue(Node node, int waitTime){
+    public void addNodeToQueue(Node node, int waitTime) {
         nodeQueue.add(node);
         //adding wait time to the when the last node ended. This calculates new timestamp for currrent node to be scheduled
         currentTimeStamp += waitTime;
@@ -26,15 +26,15 @@ public class Processor {
         currentTimeStamp += node.getWeight();
     }
 
-    public Queue<Node> getNodeQueue(){
+    public Queue<Node> getNodeQueue() {
         return nodeQueue;
     }
 
-    public Map<Integer,Integer> getTimeStampMap(){
+    public Map<Integer, Integer> getTimeStampMap() {
         return timeStampMap;
     }
 
-    public int getQueueSize(){
+    public int getQueueSize() {
         return queueSize;
     }
 
@@ -58,10 +58,10 @@ public class Processor {
         this.currentTimeStamp = currentTimeStamp;
     }
 
-    public Processor clone(){
+    public Processor clone() {
         Processor newProcessor = new Processor();
         Queue<Node> clq = new ConcurrentLinkedQueue<Node>(this.nodeQueue);
-        Map<Integer,Integer> newMap = new ConcurrentHashMap<>(this.timeStampMap);
+        Map<Integer, Integer> newMap = new ConcurrentHashMap<>(this.timeStampMap);
         newProcessor.setNodeQueue(clq);
         newProcessor.setTimeStampMap(newMap);
         newProcessor.setCurrentTimeStamp(this.currentTimeStamp);

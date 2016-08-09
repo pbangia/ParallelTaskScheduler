@@ -47,7 +47,9 @@ public class DataTransformer2 implements IDataTransformer2 {
 
         int[][] matrix = new int[dataMap.size()][dataMap.size()];
         //-1 to represent no dependency. Cols/rows represent node from map.
-        for (int[] row: matrix) { Arrays.fill(row, -1); }
+        for (int[] row : matrix) {
+            Arrays.fill(row, -1);
+        }
 
         String[] definitions = data.split(DEFINITION_DELIMITER);
         int nodeCol = 0;
@@ -57,10 +59,10 @@ public class DataTransformer2 implements IDataTransformer2 {
                 continue;
             } else if (definition.contains(DEPENDENCY_ARROW)) {
                 //dependency to be stored in matrix[parent][child]
-                toMapTransformation.parseNodeDependency(definition,dataMap,matrix);
+                toMapTransformation.parseNodeDependency(definition, dataMap, matrix);
             } else {
                 //self weight to be stored in matrix[i][i]
-                toMapTransformation.parseNodeWeight(definition,dataMap,matrix);
+                toMapTransformation.parseNodeWeight(definition, dataMap, matrix);
             }
         }
 
