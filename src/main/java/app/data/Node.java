@@ -74,9 +74,6 @@ public class Node {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("------------------------------------\n");
-        sb.append("Name: " + name + "\t" + "Weight: " + weight + "\n");
-        sb.append("Children:\n");
 
         sb.append(this.name + "\t");
         sb.append("[Weight=" + weight);

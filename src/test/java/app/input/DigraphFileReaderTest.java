@@ -2,6 +2,7 @@ package app.input;
 
 import app.exceptions.input.EmptyFileContentsException;
 import app.exceptions.input.InvalidFileContentsException;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import project.Main;
