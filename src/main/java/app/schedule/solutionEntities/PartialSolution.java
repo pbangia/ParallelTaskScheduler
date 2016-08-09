@@ -25,7 +25,10 @@ public class PartialSolution {
             processors.add(new Processor());
 
         }
-        clone(solutionToClone);
+
+        if (solutionToClone != null) {
+            clone(solutionToClone);
+        }
     }
 
     public Node getLatestNode() {
