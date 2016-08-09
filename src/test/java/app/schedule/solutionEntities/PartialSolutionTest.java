@@ -33,7 +33,8 @@ public class PartialSolutionTest {
 
     @Test
     public void testLength() throws Exception {
-
+        firstPS.addNodeToProcessor(newNode, 1);
+        assertEquals(firstPS.length(), 2);
     }
 
     @Test
