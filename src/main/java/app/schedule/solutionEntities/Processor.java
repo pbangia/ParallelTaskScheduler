@@ -1,6 +1,8 @@
 package app.schedule.solutionEntities;
 
 import app.data.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.Queue;
@@ -8,9 +10,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Processor {
-    //needs data strucutre to hold the nodes and the start and end times
 
-    private Queue<Node> nodeQueue = new ConcurrentLinkedQueue<>(); // DATA STRUCTURE can be a queue, linkedlist or arraylist... should probably implement the List interface
+    private static Logger logger = LoggerFactory.getLogger(Processor.class);
+
+    private Queue<Node> nodeQueue = new ConcurrentLinkedQueue<>();
     private Map<Integer, Integer> timeStampMap = new ConcurrentHashMap<>();
     private Map<Node, Integer> nodeEndTimeMap = new ConcurrentHashMap<>();
     private int queueSize = 0;

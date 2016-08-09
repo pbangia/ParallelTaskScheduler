@@ -3,10 +3,14 @@ package app.schedule;
 
 import app.data.Node;
 import app.schedule.solutionEntities.PartialSolution;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
 public class TaskScheduler {
+
+    private static Logger logger = LoggerFactory.getLogger(TaskScheduler.class);
 
     private Map<String, Node> dataMap;
     private SchedulerHelper schedulerHelper;

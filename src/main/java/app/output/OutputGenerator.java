@@ -3,9 +3,13 @@ package app.output;
 import app.schedule.solutionEntities.PartialSolution;
 import app.schedule.solutionEntities.Processor;
 import app.data.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class OutputGenerator {
+
+    private static Logger logger = LoggerFactory.getLogger(OutputGenerator.class);
 
     public String generateOutput(PartialSolution solution) {
 
