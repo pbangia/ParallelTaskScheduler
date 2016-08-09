@@ -65,9 +65,8 @@ public class TaskScheduler {
             //constructs new partial solution object
             PartialSolution newPartialSolution = new PartialSolution(numberOfProcessors);
             //clones the current solution
-            newPartialSolution.clone(currentPartialSolution);
             //adds the node being scheduled into a processor depending on loop counter
-            newPartialSolution.addNodeToProcessor(nodeAdded,i);
+            newPartialSolution.addNodeToProcessor(nodeAdded,i,0);
             //adds the new partial solution to the list of partial solutions possible
             availablePartialSolutions.add(newPartialSolution);
         }

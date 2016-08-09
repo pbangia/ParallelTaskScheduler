@@ -50,9 +50,13 @@ public class PartialSolution {
 
     // This method clones a PartialSolution
     void clone(PartialSolution clonedSolution){
-        this.latestNodeAdded = clonedSolution.getLatestNode();
-        //TODO: finish off the method
-        //needs to clone the processors also, make sure its not copying the object address but actually copying the fields
+
+        this.scheduledNodes=new HashSet<>(clonedSolution.scheduledNodes);
+        this.numberOfProcessors=clonedSolution.numberOfProcessors;
+        this.latestNodeAdded = clonedSolution.latestNodeAdded;
+        for (Processor processor : clonedSolution.processors){
+            this.processors.add(processor.clone());
+        }
 
     }
 

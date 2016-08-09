@@ -42,4 +42,30 @@ public class Processor {
         return currentTimeStamp;
     }
 
+    public void setNodeQueue(Queue<Node> nodeQueue) {
+        this.nodeQueue = nodeQueue;
+    }
+
+    public void setTimeStampMap(Map<Integer, Integer> timeStampMap) {
+        this.timeStampMap = timeStampMap;
+    }
+
+    public void setQueueSize(int queueSize) {
+        this.queueSize = queueSize;
+    }
+
+    public void setCurrentTimeStamp(int currentTimeStamp) {
+        this.currentTimeStamp = currentTimeStamp;
+    }
+
+    public Processor clone(){
+        Processor newProcessor = new Processor();
+        Queue<Node> clq = new ConcurrentLinkedQueue<Node>(this.nodeQueue);
+        Map<Integer,Integer> newMap = new ConcurrentHashMap<>(this.timeStampMap);
+        newProcessor.setNodeQueue(clq);
+        newProcessor.setTimeStampMap(newMap);
+        newProcessor.setCurrentTimeStamp(this.currentTimeStamp);
+        newProcessor.setQueueSize(this.queueSize);
+        return newProcessor;
+    }
 }
