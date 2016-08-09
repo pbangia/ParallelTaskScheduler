@@ -34,19 +34,19 @@ public class Node {
         this.weight = weight;
     }
 
-    public int getTimestamp(){
+    public int getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(int timestamp){
+    public void setTimestamp(int timestamp) {
         this.timestamp = timestamp;
     }
 
-    public boolean hasBeenScheduled(){
+    public boolean hasBeenScheduled() {
         return hasBeenScheduled;
     }
 
-    public void setHasBeenScheduled(boolean hasBeenScheduled){
+    public void setHasBeenScheduled(boolean hasBeenScheduled) {
         this.hasBeenScheduled = hasBeenScheduled;
     }
 
@@ -54,7 +54,7 @@ public class Node {
         return childrenMap;
     }
 
-    public Map<Node, Integer> getParentMap(){
+    public Map<Node, Integer> getParentMap() {
         return parentMap;
     }
 
@@ -62,7 +62,7 @@ public class Node {
         childrenMap.put(child, dependencyWeight);
     }
 
-    public void addParent(Node parent, int dependencyWeight){
+    public void addParent(Node parent, int dependencyWeight) {
         parentMap.put(parent, dependencyWeight);
     }
 

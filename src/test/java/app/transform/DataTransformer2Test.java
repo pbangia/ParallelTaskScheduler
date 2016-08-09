@@ -1,14 +1,12 @@
 package app.transform;
 
 import app.exceptions.transform.EmptyMapException;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.junit.Assert;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DataTransformer2Test {
 

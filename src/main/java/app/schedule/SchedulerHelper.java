@@ -19,7 +19,7 @@ public class SchedulerHelper {
          * Add all of the Nodes to the set of nodes.
          */
         Iterator<Map.Entry<String, Node>> entryIterator = dataMap.entrySet().iterator();
-        while (entryIterator.hasNext()){
+        while (entryIterator.hasNext()) {
             Map.Entry<String, Node> currentEntry = entryIterator.next();
             nodeSet.add(currentEntry.getValue());
         }
@@ -29,21 +29,21 @@ public class SchedulerHelper {
          * in the current Node, remove the child Node from the set of Nodes.
          */
         entryIterator = dataMap.entrySet().iterator();
-        while (entryIterator.hasNext()){
+        while (entryIterator.hasNext()) {
             Node currentNode = entryIterator.next().getValue();
-            if (currentNode.getChildrenMap().size() == 0){
+            if (currentNode.getChildrenMap().size() == 0) {
                 continue;
             }
             Iterator<Node> children = currentNode.getChildrenMap().keySet().iterator();
-            while (children.hasNext()){
+            while (children.hasNext()) {
                 Node child = children.next();
-                if (nodeSet.contains(child)){
+                if (nodeSet.contains(child)) {
                     nodeSet.remove(child);
                 }
             }
         }
 
-        if (nodeSet.size() == 0){
+        if (nodeSet.size() == 0) {
             logger.error("Could not find a root for the digraph provided.");
             throw new NoRootFoundException("Could not find a root for the digraph provided.");
         }

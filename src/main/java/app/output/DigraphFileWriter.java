@@ -14,17 +14,17 @@ public class DigraphFileWriter {
 
     private File outputFile;
 
-    public DigraphFileWriter(String outputFilename){
+    public DigraphFileWriter(String outputFilename) {
         this.outputFile = new File(outputFilename);
     }
 
-    public void writeDigraphFile(String solutionMap){
+    public void writeDigraphFile(String solutionMap) {
         try {
             FileUtils.writeStringToFile(outputFile, solutionMap);
         } catch (IOException e) {
             logger.error("Error in writing to output file: " + e.getMessage());
             e.printStackTrace();
         }
-        
+
     }
 }
