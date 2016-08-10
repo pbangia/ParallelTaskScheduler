@@ -55,7 +55,7 @@ public class DataTransformer2 implements IDataTransformer2 {
         int nodeCol = 0;
         for (String definition : definitions) {
 
-            if (definition.trim().length() == 0) {
+            if (definition.trim().length() == 0 || !definition.toLowerCase().contains("weight")) {
                 continue;
             } else if (definition.contains(DEPENDENCY_ARROW)) {
                 //dependency to be stored in matrix[parent][child]
