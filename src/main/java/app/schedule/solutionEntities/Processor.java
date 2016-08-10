@@ -20,11 +20,14 @@ public class Processor {
     private int currentTimeStamp = 0;
 
 
-    public void addNodeToQueue(Node node, int waitTime) {
+    public void addNodeToQueue(Node node, int minScheduleTime) {
         nodeQueue.add(node);
-        currentTimeStamp += waitTime;
-        timeStampMap.put(queueSize, currentTimeStamp);
         queueSize++;
+        if (minScheduleTime > currentTimeStamp){
+            currentTimeStamp = minScheduleTime;
+        }
+        timeStampMap.put(queueSize, currentTimeStamp);
+
         currentTimeStamp += node.getWeight();
         nodeEndTimeMap.put(node, currentTimeStamp);
     }

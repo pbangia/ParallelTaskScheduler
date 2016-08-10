@@ -64,6 +64,7 @@ public class SchedulerHelper {
         // check through the remaining nodes, and see if all of their parents are in the scheduled nodes
 
         // TODO look for a better data structure than ArraylIST
+        // TODO remove the first parameter of this method
         List<Node> nextAvailableNodes = new ArrayList<>();
 
         Iterator<Map.Entry<String, Node>> dataMapIterator = dataMap.entrySet().iterator();
