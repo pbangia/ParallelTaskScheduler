@@ -6,20 +6,20 @@ import app.data.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 
 public class OutputGenerator {
 
     private static Logger logger = LoggerFactory.getLogger(OutputGenerator.class);
 
-    public String generateOutput(PartialSolution solution) {
+    public String generateOutput(PartialSolution solution, List<String> dependencies) {
 
         StringBuilder sb = new StringBuilder();
         int processorNumber = 0;
 
-        //Iterate through each processor
         for (Processor p : solution.getProcessors()) {
             for (Node n : p.getNodeQueue()) {
-                //Update node fields
                 n.setProcessorNumber(processorNumber);
                 n.setTimestamp(p.getTimeStamp(n));
                 sb.append(n.toString());
@@ -27,8 +27,9 @@ public class OutputGenerator {
             processorNumber++;
         }
 
-        // for dependency in dependencies:
-        //      sb.append(dependency);
+        for (String dependency : dependencies){
+            sb.append(dependency);
+        }
 
         return sb.toString();
     }

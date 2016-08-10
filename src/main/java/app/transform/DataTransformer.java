@@ -5,6 +5,8 @@ import app.exceptions.transform.EmptyMapException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,6 +21,7 @@ public class DataTransformer implements IDataTransformer {
     private static Logger logger = LoggerFactory.getLogger(DataTransformer.class);
 
     private StringToMapTransformation toMapTransformation;
+    private List<String> dependencies = new ArrayList<>();
 
     public DataTransformer(StringToMapTransformation stringToMapTransformation) {
         this.toMapTransformation = stringToMapTransformation;
@@ -34,6 +37,7 @@ public class DataTransformer implements IDataTransformer {
             } else if (definition.contains(DEPENDENCY_ARROW)) {
                 logger.debug("Parsing node dependency: " + definition.trim());
                 toMapTransformation.parseNodeDependency(definition, dataMap);
+                dependencies.add(definition.trim() + "\n");
             } else {
                 logger.debug("Parsing node declaration: " + definition.trim());
                 toMapTransformation.parseNodeDeclaration(definition, dataMap);
@@ -49,9 +53,8 @@ public class DataTransformer implements IDataTransformer {
 
     }
 
-    public String transformIntoString(Map<String, Node> data) {
-        // TODO implement later
-        return null;
+    public List<String> getDependencies(){
+        return dependencies;
     }
 
 }

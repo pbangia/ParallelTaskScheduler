@@ -52,8 +52,8 @@ public class BranchAndBoundApp {
         loadModules();
         Map<String, Node> dataMap = readInput();
         PartialSolution bestSolution = run(dataMap);
-        outputGenerator.generateOutput(bestSolution);
-        logger.error(outputGenerator.generateOutput(bestSolution));
+        String output = outputGenerator.generateOutput(bestSolution, dataTransformer.getDependencies());
+        logger.error(output);
     }
 
     /**
