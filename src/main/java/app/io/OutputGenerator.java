@@ -1,8 +1,8 @@
 package app.io;
 
+import app.data.Node;
 import app.data.PartialSolution;
 import app.data.Processor;
-import app.data.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +15,7 @@ public class OutputGenerator {
 
     private String outputName;
 
-    public OutputGenerator(String outputName){
+    public OutputGenerator(String outputName) {
         this.outputName = outputName;
     }
 
@@ -34,7 +34,7 @@ public class OutputGenerator {
             processorNumber++;
         }
 
-        for (String dependency : dependencies){
+        for (String dependency : dependencies) {
             sb.append(dependency);
         }
 

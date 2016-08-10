@@ -53,7 +53,7 @@ public class DataTransformer implements IDataTransformer {
 
     }
 
-    public List<String> getDependencies(){
+    public List<String> getDependencies() {
         return dependencies;
     }
 

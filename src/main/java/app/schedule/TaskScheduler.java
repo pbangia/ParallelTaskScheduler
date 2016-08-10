@@ -2,8 +2,8 @@ package app.schedule;
 
 
 import app.data.Node;
-import app.exceptions.utils.NoRootFoundException;
 import app.data.PartialSolution;
+import app.exceptions.utils.NoRootFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,12 +59,13 @@ public class TaskScheduler {
     }
 
     /**
-     This function returns a list of partialSolutions possible based on the current solution and the node being added.
-     It does this by constructing new partial solution objects (by cloning the current solution) and then adding the
-     specified Node to each possible partial solution in every single processor of that partial solution.
-     * @param nodeToAdd Node to be added to the partial solution provided
+     * This function returns a list of partialSolutions possible based on the current solution and the node being added.
+     * It does this by constructing new partial solution objects (by cloning the current solution) and then adding the
+     * specified Node to each possible partial solution in every single processor of that partial solution.
+     *
+     * @param nodeToAdd              Node to be added to the partial solution provided
      * @param currentPartialSolution the partial solution provided
-     * @param numberOfProcessors number of processors in each partial solution
+     * @param numberOfProcessors     number of processors in each partial solution
      * @return list of all partial solutions that correspond to the next available partial solutions
      */
 

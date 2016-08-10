@@ -23,7 +23,7 @@ public class Processor {
         nodeQueue.add(node);
         queueSize++;
 
-        if (minScheduleTime > currentTimeStamp){
+        if (minScheduleTime > currentTimeStamp) {
             currentTimeStamp = minScheduleTime;
         }
 
@@ -40,8 +40,8 @@ public class Processor {
         return nodeStartTimeMap;
     }
 
-    public  Map<Node, Integer> getNodeEndTimeMap() {
-        return  nodeEndTimeMap;
+    public Map<Node, Integer> getNodeEndTimeMap() {
+        return nodeEndTimeMap;
     }
 
     public int getQueueSize() {

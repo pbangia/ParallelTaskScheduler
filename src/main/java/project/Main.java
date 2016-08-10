@@ -3,8 +3,6 @@ package project;
 import app.BranchAndBoundApp;
 import app.argumentparsing.CommandLineArguments;
 import app.exceptions.AppException;
-import app.exceptions.argumentparsing.InvalidArgumentTypeException;
-import app.exceptions.argumentparsing.MissingArgumentsException;
 
 import java.io.File;
 import java.io.IOException;

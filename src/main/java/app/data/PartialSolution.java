@@ -3,12 +3,7 @@ package app.data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.Iterator;
+import java.util.*;
 
 public class PartialSolution {
 
@@ -68,25 +63,25 @@ public class PartialSolution {
         Processor currentProcessor = processors.get(processorNumber);
         Iterator<Map.Entry<Node, Integer>> parentsIterator = nodeToAdd.getParentMap().entrySet().iterator();
         List<Node> parentList = new ArrayList<>();
-        while (parentsIterator.hasNext()){
+        while (parentsIterator.hasNext()) {
             Node parent = parentsIterator.next().getKey();
-            if (!currentProcessor.getNodeEndTimeMap().containsKey(parent)){
+            if (!currentProcessor.getNodeEndTimeMap().containsKey(parent)) {
                 parentList.add(parent);
             }
         }
 
         int minTimeToStart = 0;
-        for (Node parent : parentList){
-            for (int i = 0; i < numberOfProcessors; i++){
-                if (processorNumber == i){
+        for (Node parent : parentList) {
+            for (int i = 0; i < numberOfProcessors; i++) {
+                if (processorNumber == i) {
                     continue;
                 }
 
-                if (processors.get(i).getNodeEndTimeMap().containsKey(parent)){
+                if (processors.get(i).getNodeEndTimeMap().containsKey(parent)) {
                     int parentEndTime = processors.get(i).getNodeEndTimeMap().get(parent);
                     int dependencyWeight = nodeToAdd.getParentMap().get(parent);
                     int tempTimeToStart = parentEndTime + dependencyWeight;
-                    if (minTimeToStart < tempTimeToStart){
+                    if (minTimeToStart < tempTimeToStart) {
                         minTimeToStart = tempTimeToStart;
                     }
                 }

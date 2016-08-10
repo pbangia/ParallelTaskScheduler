@@ -70,14 +70,14 @@ public class SchedulerHelper {
 
             boolean isAvailable = true;
             Map<Node, Integer> dependentParentMap = currentNode.getParentMap();
-            for (Node parentNode : dependentParentMap.keySet()){
-                if (!scheduledNodes.contains(parentNode)){
+            for (Node parentNode : dependentParentMap.keySet()) {
+                if (!scheduledNodes.contains(parentNode)) {
                     isAvailable = false;
                     break;
                 }
             }
 
-            if (isAvailable){
+            if (isAvailable) {
                 nextAvailableNodes.add(currentNode);
             }
         }
