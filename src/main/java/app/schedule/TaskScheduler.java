@@ -38,10 +38,7 @@ public class TaskScheduler {
             Node latestNodeAdded = currentPartialSolution.getLatestNode();
             scheduledNodes = currentPartialSolution.getScheduledNodes();
 
-            if (nextAvailableNodes.contains(latestNodeAdded)){
-                nextAvailableNodes.remove(latestNodeAdded);
-            }
-            nextAvailableNodes.addAll(schedulerHelper.getAvailableNodes(latestNodeAdded, dataMap, scheduledNodes));
+            nextAvailableNodes = schedulerHelper.getAvailableNodes(latestNodeAdded, dataMap, scheduledNodes);
 
             if (nextAvailableNodes.isEmpty()) {
                 if (currentPartialSolution.isBetterThan(bestPartialSolution)) {

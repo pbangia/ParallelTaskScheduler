@@ -56,34 +56,40 @@ public class SchedulerHelper {
         return new ArrayList<>(nodeSet);
     }
 
-    public List<Node> getAvailableNodes(Node currentParentNode, Map<String, Node> dataMap, Set<Node> scheduledNodes) throws NoRootFoundException {
+    public List<Node> getAvailableNodes(Node latestNodeAdded, Map<String, Node> dataMap, Set<Node> scheduledNodes) throws NoRootFoundException {
 
+        // create a new set of nodes, initalise to empty
+        // add all of the nodes from datamap to this set
+        // remove all of the scheduled nodes from this set
+        // check through the remaining nodes, and see if all of their parents are in the scheduled nodes
+
+        // TODO look for a better data structure than ArraylIST
         List<Node> nextAvailableNodes = new ArrayList<>();
-        boolean canBeScheduled;
 
-        if (currentParentNode == null) {
-            nextAvailableNodes = findRoots(dataMap);
-            return nextAvailableNodes;
+        Iterator<Map.Entry<String, Node>> dataMapIterator = dataMap.entrySet().iterator();
+        while(dataMapIterator.hasNext()) {
+            Map.Entry<String, Node> currentEntry = dataMapIterator.next();
+            if(!scheduledNodes.contains(currentEntry.getValue())) {
+                nextAvailableNodes.add(currentEntry.getValue());
+            }
         }
 
-        Map<Node, Integer> currentNodeChildrenMap = currentParentNode.getChildrenMap();
-
-        for (Node childNode : currentNodeChildrenMap.keySet()) {
-            canBeScheduled = true;
-            Map<Node, Integer> dependentParentMap = dataMap.get(childNode.getName()).getParentMap();
-            for (Node parentNode : dependentParentMap.keySet()) {
-                if (!scheduledNodes.contains(parentNode)) {
+        for(int i = 0; i < nextAvailableNodes.size(); i++){
+            boolean canBeScheduled = true;
+            Map<Node, Integer> dependentParentMap = nextAvailableNodes.get(i).getParentMap();
+            for(Node parentNode : dependentParentMap.keySet()) {
+                if(!scheduledNodes.contains(parentNode)) {
                     canBeScheduled = false;
                     break;
                 }
             }
 
-            if (canBeScheduled) {
-                nextAvailableNodes.add(childNode);
+            if (!canBeScheduled){
+                nextAvailableNodes.remove(i);
             }
         }
 
+        return  nextAvailableNodes;
 
-        return nextAvailableNodes;
     }
 }
