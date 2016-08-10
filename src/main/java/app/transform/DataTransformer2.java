@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static app.input.InputSyntax.DEFINITION_DELIMITER;
-import static app.input.InputSyntax.DEPENDENCY_ARROW;
+import static app.io.InputSyntax.DEFINITION_DELIMITER;
+import static app.io.InputSyntax.DEPENDENCY_ARROW;
 
 /**
  * Singleton DataTransformer class

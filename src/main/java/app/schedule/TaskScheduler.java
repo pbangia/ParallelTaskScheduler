@@ -3,7 +3,7 @@ package app.schedule;
 
 import app.data.Node;
 import app.exceptions.utils.NoRootFoundException;
-import app.schedule.solutionEntities.PartialSolution;
+import app.data.PartialSolution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

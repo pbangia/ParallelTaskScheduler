@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
-import static app.input.InputSyntax.DEPENDENCY_ARROW;
+import static app.io.InputSyntax.DEPENDENCY_ARROW;
 
 public class StringToMapTransformation {
 

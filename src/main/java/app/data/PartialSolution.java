@@ -1,6 +1,5 @@
-package app.schedule.solutionEntities;
+package app.data;
 
-import app.data.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -2,7 +2,7 @@ package app.transform;
 
 import java.util.Map;
 
-import static app.input.InputSyntax.DEPENDENCY_ARROW;
+import static app.io.InputSyntax.DEPENDENCY_ARROW;
 
 public class StringToMatrixTransformation {
 

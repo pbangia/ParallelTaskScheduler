@@ -1,15 +1,9 @@
-package app.schedule.solutionEntities;
+package app.data;
 
 import app.data.Node;
-import org.apache.commons.collections4.CollectionUtils;
+import app.data.PartialSolution;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Set;
-import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.junit.Assert.*;
 

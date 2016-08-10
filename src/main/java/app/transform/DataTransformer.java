@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static app.input.InputSyntax.DEFINITION_DELIMITER;
-import static app.input.InputSyntax.DEPENDENCY_ARROW;
+import static app.io.InputSyntax.DEFINITION_DELIMITER;
+import static app.io.InputSyntax.DEPENDENCY_ARROW;
 
 /**
  * Singleton DataTransformer class
@@ -25,7 +25,7 @@ public class DataTransformer implements IDataTransformer {
     }
 
     public Map<String, Node> transformIntoMap(String data) throws EmptyMapException {
-        logger.info("Starting transformation of input to map representation.");
+        logger.info("Starting transformation of io to map representation.");
         Map<String, Node> dataMap = new ConcurrentHashMap<String, Node>();
         String[] definitions = data.split(DEFINITION_DELIMITER);
         for (String definition : definitions) {

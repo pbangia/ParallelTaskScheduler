@@ -1,4 +1,4 @@
-package app.input;
+package app.io;
 
 public class InputSyntax {
 

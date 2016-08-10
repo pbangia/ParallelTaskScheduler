@@ -1,7 +1,7 @@
-package app.output;
+package app.io;
 
-import app.schedule.solutionEntities.PartialSolution;
-import app.schedule.solutionEntities.Processor;
+import app.data.PartialSolution;
+import app.data.Processor;
 import app.data.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

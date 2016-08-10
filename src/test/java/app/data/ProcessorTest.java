@@ -1,8 +1,8 @@
-package app.schedule.solutionEntities;
+package app.data;
 
 import app.data.Node;
+import app.data.Processor;
 import app.exceptions.AppException;
-import app.schedule.SchedulerHelper;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Before;
 import org.junit.Test;

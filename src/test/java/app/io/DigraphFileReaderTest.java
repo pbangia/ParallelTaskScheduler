@@ -1,4 +1,4 @@
-package app.input;
+package app.io;
 
 import app.exceptions.input.EmptyFileContentsException;
 import app.exceptions.input.InvalidFileContentsException;
