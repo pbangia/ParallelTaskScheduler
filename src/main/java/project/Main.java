@@ -18,13 +18,13 @@ public class Main {
         cmdArgs.parse(args);
 
         String inputFileName = cmdArgs.getInputFileName();
-        String ouputFileName = cmdArgs.getOutputFileName();
+        String outputFileName = cmdArgs.getOutputFileName();
         int numProcessors = cmdArgs.getNumberOfProcessors();
         int numThreads = cmdArgs.getNumberOfThreads();
         boolean visualiseSearch = cmdArgs.getVisualiseSearch();
 
         File inputFile = new File(inputFileName);
-        BranchAndBoundApp app = new BranchAndBoundApp(inputFile, ouputFileName, numProcessors, numThreads, visualiseSearch);
+        BranchAndBoundApp app = new BranchAndBoundApp(inputFile, outputFileName, numProcessors, numThreads, visualiseSearch);
         try {
             app.start();
         } catch (IOException e) {
