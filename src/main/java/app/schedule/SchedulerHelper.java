@@ -59,40 +59,31 @@ public class SchedulerHelper {
 
     public List<Node> getAvailableNodes(Node latestNodeAdded, Map<String, Node> dataMap, Set<Node> scheduledNodes) throws NoRootFoundException {
 
-        // create a new set of nodes, initalise to empty
-        // add all of the nodes from datamap to this set
-        // remove all of the scheduled nodes from this set
-        // check through the remaining nodes, and see if all of their parents are in the scheduled nodes
-
-        // TODO look for a better data structure than ArraylIST
         // TODO remove the first parameter of this method
         List<Node> nextAvailableNodes = new ArrayList<>();
-
         Iterator<Map.Entry<String, Node>> dataMapIterator = dataMap.entrySet().iterator();
-        while (dataMapIterator.hasNext()) {
-            Map.Entry<String, Node> currentEntry = dataMapIterator.next();
-            if (!scheduledNodes.contains(currentEntry.getValue())) {
-                nextAvailableNodes.add(currentEntry.getValue());
-            }
-        }
 
-        List<Node> nodeToReturn = new ArrayList<>();
-        for (int i = 0, size = nextAvailableNodes.size(); i < size; i++) {
-            boolean canBeScheduled = true;
-            Map<Node, Integer> dependentParentMap = nextAvailableNodes.get(i).getParentMap();
-            for (Node parentNode : dependentParentMap.keySet()) {
-                if (!scheduledNodes.contains(parentNode)) {
-                    canBeScheduled = false;
+        while (dataMapIterator.hasNext()) {
+
+            Node currentNode = dataMapIterator.next().getValue();
+            if (scheduledNodes.contains(currentNode)) {
+                continue;
+            }
+
+            boolean isAvailable = true;
+            Map<Node, Integer> dependentParentMap = currentNode.getParentMap();
+            for (Node parentNode : dependentParentMap.keySet()){
+                if (!scheduledNodes.contains(parentNode)){
+                    isAvailable = false;
                     break;
                 }
             }
 
-            if (canBeScheduled){
-                nodeToReturn.add(nextAvailableNodes.get(i));
+            if (isAvailable){
+                nextAvailableNodes.add(currentNode);
             }
         }
 
-        return nodeToReturn;
-
+        return nextAvailableNodes;
     }
 }
