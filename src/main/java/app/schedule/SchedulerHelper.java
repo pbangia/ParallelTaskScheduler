@@ -18,6 +18,7 @@ public class SchedulerHelper {
      * 2. Iterate through each Node in that set
      * 3. For each child that the current Node has, remove the child Node from the set of Nodes.
      * 4. Any nodes leftover in the set are your Nodes.
+     *
      * @param dataMap representing the digraph
      * @return List of roots in the digraph
      * @throws NoRootFoundException if no roots are found in the digraph (for e.g. cyclic graphs)
@@ -68,29 +69,30 @@ public class SchedulerHelper {
         List<Node> nextAvailableNodes = new ArrayList<>();
 
         Iterator<Map.Entry<String, Node>> dataMapIterator = dataMap.entrySet().iterator();
-        while(dataMapIterator.hasNext()) {
+        while (dataMapIterator.hasNext()) {
             Map.Entry<String, Node> currentEntry = dataMapIterator.next();
-            if(!scheduledNodes.contains(currentEntry.getValue())) {
+            if (!scheduledNodes.contains(currentEntry.getValue())) {
                 nextAvailableNodes.add(currentEntry.getValue());
             }
         }
 
-        for(int i = 0; i < nextAvailableNodes.size(); i++){
+        List<Node> nodeToReturn = new ArrayList<>();
+        for (int i = 0, size = nextAvailableNodes.size(); i < size; i++) {
             boolean canBeScheduled = true;
             Map<Node, Integer> dependentParentMap = nextAvailableNodes.get(i).getParentMap();
-            for(Node parentNode : dependentParentMap.keySet()) {
-                if(!scheduledNodes.contains(parentNode)) {
+            for (Node parentNode : dependentParentMap.keySet()) {
+                if (!scheduledNodes.contains(parentNode)) {
                     canBeScheduled = false;
                     break;
                 }
             }
 
-            if (!canBeScheduled){
-                nextAvailableNodes.remove(i);
+            if (canBeScheduled){
+                nodeToReturn.add(nextAvailableNodes.get(i));
             }
         }
 
-        return  nextAvailableNodes;
+        return nodeToReturn;
 
     }
 }
