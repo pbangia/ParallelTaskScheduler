@@ -1,7 +1,10 @@
 package project;
 
 import app.BranchAndBoundApp;
+import app.argumentparsing.CommandLineArguments;
 import app.exceptions.AppException;
+import app.exceptions.argumentparsing.InvalidArgumentTypeException;
+import app.exceptions.argumentparsing.MissingArgumentsException;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,11 +12,19 @@ import java.net.URISyntaxException;
 
 public class Main {
 
-    public static void main(String[] args) throws URISyntaxException {
+    public static void main(String[] args) throws URISyntaxException, AppException {
 
-        String filename = "/input.dot";
-        File inputFile = new File(Main.class.getClass().getResource(filename).toURI());
-        BranchAndBoundApp app = new BranchAndBoundApp(inputFile, null, 2, 0, false);
+        CommandLineArguments cmdArgs = new CommandLineArguments();
+        cmdArgs.parse(args);
+
+        String inputFileName = cmdArgs.getInputFileName();
+        String ouputFileName = cmdArgs.getOutputFileName();
+        int numProcessors = cmdArgs.getNumberOfProcessors();
+        int numThreads = cmdArgs.getNumberOfThreads();
+        boolean visualiseSearch = cmdArgs.getVisualiseSearch();
+
+        File inputFile = new File(inputFileName);
+        BranchAndBoundApp app = new BranchAndBoundApp(inputFile, ouputFileName, numProcessors, numThreads, visualiseSearch);
         try {
             app.start();
         } catch (IOException e) {

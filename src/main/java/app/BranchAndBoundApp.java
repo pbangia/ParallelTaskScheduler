@@ -3,6 +3,7 @@ package app;
 import app.data.Node;
 import app.exceptions.AppException;
 import app.io.DigraphFileReader;
+import app.io.DigraphFileWriter;
 import app.io.OutputGenerator;
 import app.schedule.TaskScheduler;
 import app.schedule.TaskSchedulerFactory;
@@ -31,6 +32,7 @@ public class BranchAndBoundApp {
 
     // Implemented modules
     private DigraphFileReader digraphFileReader;
+    private DigraphFileWriter digraphFileWriter;
     private IDataTransformer dataTransformer;
     private IDataTransformer2 dataTransformer2;
     private TaskScheduler taskScheduler;
@@ -54,6 +56,7 @@ public class BranchAndBoundApp {
         PartialSolution bestSolution = run(dataMap);
         String output = outputGenerator.generateOutput(bestSolution, dataTransformer.getDependencies());
         logger.error(output);
+        digraphFileWriter.writeDigraphFile(output);
     }
 
     /**
@@ -63,7 +66,8 @@ public class BranchAndBoundApp {
         this.digraphFileReader = new DigraphFileReader(inputFile);
         this.dataTransformer = TransformModuleFactory.createTransformer();
         this.dataTransformer2 = TransformModuleFactory2.createTransformer();
-        this.outputGenerator = new OutputGenerator();
+        this.outputGenerator = new OutputGenerator(outputFilename);
+        this.digraphFileWriter = new DigraphFileWriter(outputFilename);
         logger.info("Loaded all modules required for application.");
     }
 

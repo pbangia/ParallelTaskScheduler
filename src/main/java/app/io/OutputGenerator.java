@@ -13,9 +13,16 @@ public class OutputGenerator {
 
     private static Logger logger = LoggerFactory.getLogger(OutputGenerator.class);
 
+    private String outputName;
+
+    public OutputGenerator(String outputName){
+        this.outputName = outputName;
+    }
+
     public String generateOutput(PartialSolution solution, List<String> dependencies) {
 
         StringBuilder sb = new StringBuilder();
+        sb.append("digraph \"" + outputName + "\" {\n");
         int processorNumber = 0;
 
         for (Processor p : solution.getProcessors()) {
@@ -30,6 +37,8 @@ public class OutputGenerator {
         for (String dependency : dependencies){
             sb.append(dependency);
         }
+
+        sb.append("}");
 
         return sb.toString();
     }
