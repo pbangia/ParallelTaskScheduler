@@ -129,7 +129,7 @@ public class SchedulerHelperTest {
         expectedAvailableNodes.add(c);
         expectedAvailableNodes.add(d);
 
-        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(a, dataMap, scheduledNodes)));
+        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(dataMap, scheduledNodes)));
     }
 
     @Test
@@ -153,11 +153,11 @@ public class SchedulerHelperTest {
 
         expectedAvailableNodes.add(d);
 
-        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(a, dataMap, scheduledNodes)));
+        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(dataMap, scheduledNodes)));
     }
 
     @Test
-    public void testGetAvailableNodes_nullInputReturnsRoots_ReturnsCorrectList() throws AppException {
+    public void testGetAvailableNodes_NullInputReturnsRoots_ReturnsCorrectList() throws AppException {
         List<Node> expectedAvailableNodes = new ArrayList<>();
         Node a = new Node("a", 1);
         Node b = new Node("b", 1);
@@ -181,7 +181,7 @@ public class SchedulerHelperTest {
         expectedAvailableNodes.add(b);
         expectedAvailableNodes.add(e);
 
-        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(null, dataMap, scheduledNodes)));
+        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(dataMap, scheduledNodes)));
     }
 
 }

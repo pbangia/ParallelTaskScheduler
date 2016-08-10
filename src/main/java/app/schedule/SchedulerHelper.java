@@ -57,7 +57,7 @@ public class SchedulerHelper {
         return new ArrayList<>(nodeSet);
     }
 
-    public List<Node> getAvailableNodes(Node latestNodeAdded, Map<String, Node> dataMap, Set<Node> scheduledNodes) throws NoRootFoundException {
+    public List<Node> getAvailableNodes(Map<String, Node> dataMap, Set<Node> scheduledNodes) throws NoRootFoundException {
 
         // TODO remove the first parameter of this method
         List<Node> nextAvailableNodes = new ArrayList<>();
