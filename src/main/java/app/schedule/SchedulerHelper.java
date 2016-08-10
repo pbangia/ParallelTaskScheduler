@@ -57,7 +57,7 @@ public class SchedulerHelper {
         return new ArrayList<>(nodeSet);
     }
 
-    public List<Node> getAvailableNodes(Map<String, Node> dataMap, Set<Node> scheduledNodes) throws NoRootFoundException {
+    public List<Node> getAvailableNodes(Map<String, Node> dataMap, Set<Node> scheduledNodes) {
 
         List<Node> nextAvailableNodes = new ArrayList<>();
         Iterator<Map.Entry<String, Node>> dataMapIterator = dataMap.entrySet().iterator();

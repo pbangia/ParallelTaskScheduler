@@ -13,7 +13,7 @@ public class Processor {
     private static Logger logger = LoggerFactory.getLogger(Processor.class);
 
     private Queue<Node> nodeQueue = new ConcurrentLinkedQueue<>();
-    private Map<Integer, Integer> timeStampMap = new ConcurrentHashMap<>();
+    private Map<Integer, Integer> nodeStartTimeMap = new ConcurrentHashMap<>();
     private Map<Node, Integer> nodeEndTimeMap = new ConcurrentHashMap<>();
     private int queueSize = 0;
     private int currentTimeStamp = 0;
@@ -22,11 +22,12 @@ public class Processor {
     public void addNodeToQueue(Node node, int minScheduleTime) {
         nodeQueue.add(node);
         queueSize++;
+
         if (minScheduleTime > currentTimeStamp){
             currentTimeStamp = minScheduleTime;
         }
-        timeStampMap.put(queueSize, currentTimeStamp);
 
+        nodeStartTimeMap.put(queueSize, currentTimeStamp);
         currentTimeStamp += node.getWeight();
         nodeEndTimeMap.put(node, currentTimeStamp);
     }
@@ -35,8 +36,8 @@ public class Processor {
         return nodeQueue;
     }
 
-    public Map<Integer, Integer> getTimeStampMap() {
-        return timeStampMap;
+    public Map<Integer, Integer> getNodeStartTimeMap() {
+        return nodeStartTimeMap;
     }
 
     public  Map<Node, Integer> getNodeEndTimeMap() {
@@ -61,8 +62,8 @@ public class Processor {
         this.nodeQueue = nodeQueue;
     }
 
-    public void setTimeStampMap(Map<Integer, Integer> timeStampMap) {
-        this.timeStampMap = timeStampMap;
+    public void setNodeStartTimeMap(Map<Integer, Integer> nodeStartTimeMap) {
+        this.nodeStartTimeMap = nodeStartTimeMap;
     }
 
     public void setNodeEndTimeMap(Map<Node, Integer> nodeEndTimeMap) {
@@ -80,10 +81,10 @@ public class Processor {
     public Processor clone() {
         Processor newProcessor = new Processor();
         Queue<Node> clq = new ConcurrentLinkedQueue<Node>(this.nodeQueue);
-        Map<Integer, Integer> newTimeStampMap = new ConcurrentHashMap<>(this.timeStampMap);
+        Map<Integer, Integer> newTimeStampMap = new ConcurrentHashMap<>(this.nodeStartTimeMap);
         Map<Node, Integer> newNodeEndTimeMap = new ConcurrentHashMap<>(this.nodeEndTimeMap);
         newProcessor.setNodeQueue(clq);
-        newProcessor.setTimeStampMap(newTimeStampMap);
+        newProcessor.setNodeStartTimeMap(newTimeStampMap);
         newProcessor.setNodeEndTimeMap(newNodeEndTimeMap);
         newProcessor.setCurrentTimeStamp(this.currentTimeStamp);
         newProcessor.setQueueSize(this.queueSize);

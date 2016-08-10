@@ -61,12 +61,12 @@ public class PartialSolution {
         return maxDuration;
     }
 
-    public void addNodeToProcessor(Node addedNode, int processorNumber) {
-        this.latestNodeAdded = addedNode;
-        scheduledNodes.add(addedNode);
+    public void addNodeToProcessor(Node nodeToAdd, int processorNumber) {
+        this.latestNodeAdded = nodeToAdd;
+        scheduledNodes.add(nodeToAdd);
 
         Processor currentProcessor = processors.get(processorNumber);
-        Iterator<Map.Entry<Node, Integer>> parentsIterator = addedNode.getParentMap().entrySet().iterator();
+        Iterator<Map.Entry<Node, Integer>> parentsIterator = nodeToAdd.getParentMap().entrySet().iterator();
         List<Node> parentList = new ArrayList<>();
         while (parentsIterator.hasNext()){
             Node parent = parentsIterator.next().getKey();
@@ -75,7 +75,7 @@ public class PartialSolution {
             }
         }
 
-        int timeToStart = 0;
+        int minTimeToStart = 0;
         for (Node parent : parentList){
             for (int i = 0; i < numberOfProcessors; i++){
                 if (processorNumber == i){
@@ -84,25 +84,24 @@ public class PartialSolution {
 
                 if (processors.get(i).getNodeEndTimeMap().containsKey(parent)){
                     int parentEndTime = processors.get(i).getNodeEndTimeMap().get(parent);
-                    int dependencyWeight = addedNode.getParentMap().get(parent);
+                    int dependencyWeight = nodeToAdd.getParentMap().get(parent);
                     int tempTimeToStart = parentEndTime + dependencyWeight;
-                    if (timeToStart < tempTimeToStart){
-                        timeToStart = tempTimeToStart;
+                    if (minTimeToStart < tempTimeToStart){
+                        minTimeToStart = tempTimeToStart;
                     }
                 }
             }
         }
-        processors.get(processorNumber).addNodeToQueue(addedNode, timeToStart);
+        processors.get(processorNumber).addNodeToQueue(nodeToAdd, minTimeToStart);
     }
 
 
-    // This method clones a PartialSolution
-    void clone(PartialSolution clonedSolution) {
+    void clone(PartialSolution solutionToClone) {
 
-        this.scheduledNodes = new HashSet<>(clonedSolution.scheduledNodes);
-        this.numberOfProcessors = clonedSolution.numberOfProcessors;
-        this.latestNodeAdded = clonedSolution.latestNodeAdded;
-        for (Processor processor : clonedSolution.processors) {
+        this.scheduledNodes = new HashSet<>(solutionToClone.scheduledNodes);
+        this.numberOfProcessors = solutionToClone.numberOfProcessors;
+        this.latestNodeAdded = solutionToClone.latestNodeAdded;
+        for (Processor processor : solutionToClone.processors) {
             this.processors.add(processor.clone());
         }
 

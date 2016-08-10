@@ -55,7 +55,6 @@ public class BranchAndBoundApp {
         Map<String, Node> dataMap = readInput();
         PartialSolution bestSolution = run(dataMap);
         String output = outputGenerator.generateOutput(bestSolution, dataTransformer.getDependencies());
-        logger.error(output);
         digraphFileWriter.writeDigraphFile(output);
     }
 

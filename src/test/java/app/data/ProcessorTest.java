@@ -1,7 +1,5 @@
 package app.data;
 
-import app.data.Node;
-import app.data.Processor;
 import app.exceptions.AppException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Before;
@@ -32,7 +30,7 @@ public class ProcessorTest {
     public void testProcessorInstantiation_CorrectlyInitialFields() throws AppException {
         assertTrue(processor.getQueueSize() == 0);
         assertTrue(processor.getCurrentTimeStamp() == 0);
-        assertTrue(processor.getTimeStampMap().size() == 0);
+        assertTrue(processor.getNodeStartTimeMap().size() == 0);
         assertTrue(processor.getNodeQueue().size() == 0);
     }
 
@@ -43,7 +41,7 @@ public class ProcessorTest {
 
         assertTrue(processor.getQueueSize() == 1);
         assertTrue(processor.getCurrentTimeStamp() == 1);
-        assertTrue(processor.getTimeStampMap().size() == 1);
+        assertTrue(processor.getNodeStartTimeMap().size() == 1);
         assertTrue(processor.getNodeQueue().size() == 1);
 
     }
@@ -73,7 +71,7 @@ public class ProcessorTest {
 
         p1.setQueueSize(1);
         p1.setCurrentTimeStamp(1);
-        p1.setTimeStampMap(ts1);
+        p1.setNodeStartTimeMap(ts1);
         p1.setNodeQueue(nq1);
         p1.setNodeEndTimeMap(ets1);
 
@@ -96,8 +94,8 @@ public class ProcessorTest {
         assertEquals(p1.getNodeEndTimeMap(),p2.getNodeEndTimeMap());
 
         //unsure. assertEquals for maps compares contents of maps according to docs, not reference.
-        assertEquals(p1.getTimeStampMap(),p2.getTimeStampMap());
-        assertNotEquals(p1.getTimeStampMap().values(),p2.getTimeStampMap().values());
+        assertEquals(p1.getNodeStartTimeMap(),p2.getNodeStartTimeMap());
+        assertNotEquals(p1.getNodeStartTimeMap().values(),p2.getNodeStartTimeMap().values());
 
 
     }

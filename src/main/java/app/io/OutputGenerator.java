@@ -23,7 +23,7 @@ public class OutputGenerator {
 
         StringBuilder sb = new StringBuilder();
         sb.append("digraph \"" + outputName + "\" {\n");
-        int processorNumber = 0;
+        int processorNumber = 1;
 
         for (Processor p : solution.getProcessors()) {
             for (Node n : p.getNodeQueue()) {

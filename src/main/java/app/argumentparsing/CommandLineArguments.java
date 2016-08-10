@@ -56,14 +56,6 @@ public class CommandLineArguments {
         }
     }
 
-    public void showFields() {
-        System.out.println("Input File Name: " + inputFileName);
-        System.out.println("Number of Processors: " + numberOfProcessors);
-        System.out.println("Number of Threads: " + numberOfThreads);
-        System.out.println("Visualise Search: " + visualiseSearch);
-        System.out.println("Output File Name: " + outputFileName);
-    }
-
     // Getters
     public String getInputFileName() { return this.inputFileName; }
     public int getNumberOfProcessors() { return this.numberOfProcessors; }
