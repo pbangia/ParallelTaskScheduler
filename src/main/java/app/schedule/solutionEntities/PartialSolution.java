@@ -21,16 +21,15 @@ public class PartialSolution {
     private List<Processor> processors = new ArrayList<>();
 
     public PartialSolution(int numberOfProcessors) {
-        this(numberOfProcessors, null);
-    }
-
-    public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone) {
         this.numberOfProcessors = numberOfProcessors;
         for (int i = 0; i < numberOfProcessors; i++) {
             processors.add(new Processor());
 
         }
+    }
 
+    public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone) {
+        this.numberOfProcessors = numberOfProcessors;
         if (solutionToClone != null) {
             clone(solutionToClone);
         }
@@ -84,8 +83,8 @@ public class PartialSolution {
                     continue;
                 }
 
-                if (currentProcessor.getNodeEndTimeMap().containsKey(parent)){
-                    int parentEndTime = currentProcessor.getNodeEndTimeMap().get(parent);
+                if (processors.get(i).getNodeEndTimeMap().containsKey(parent)){
+                    int parentEndTime = processors.get(i).getNodeEndTimeMap().get(parent);
                     int dependencyWeight = addedNode.getParentMap().get(parent);
                     int tempTimeToStart = parentEndTime + dependencyWeight;
                     if (timeToStart < tempTimeToStart){

@@ -77,7 +77,7 @@ public class TaskScheduler {
         List<PartialSolution> availablePartialSolutions = new ArrayList<>();
 
         for (int i = 0; i < numberOfProcessors; i++) {
-            PartialSolution newPartialSolution = new PartialSolution(numberOfProcessors);
+            PartialSolution newPartialSolution = new PartialSolution(numberOfProcessors, currentPartialSolution);
             newPartialSolution.addNodeToProcessor(nodeAdded, i);
             availablePartialSolutions.add(newPartialSolution);
         }
