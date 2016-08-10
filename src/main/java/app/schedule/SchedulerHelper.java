@@ -59,12 +59,10 @@ public class SchedulerHelper {
 
     public List<Node> getAvailableNodes(Map<String, Node> dataMap, Set<Node> scheduledNodes) throws NoRootFoundException {
 
-        // TODO remove the first parameter of this method
         List<Node> nextAvailableNodes = new ArrayList<>();
         Iterator<Map.Entry<String, Node>> dataMapIterator = dataMap.entrySet().iterator();
 
         while (dataMapIterator.hasNext()) {
-
             Node currentNode = dataMapIterator.next().getValue();
             if (scheduledNodes.contains(currentNode)) {
                 continue;
