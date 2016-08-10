@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) throws URISyntaxException {
 
-        String filename = "/input.dot";
+        String filename = "/simple.dot";
         File inputFile = new File(Main.class.getClass().getResource(filename).toURI());
         BranchAndBoundApp app = new BranchAndBoundApp(inputFile, null, 2, 0, false);
         try {
