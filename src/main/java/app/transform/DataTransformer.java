@@ -37,7 +37,7 @@ public class DataTransformer implements IDataTransformer {
             } else if (definition.contains(DEPENDENCY_ARROW)) {
                 logger.debug("Parsing node dependency: " + definition.trim());
                 toMapTransformation.parseNodeDependency(definition, dataMap);
-                dependencies.add(definition.trim() + "\n");
+                dependencies.add(definition.trim() + DEFINITION_DELIMITER + "\n");
             } else {
                 logger.debug("Parsing node declaration: " + definition.trim());
                 toMapTransformation.parseNodeDeclaration(definition, dataMap);
