@@ -1,12 +1,11 @@
 package app.io;
 
+import app.Main;
 import app.exceptions.input.EmptyFileContentsException;
 import app.exceptions.input.InvalidFileContentsException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import Main;
-
 import java.io.File;
 import java.io.IOException;
 
