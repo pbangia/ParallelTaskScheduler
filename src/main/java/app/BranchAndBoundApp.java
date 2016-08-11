@@ -12,12 +12,17 @@ import app.transform.IDataTransformer;
 import app.transform.IDataTransformer2;
 import app.transform.TransformModuleFactory;
 import app.transform.TransformModuleFactory2;
+import app.utils.Stopwatch;
+import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class BranchAndBoundApp {
 
@@ -98,7 +103,12 @@ public class BranchAndBoundApp {
     private PartialSolution run(Map<String, Node> dataMap) throws AppException {
         logger.info("Starting branch and bound algorithm to find optimal schedule.");
         taskScheduler = TaskSchedulerFactory.createTaskScheduler(dataMap, numProcessors);
-        return taskScheduler.scheduleTasks();
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.start();
+        PartialSolution bestSolution = taskScheduler.scheduleTasks();
+        stopwatch.stop();
+        logger.info("Algorithm completed in " + stopwatch.getTimeString() + ".");
+        return bestSolution;
     }
 
 }
