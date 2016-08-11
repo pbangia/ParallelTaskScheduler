@@ -43,6 +43,7 @@ public class TaskScheduler {
             if (nextAvailableNodes.isEmpty()) {
                 if (currentPartialSolution.isBetterThan(bestPartialSolution)) {
                     bestPartialSolution = currentPartialSolution;
+                    logger.debug("New optimal solution found.");
                 }
                 continue;
             }

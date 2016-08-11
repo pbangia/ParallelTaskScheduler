@@ -21,6 +21,7 @@ public class DigraphFileWriter {
     public void writeDigraphFile(String solutionMap) {
         try {
             FileUtils.writeStringToFile(outputFile, solutionMap);
+            logger.info("Schedule successfully written to output file.");
         } catch (IOException e) {
             logger.error("Error in writing to output file: " + e.getMessage());
             e.printStackTrace();
