@@ -1,5 +1,3 @@
-package project;
-
 import app.BranchAndBoundApp;
 import app.argumentparsing.CommandLineArguments;
 import app.exceptions.AppException;

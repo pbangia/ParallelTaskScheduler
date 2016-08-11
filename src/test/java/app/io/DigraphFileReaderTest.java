@@ -5,7 +5,7 @@ import app.exceptions.input.InvalidFileContentsException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import project.Main;
+import Main;
 
 import java.io.File;
 import java.io.IOException;
