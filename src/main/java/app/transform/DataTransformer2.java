@@ -9,9 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import static app.io.InputSyntax.DEFINITION_DELIMITER;
 import static app.io.InputSyntax.DEPENDENCY_ARROW;
 
-/**
- * Singleton DataTransformer class
- */
 public class DataTransformer2 implements IDataTransformer2 {
 
     private StringToMatrixTransformation toMapTransformation;

@@ -13,9 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import static app.io.InputSyntax.DEFINITION_DELIMITER;
 import static app.io.InputSyntax.DEPENDENCY_ARROW;
 
-/**
- * Singleton DataTransformer class
- */
 public class DataTransformer implements IDataTransformer {
 
     private static Logger logger = LoggerFactory.getLogger(DataTransformer.class);
