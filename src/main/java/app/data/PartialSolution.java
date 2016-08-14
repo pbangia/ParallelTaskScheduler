@@ -108,7 +108,7 @@ public class PartialSolution {
             }
             processorNumber++;
         }
-        return null;
+        return sb.toString();
     }
 
     public List<Processor> getProcessors() {
