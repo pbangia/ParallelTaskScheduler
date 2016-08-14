@@ -51,34 +51,28 @@ public class PartialSolution {
 
     public void addNodeToProcessor(Node nodeToAdd, int processorNumber) {
         scheduledNodes.add(nodeToAdd);
+        unscheduledNodes.remove(nodeToAdd);
 
         Processor currentProcessor = processors[processorNumber];
         Iterator<Map.Entry<Node, Integer>> parentsIterator = nodeToAdd.getParentMap().entrySet().iterator();
-        List<Node> parentList = new ArrayList<>();
-        while (parentsIterator.hasNext()) {
-            Node parent = parentsIterator.next().getKey();
-            if (!currentProcessor.getNodeEndTimeMap().containsKey(parent)) {
-                parentList.add(parent);
-            }
-        }
 
         int minTimeToStart = 0;
-        for (Node parent : parentList) {
+        while (parentsIterator.hasNext()) {
+            Node parent = parentsIterator.next().getKey();
+            if (currentProcessor.getNodeSet().contains(parent)) continue;
+
             for (int i = 0; i < numberOfProcessors; i++) {
-                if (processorNumber == i) {
+                if (processorNumber == i || !processors[i].getNodeSet().contains(parent)) {
                     continue;
                 }
 
-                if (processors[i].getNodeEndTimeMap().containsKey(parent)) {
-                    int parentEndTime = processors[i].getNodeEndTimeMap().get(parent);
-                    int dependencyWeight = nodeToAdd.getParentMap().get(parent);
-                    int tempTimeToStart = parentEndTime + dependencyWeight;
-                    if (minTimeToStart < tempTimeToStart) {
-                        minTimeToStart = tempTimeToStart;
-                    }
-                }
+                int parentEndTime = processors[i].getTimeStamp(parent) + parent.getWeight();
+                int dependencyWeight = nodeToAdd.getParentMap().get(parent);
+                int tempTimeToStart = parentEndTime + dependencyWeight;
+                if (minTimeToStart < tempTimeToStart) minTimeToStart = tempTimeToStart;
             }
         }
+
         processors[processorNumber].addNodeToQueue(nodeToAdd, minTimeToStart);
     }
 
