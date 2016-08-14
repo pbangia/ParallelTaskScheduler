@@ -11,7 +11,7 @@ public class TestRunner {
 
         String inputFileName = "/input.dot";
         String outputFileName = "output.dot";
-        int numProcessors = 2;
+        int numProcessors = 25;
         int numThreads = 1;
         boolean visualiseSearch = false;
 

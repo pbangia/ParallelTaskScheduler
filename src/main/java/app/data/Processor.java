@@ -13,78 +13,52 @@ public class Processor {
     private static Logger logger = LoggerFactory.getLogger(Processor.class);
 
     private Queue<Node> nodeQueue = new ConcurrentLinkedQueue<>();
-    private Map<Integer, Integer> nodeStartTimeMap = new ConcurrentHashMap<>();
-    private Map<Node, Integer> nodeEndTimeMap = new ConcurrentHashMap<>();
-    private int queueSize = 0;
+    private Map<Node, Integer> nodeStartTimeMap = new ConcurrentHashMap<>();
     private int currentTimeStamp = 0;
-
 
     public void addNodeToQueue(Node node, int minScheduleTime) {
         nodeQueue.add(node);
-        queueSize++;
 
         if (minScheduleTime > currentTimeStamp) {
             currentTimeStamp = minScheduleTime;
         }
 
-        nodeStartTimeMap.put(queueSize, currentTimeStamp);
+        nodeStartTimeMap.put(node, currentTimeStamp);
         currentTimeStamp += node.getWeight();
-        nodeEndTimeMap.put(node, currentTimeStamp);
     }
 
     public Processor clone() {
         Processor newProcessor = new Processor();
-        Queue<Node> clq = new ConcurrentLinkedQueue<Node>(this.nodeQueue);
-        Map<Integer, Integer> newTimeStampMap = new ConcurrentHashMap<>(this.nodeStartTimeMap);
-        Map<Node, Integer> newNodeEndTimeMap = new ConcurrentHashMap<>(this.nodeEndTimeMap);
+        Queue<Node> clq = new ConcurrentLinkedQueue<>(this.nodeQueue);
+        Map<Node, Integer> newTimeStampMap = new ConcurrentHashMap<>(this.nodeStartTimeMap);
         newProcessor.setNodeQueue(clq);
         newProcessor.setNodeStartTimeMap(newTimeStampMap);
-        newProcessor.setNodeEndTimeMap(newNodeEndTimeMap);
         newProcessor.setCurrentTimeStamp(this.currentTimeStamp);
-        newProcessor.setQueueSize(this.queueSize);
         return newProcessor;
+    }
+
+    public int getTimeStamp(Node n) {
+        return nodeStartTimeMap.get(n);
     }
 
     public Queue<Node> getNodeQueue() {
         return nodeQueue;
     }
 
-    public Map<Integer, Integer> getNodeStartTimeMap() {
+    public Map<Node, Integer> getNodeStartTimeMap() {
         return nodeStartTimeMap;
-    }
-
-    public Map<Node, Integer> getNodeEndTimeMap() {
-        return nodeEndTimeMap;
-    }
-
-    public int getQueueSize() {
-        return queueSize;
     }
 
     public int getCurrentTimeStamp() {
         return currentTimeStamp;
     }
 
-    public int getTimeStamp(Node n) {
-        int endTime = nodeEndTimeMap.get(n);
-
-        return endTime - n.getWeight();
-    }
-
     public void setNodeQueue(Queue<Node> nodeQueue) {
         this.nodeQueue = nodeQueue;
     }
 
-    public void setNodeStartTimeMap(Map<Integer, Integer> nodeStartTimeMap) {
+    public void setNodeStartTimeMap(Map<Node, Integer> nodeStartTimeMap) {
         this.nodeStartTimeMap = nodeStartTimeMap;
-    }
-
-    public void setNodeEndTimeMap(Map<Node, Integer> nodeEndTimeMap) {
-        this.nodeEndTimeMap = nodeEndTimeMap;
-    }
-
-    public void setQueueSize(int queueSize) {
-        this.queueSize = queueSize;
     }
 
     public void setCurrentTimeStamp(int currentTimeStamp) {
