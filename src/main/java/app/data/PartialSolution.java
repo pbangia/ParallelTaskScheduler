@@ -12,6 +12,7 @@ public class PartialSolution {
     private int numberOfProcessors;
     private Node latestNodeAdded;
     private Set<Node> scheduledNodes = new HashSet<>();
+    private Set<Node> unscheduledNodes = new HashSet<>();
     private List<Processor> processors = new ArrayList<>();
 
     public PartialSolution(int numberOfProcessors) {
@@ -126,5 +127,7 @@ public class PartialSolution {
     public Set<Node> getScheduledNodes() {
         return scheduledNodes;
     }
+
+    public Set<Node> getUnscheduledNodes() { return unscheduledNodes; }
 
 }

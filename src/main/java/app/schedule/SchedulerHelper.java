@@ -69,7 +69,7 @@ public class SchedulerHelper {
      *                unscheduledNodes set of nodes which haven't been scheduled.
      * @return List nodes available to be scheduled.
      */
-    public List<Node> getAvailableNodes(Map<String, Node> dataMap, Set<Node> scheduledNodes) {
+    public List<Node> getAvailableNodes(Map<String, Node> dataMap, Set<Node> scheduledNodes, Set<Node> unscheduledNodes) {
 
         List<Node> nextAvailableNodes = new ArrayList<>();
         Iterator<Map.Entry<String, Node>> dataMapIterator = dataMap.entrySet().iterator();

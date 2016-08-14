@@ -16,7 +16,8 @@ public class TaskScheduler {
     private Map<String, Node> dataMap;
     private SchedulerHelper schedulerHelper;
     private int numberOfProcessors;
-    private Set<Node> scheduledNodes = new HashSet<>();
+    private Set<Node> scheduledNodes;
+    private Set<Node> unscheduledNodes;
 
     // Constructor For Class
     public TaskScheduler(Map<String, Node> dataMap, SchedulerHelper schedulerHelper, int numberOfProcessors) {
@@ -36,8 +37,9 @@ public class TaskScheduler {
         while (!solutionStack.empty()) {
             PartialSolution currentPartialSolution = solutionStack.pop();
             scheduledNodes = currentPartialSolution.getScheduledNodes();
+            unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
 
-            nextAvailableNodes = schedulerHelper.getAvailableNodes(dataMap, scheduledNodes);
+            nextAvailableNodes = schedulerHelper.getAvailableNodes(dataMap, scheduledNodes, unscheduledNodes);
 
             // Hit if clause when leaf is reached
             if (nextAvailableNodes.isEmpty()) {
