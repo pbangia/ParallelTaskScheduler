@@ -189,28 +189,74 @@ public class SchedulerHelperTest {
         assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes)));
     }
 
-//    @Test
-//    public void testGetAvailableNodes_ComplexDAG_ReturnsCorrectList() throws AppException {
-//        List<Node> expectedAvailableNodes = new ArrayList<>();
-//        Node a = new Node("a", 1);
-//        Node b = new Node("b", 1);
-//        Node c = new Node("c", 1);
-//        Node d = new Node("d", 1);
-//        a.addChild(c, 1);
-//        a.addChild(d, 1);
-//        b.addChild(c, 1);
-//        c.addParent(a, 1);
-//        c.addParent(b, 1);
-//        d.addParent(a, 1);
-//        dataMap.put("a", a);
-//        dataMap.put("b", b);
-//        dataMap.put("c", c);
-//        dataMap.put("d", d);
-//        scheduledNodes.add(a);
-//
-//        expectedAvailableNodes.add(d);
-//
-//        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes)));
-//    }
+    @Test
+    public void testGetAvailableNodes_ComplexDAG_ReturnsCorrectList() throws AppException {
+        List<Node> expectedAvailableNodes = new ArrayList<>();
+        Node a = new Node("a", 1);
+        Node b = new Node("b", 1);
+        Node c = new Node("c", 1);
+        Node d = new Node("d", 1);
+        Node e = new Node("e", 1);
+        Node f = new Node("f", 1);
+        Node g = new Node("g", 1);
+        Node h = new Node("h", 1);
+        Node i = new Node("i", 1);
+        Node j = new Node("j", 1);
+        Node k = new Node("k", 1);
+        Node l = new Node("l", 1);
+
+        a.addChild(b, 1);
+        a.addChild(c, 1);
+        b.addParent(a, 1);
+        c.addParent(a, 1);
+
+        b.addChild(d, 1);
+        b.addChild(e, 1);
+        d.addParent(b, 1);
+        e.addParent(b, 1);
+
+        c.addChild(f, 1);
+        c.addChild(g, 1);
+        f.addParent(c, 1);
+        g.addParent(c, 1);
+
+        d.addChild(h, 1);
+        h.addParent(d, 1);
+
+        g.addChild(h, 1);
+        h.addParent(g, 1);
+
+        i.addChild(j, 1);
+        i.addChild(k, 1);
+        j.addParent(i, 1);
+        k.addParent(i, 1);
+
+        j.addChild(g, 1);
+        j.addChild(l, 1);
+        g.addParent(j, 1);
+        l.addParent(j, 1);
+
+        scheduledNodes.add(a);
+        scheduledNodes.add(b);
+        scheduledNodes.add(c);
+        scheduledNodes.add(d);
+        scheduledNodes.add(i);
+        scheduledNodes.add(j);
+
+        unscheduledNodes.add(e);
+        unscheduledNodes.add(f);
+        unscheduledNodes.add(g);
+        unscheduledNodes.add(h);
+        unscheduledNodes.add(k);
+        unscheduledNodes.add(l);
+
+        expectedAvailableNodes.add(e);
+        expectedAvailableNodes.add(f);
+        expectedAvailableNodes.add(g);
+        expectedAvailableNodes.add(k);
+        expectedAvailableNodes.add(l);
+
+        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes)));
+    }
 
 }
