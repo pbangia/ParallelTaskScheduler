@@ -59,6 +59,7 @@ public class ProcessorTest {
         Processor clone = processor.clone();
 
         assertEquals(true, isEqualCollection(processor.getNodeQueue(), clone.getNodeQueue()));
+        assertEquals(processor.getNodeSet(), clone.getNodeSet());
         assertEquals(processor.getCurrentTimeStamp(), clone.getCurrentTimeStamp());
     }
 

@@ -3,8 +3,10 @@ package app.data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -12,11 +14,13 @@ public class Processor {
 
     private static Logger logger = LoggerFactory.getLogger(Processor.class);
 
+    private Set<Node> nodeSet = new HashSet<>();
     private Queue<Node> nodeQueue = new ConcurrentLinkedQueue<>();
     private Map<Node, Integer> nodeStartTimeMap = new ConcurrentHashMap<>();
     private int currentTimeStamp = 0;
 
     public void addNodeToQueue(Node node, int minScheduleTime) {
+        nodeSet.add(node);
         nodeQueue.add(node);
 
         if (minScheduleTime > currentTimeStamp) {
@@ -29,9 +33,11 @@ public class Processor {
 
     public Processor clone() {
         Processor newProcessor = new Processor();
-        Queue<Node> clq = new ConcurrentLinkedQueue<>(this.nodeQueue);
+        Queue<Node> nodeQueue = new ConcurrentLinkedQueue<>(this.nodeQueue);
+        Set<Node> nodeSet = new HashSet<>(this.nodeSet);
         Map<Node, Integer> newTimeStampMap = new ConcurrentHashMap<>(this.nodeStartTimeMap);
-        newProcessor.setNodeQueue(clq);
+        newProcessor.setNodeQueue(nodeQueue);
+        newProcessor.setNodeSet(nodeSet);
         newProcessor.setNodeStartTimeMap(newTimeStampMap);
         newProcessor.setCurrentTimeStamp(this.currentTimeStamp);
         return newProcessor;
@@ -47,6 +53,14 @@ public class Processor {
 
     public Map<Node, Integer> getNodeStartTimeMap() {
         return nodeStartTimeMap;
+    }
+
+    public Set<Node> getNodeSet() {
+        return nodeSet;
+    }
+
+    public void setNodeSet(Set<Node> nodeSet) {
+        this.nodeSet = nodeSet;
     }
 
     public int getCurrentTimeStamp() {
