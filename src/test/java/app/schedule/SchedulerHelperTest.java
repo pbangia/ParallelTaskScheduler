@@ -17,12 +17,14 @@ public class SchedulerHelperTest {
     private Map<String, Node> dataMap;
     private SchedulerHelper schedulerHelper;
     private Set<Node> scheduledNodes;
+    private Set<Node> unscheduledNodes;
 
     @Before
     public void setup(){
         dataMap = new ConcurrentHashMap<>();
         this.schedulerHelper = new SchedulerHelper();
         this.scheduledNodes = new HashSet<>();
+        this.unscheduledNodes = new HashSet<>();
     }
 
     @Test
@@ -107,33 +109,88 @@ public class SchedulerHelperTest {
     }
 
     @Test
-    public void testGetAvailableNodes_OnlyOneParent_ReturnsCorrectList() throws AppException {
+    public void testGetAvailableNodes_EmptyScheduledNodesInput_ReturnsCorrectListOfRoots() throws AppException {
         List<Node> expectedAvailableNodes = new ArrayList<>();
         Node a = new Node("a", 1);
         Node b = new Node("b", 1);
         Node c = new Node("c", 1);
         Node d = new Node("d", 1);
+        Node e = new Node("e", 1);
+        Node f = new Node("f", 1);
+        Node g = new Node("g", 1);
+        Node h = new Node("h", 1);
+
         a.addChild(b, 1);
         a.addChild(c, 1);
         a.addChild(d, 1);
         b.addParent(a, 1);
         c.addParent(a, 1);
         d.addParent(a, 1);
-        dataMap.put("a", a);
-        dataMap.put("b", b);
-        dataMap.put("c", c);
-        dataMap.put("d", d);
+
+        b.addChild(e, 1);
+        e.addParent(b, 1);
+
+        f.addChild(g, 1);
+        f.addChild(h, 1);
+        g.addParent(f, 1);
+        h.addParent(f, 1);
+
+        unscheduledNodes.add(a);
+        unscheduledNodes.add(b);
+        unscheduledNodes.add(c);
+        unscheduledNodes.add(d);
+        unscheduledNodes.add(e);
+        unscheduledNodes.add(f);
+        unscheduledNodes.add(g);
+        unscheduledNodes.add(h);
+
+        expectedAvailableNodes.add(a);
+        expectedAvailableNodes.add(f);
+
+        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes)));
+    }
+
+    @Test
+    public void testGetAvailableNodes_EmptyUnscheduledNodesInput_ReturnsEmptyList() throws AppException {
+        List<Node> expectedAvailableNodes = new ArrayList<>();
+        Node a = new Node("a", 1);
+        Node b = new Node("b", 1);
+        Node c = new Node("c", 1);
+        Node d = new Node("d", 1);
+        Node e = new Node("e", 1);
+        Node f = new Node("f", 1);
+        Node g = new Node("g", 1);
+        Node h = new Node("h", 1);
+
+        a.addChild(b, 1);
+        a.addChild(c, 1);
+        a.addChild(d, 1);
+        b.addParent(a, 1);
+        c.addParent(a, 1);
+        d.addParent(a, 1);
+
+        b.addChild(e, 1);
+        e.addParent(b, 1);
+
+        f.addChild(g, 1);
+        f.addChild(h, 1);
+        g.addParent(f, 1);
+        h.addParent(f, 1);
+
         scheduledNodes.add(a);
+        scheduledNodes.add(b);
+        scheduledNodes.add(c);
+        scheduledNodes.add(d);
+        scheduledNodes.add(e);
+        scheduledNodes.add(f);
+        scheduledNodes.add(g);
+        scheduledNodes.add(h);
 
-        expectedAvailableNodes.add(b);
-        expectedAvailableNodes.add(c);
-        expectedAvailableNodes.add(d);
-
-        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(dataMap, scheduledNodes)));
+        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes)));
     }
 
 //    @Test
-//    public void testGetAvailableNodes_MultipleParents_ReturnsCorrectList() throws AppException {
+//    public void testGetAvailableNodes_ComplexDAG_ReturnsCorrectList() throws AppException {
 //        List<Node> expectedAvailableNodes = new ArrayList<>();
 //        Node a = new Node("a", 1);
 //        Node b = new Node("b", 1);
@@ -153,35 +210,7 @@ public class SchedulerHelperTest {
 //
 //        expectedAvailableNodes.add(d);
 //
-//        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(dataMap, scheduledNodes)));
-//    }
-//
-//    @Test
-//    public void testGetAvailableNodes_NullInputReturnsRoots_ReturnsCorrectList() throws AppException {
-//        List<Node> expectedAvailableNodes = new ArrayList<>();
-//        Node a = new Node("a", 1);
-//        Node b = new Node("b", 1);
-//        Node c = new Node("c", 1);
-//        Node d = new Node("d", 1);
-//        Node e = new Node("e", 1);
-//        a.addChild(c, 1);
-//        a.addChild(d, 1);
-//        b.addChild(c, 1);
-//        c.addParent(a, 1);
-//        c.addParent(b, 1);
-//        d.addParent(a, 1);
-//        dataMap.put("a", a);
-//        dataMap.put("b", b);
-//        dataMap.put("c", c);
-//        dataMap.put("d", d);
-//        dataMap.put("e", e);
-//        scheduledNodes.add(a);
-//
-//        expectedAvailableNodes.add(a);
-//        expectedAvailableNodes.add(b);
-//        expectedAvailableNodes.add(e);
-//
-//        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(dataMap, scheduledNodes)));
+//        assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes)));
 //    }
 
 }
