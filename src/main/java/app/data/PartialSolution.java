@@ -12,16 +12,16 @@ public class PartialSolution {
 
     private int numberOfProcessors;
     private Set<Node> scheduledNodes = new HashSet<>();
-    private Set<Node> unscheduledNodes = new HashSet<>();
+    private Set<Node> unscheduledNodes;
     private Processor[] processors;
-    //private List<Processor> processors = new ArrayList<>();
 
-    public PartialSolution(int numberOfProcessors) {
+    public PartialSolution(int numberOfProcessors, Collection<Node> nodes) {
         this.numberOfProcessors = numberOfProcessors;
         this.processors = new Processor[numberOfProcessors];
         for (int i = 0; i < numberOfProcessors; i++) {
             processors[i] = new Processor();
         }
+        this.unscheduledNodes = new HashSet<>(nodes);
     }
 
     public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone) {

@@ -5,6 +5,8 @@ import app.data.PartialSolution;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
+
 import static org.junit.Assert.*;
 
 public class PartialSolutionTest {
@@ -16,8 +18,8 @@ public class PartialSolutionTest {
 
     @Before
     public void setUp() throws Exception {
-        firstPS = new PartialSolution(2);
-        secondPS = new PartialSolution(3);
+        firstPS = new PartialSolution(2, new HashSet<Node>());
+        secondPS = new PartialSolution(3, new HashSet<Node>());
         newNode1 = new Node("A", 2);
         newNode2 = new Node("B", 4);
     }
