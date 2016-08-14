@@ -20,10 +20,6 @@ public class Stopwatch {
         stopWatch.stop();
     }
 
-    public long getTimeMs(){
-        return stopWatch.getTime();
-    }
-
     public String getTimeString(){
         long timeTakenMs = getTimeMs();
         String timeTakenFormatted = String.format("%dm:%ds",
@@ -32,6 +28,10 @@ public class Stopwatch {
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(timeTakenMs))
         );
         return timeTakenFormatted;
+    }
+
+    public long getTimeMs(){
+        return stopWatch.getTime();
     }
 
 }

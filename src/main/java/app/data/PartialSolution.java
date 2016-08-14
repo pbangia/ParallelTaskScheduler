@@ -29,14 +29,6 @@ public class PartialSolution {
         }
     }
 
-    public Node getLatestNode() {
-        return latestNodeAdded;
-    }
-
-    public Set<Node> getScheduledNodes() {
-        return scheduledNodes;
-    }
-
     public boolean isBetterThan(PartialSolution otherPartialSolution) {
 
         if (otherPartialSolution == null) {
@@ -90,7 +82,6 @@ public class PartialSolution {
         processors.get(processorNumber).addNodeToQueue(nodeToAdd, minTimeToStart);
     }
 
-
     void clone(PartialSolution solutionToClone) {
 
         this.scheduledNodes = new HashSet<>(solutionToClone.scheduledNodes);
@@ -102,12 +93,38 @@ public class PartialSolution {
 
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        int processorNumber = 1;
+
+        for (Processor p : processors) {
+            for (Node n : p.getNodeQueue()) {
+                sb.append(n.getName() + "\t");
+                sb.append("[Weight=" + n.getWeight());
+                sb.append(",Start=" + p.getTimeStamp(n));
+                sb.append(",Processor=" + processorNumber);
+                sb.append("];\n");
+            }
+            processorNumber++;
+        }
+        return null;
+    }
+
     public List<Processor> getProcessors() {
         return processors;
     }
 
     public int getNumberOfProcessors() {
         return numberOfProcessors;
+    }
+
+    public Node getLatestNode() {
+        return latestNodeAdded;
+    }
+
+    public Set<Node> getScheduledNodes() {
+        return scheduledNodes;
     }
 
 }

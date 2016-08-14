@@ -44,6 +44,7 @@ public class CommandLineArguments {
                     numberOfThreads = Integer.parseInt(args[i]);
                     break;
                 case "-v":
+                    //No increment of i as -v is not preceded by any value
                     visualiseSearch = true;
                     break;
                 case "-o":
@@ -57,7 +58,6 @@ public class CommandLineArguments {
         }
     }
 
-    // Getters
     public String getInputFileName() {
         return this.inputFileName;
     }

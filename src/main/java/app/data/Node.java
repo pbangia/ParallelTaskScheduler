@@ -22,6 +22,19 @@ public class Node {
         this.weight = weight;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.name + "\t");
+        sb.append("[Weight=" + weight);
+        sb.append(",Start=" + timestamp);
+        sb.append(",Processor=" + processorNumber);
+        sb.append("];\n");
+
+        return sb.toString();
+    }
+
     public String getName() {
         return name;
     }
@@ -40,6 +53,10 @@ public class Node {
 
     public void setTimestamp(int timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public void setProcessorNumber(int processorNumber) {
+        this.processorNumber = processorNumber;
     }
 
     public boolean hasBeenScheduled() {
@@ -64,23 +81,6 @@ public class Node {
 
     public void addParent(Node parent, int dependencyWeight) {
         parentMap.put(parent, dependencyWeight);
-    }
-
-    public void setProcessorNumber(int processorNumber) {
-        this.processorNumber = processorNumber;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(this.name + "\t");
-        sb.append("[Weight=" + weight);
-        sb.append(",Start=" + timestamp);
-        sb.append(",Processor=" + processorNumber);
-        sb.append("];\n");
-
-        return sb.toString();
     }
 
 }
