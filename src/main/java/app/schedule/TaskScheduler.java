@@ -13,13 +13,13 @@ public class TaskScheduler {
 
     private static Logger logger = LoggerFactory.getLogger(TaskScheduler.class);
 
-    private Map<String, Node> dataMap;
+    private final Collection<Node> nodes;
     private SchedulerHelper schedulerHelper;
     private int numberOfProcessors;
 
     // Constructor For Class
-    public TaskScheduler(Map<String, Node> dataMap, SchedulerHelper schedulerHelper, int numberOfProcessors) {
-        this.dataMap = dataMap;
+    public TaskScheduler(Collection<Node> nodes, SchedulerHelper schedulerHelper, int numberOfProcessors) {
+        this.nodes = nodes;
         this.schedulerHelper = schedulerHelper;
         this.numberOfProcessors = numberOfProcessors;
     }
