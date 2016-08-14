@@ -88,7 +88,6 @@ public class PartialSolution {
         this.numberOfProcessors = solutionToClone.numberOfProcessors;
 
         for (int i = 0; i < solutionToClone.processors.length; i++) {
-            System.out.println("i is now " + i);
             this.processors[i] = solutionToClone.processors[i].clone();
         }
     }
