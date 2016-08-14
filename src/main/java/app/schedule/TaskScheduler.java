@@ -39,20 +39,19 @@ public class TaskScheduler {
 
             nextAvailableNodes = schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
-            // Hit if clause when leaf is reached
-            if (nextAvailableNodes.isEmpty()) {
-                if (currentPartialSolution.isBetterThan(bestPartialSolution)) {
-                    bestPartialSolution = currentPartialSolution;
-                    logger.debug("New optimal solution found.");
-                }
+            if (!currentPartialSolution.isBetterThan(bestPartialSolution)) {
                 continue;
             }
 
-            if (currentPartialSolution.isBetterThan(bestPartialSolution)) {
-                for (Node availableNode : nextAvailableNodes) {
-                    List<PartialSolution> availablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
-                    solutionStack.addAll(availablePartialSolutions);
-                }
+            if (nextAvailableNodes.isEmpty()) {
+                bestPartialSolution = currentPartialSolution;
+                logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
+                continue;
+            }
+
+            for (Node availableNode : nextAvailableNodes) {
+                List<PartialSolution> availablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
+                solutionStack.addAll(availablePartialSolutions);
             }
         }
 
