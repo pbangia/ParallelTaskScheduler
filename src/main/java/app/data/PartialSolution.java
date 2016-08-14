@@ -1,7 +1,6 @@
 package app.data;
 
 import app.io.InputSyntax;
-import jdk.internal.util.xml.impl.Input;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
