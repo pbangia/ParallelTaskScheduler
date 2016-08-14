@@ -33,7 +33,6 @@ public class PartialSolution {
     }
 
     public boolean isBetterThan(PartialSolution otherPartialSolution) {
-
         if (otherPartialSolution == null) {
             return true;
         }
@@ -51,6 +50,10 @@ public class PartialSolution {
         }
 
         return maxDuration;
+    }
+
+    public boolean isWorseThan(PartialSolution bestPartialSolution) {
+        return !isBetterThan(bestPartialSolution);
     }
 
     public void addNodeToProcessor(Node nodeToAdd, int processorNumber) {
@@ -122,5 +125,4 @@ public class PartialSolution {
     }
 
     public Set<Node> getUnscheduledNodes() { return unscheduledNodes; }
-
 }

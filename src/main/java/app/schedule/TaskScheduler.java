@@ -39,7 +39,7 @@ public class TaskScheduler {
 
             nextAvailableNodes = schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
-            if (!currentPartialSolution.isBetterThan(bestPartialSolution)) {
+            if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
                 continue;
             }
 
