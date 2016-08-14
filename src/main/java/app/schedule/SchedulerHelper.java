@@ -57,6 +57,18 @@ public class SchedulerHelper {
         return new ArrayList<>(nodeSet);
     }
 
+
+    /**
+     * Finds the set of available nodes to schedule next based on the nodes currently scheduled.
+     * Algorithm:
+     * 1. Iterate through each node in the set of unscheduled nodes.
+     * 2. For each of these nodes, check their parents are in the set of scheduled nodes.
+     * 3. Unscheduled nodes who's parents have all been scheduled will be added to the list of nodes available to be scheduled
+     *
+     * @param dataMap representing the digraph, scheduledNodes set of nodes which have been scheduled,
+     *                unscheduledNodes set of nodes which haven't been scheduled.
+     * @return List nodes available to be scheduled.
+     */
     public List<Node> getAvailableNodes(Map<String, Node> dataMap, Set<Node> scheduledNodes) {
 
         List<Node> nextAvailableNodes = new ArrayList<>();
