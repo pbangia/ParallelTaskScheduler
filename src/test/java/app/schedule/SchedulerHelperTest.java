@@ -1,6 +1,8 @@
 package app.schedule;
 
 import app.data.Node;
+import app.data.PartialSolution;
+import app.data.Processor;
 import app.exceptions.AppException;
 import app.exceptions.utils.NoRootFoundException;
 import org.junit.Before;
@@ -258,5 +260,50 @@ public class SchedulerHelperTest {
 
         assertTrue(isEqualCollection(expectedAvailableNodes, schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes)));
     }
+
+
+    @Test
+    public void testGetAvailablePartialSolutions_SingleProcessor_ReturnsCorrectList() {
+        PartialSolution currentPartialSolution = new PartialSolution(1);
+
+        Node a = new Node("a", 1);
+
+        List<PartialSolution> actualAvailablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(a, currentPartialSolution, 1);
+
+        Processor processor = actualAvailablePartialSolutions.get(0).getProcessors().get(0);
+        Queue<Node> nodeQueue = processor.getNodeQueue();
+        Iterator<Node> nodeQueueIterator = nodeQueue.iterator();
+
+        Node latestNode = null;
+        while (nodeQueueIterator.hasNext()) {
+            latestNode = nodeQueueIterator.next();
+        }
+
+        assertTrue(latestNode == a);
+
+    }
+
+    @Test
+    public void testGetAvailablePartialSolutions_MultipleProcessors_ReturnsCorrectList(){
+        PartialSolution currentPartialSolution = new PartialSolution(2);
+
+        Node a = new Node("a", 1);
+
+        List<PartialSolution> actualAvailablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(a, currentPartialSolution, 2);
+
+        for (int i = 0; i < actualAvailablePartialSolutions.size(); i++){
+            Processor processor = actualAvailablePartialSolutions.get(i).getProcessors().get(i);
+            Queue<Node> nodeQueue = processor.getNodeQueue();
+            Iterator<Node> nodeQueueIterator = nodeQueue.iterator();
+
+            Node latestNode = null;
+            while(nodeQueueIterator.hasNext()){
+                latestNode = nodeQueueIterator.next();
+            }
+
+            assertTrue(latestNode == a);
+        }
+    }
+
 
 }

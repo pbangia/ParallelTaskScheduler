@@ -1,6 +1,7 @@
 package app.schedule;
 
 import app.data.Node;
+import app.data.PartialSolution;
 import app.exceptions.utils.NoRootFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,5 +93,29 @@ public class SchedulerHelper {
         }
 
         return nextAvailableNodes;
+    }
+
+    /**
+     * This function returns a list of partialSolutions possible based on the current solution and the node being added.
+     * It does this by constructing new partial solution objects (by cloning the current solution) and then adding the
+     * specified Node to each possible partial solution in every single processor of that partial solution.
+     *
+     * @param nodeToAdd              Node to be added to the partial solution provided
+     * @param currentPartialSolution the partial solution provided
+     * @param numberOfProcessors     number of processors in each partial solution
+     * @return list of all partial solutions that correspond to the next available partial solutions
+     */
+
+    public List<PartialSolution> getAvailablePartialSolutions(Node nodeToAdd, PartialSolution currentPartialSolution, int numberOfProcessors) {
+
+        List<PartialSolution> availablePartialSolutions = new ArrayList<>();
+
+        for (int i = 0; i < numberOfProcessors; i++) {
+            PartialSolution newPartialSolution = new PartialSolution(numberOfProcessors, currentPartialSolution);
+            newPartialSolution.addNodeToProcessor(nodeToAdd, i);
+            availablePartialSolutions.add(newPartialSolution);
+        }
+
+        return availablePartialSolutions;
     }
 }

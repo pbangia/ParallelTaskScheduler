@@ -16,8 +16,6 @@ public class TaskScheduler {
     private Map<String, Node> dataMap;
     private SchedulerHelper schedulerHelper;
     private int numberOfProcessors;
-    private Set<Node> scheduledNodes;
-    private Set<Node> unscheduledNodes;
 
     // Constructor For Class
     public TaskScheduler(Map<String, Node> dataMap, SchedulerHelper schedulerHelper, int numberOfProcessors) {
@@ -36,8 +34,8 @@ public class TaskScheduler {
 
         while (!solutionStack.empty()) {
             PartialSolution currentPartialSolution = solutionStack.pop();
-            scheduledNodes = currentPartialSolution.getScheduledNodes();
-            unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
+            Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
+            Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
 
             nextAvailableNodes = schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
@@ -52,7 +50,7 @@ public class TaskScheduler {
 
             if (currentPartialSolution.isBetterThan(bestPartialSolution)) {
                 for (Node availableNode : nextAvailableNodes) {
-                    List<PartialSolution> availablePartialSolutions = getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
+                    List<PartialSolution> availablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
                     solutionStack.addAll(availablePartialSolutions);
                 }
             }
@@ -61,28 +59,4 @@ public class TaskScheduler {
         return bestPartialSolution;
     }
 
-    /**
-     * This function returns a list of partialSolutions possible based on the current solution and the node being added.
-     * It does this by constructing new partial solution objects (by cloning the current solution) and then adding the
-     * specified Node to each possible partial solution in every single processor of that partial solution.
-     *
-     * @param nodeToAdd              Node to be added to the partial solution provided
-     * @param currentPartialSolution the partial solution provided
-     * @param numberOfProcessors     number of processors in each partial solution
-     * @return list of all partial solutions that correspond to the next available partial solutions
-     */
-
-    // TODO move to helper class
-    public List<PartialSolution> getAvailablePartialSolutions(Node nodeToAdd, PartialSolution currentPartialSolution, int numberOfProcessors) {
-
-        List<PartialSolution> availablePartialSolutions = new ArrayList<>();
-
-        for (int i = 0; i < numberOfProcessors; i++) {
-            PartialSolution newPartialSolution = new PartialSolution(numberOfProcessors, currentPartialSolution);
-            newPartialSolution.addNodeToProcessor(nodeToAdd, i);
-            availablePartialSolutions.add(newPartialSolution);
-        }
-
-        return availablePartialSolutions;
-    }
 }
