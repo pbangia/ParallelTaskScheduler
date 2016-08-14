@@ -65,20 +65,17 @@ public class SchedulerHelper {
      * 2. For each of these nodes, check their parents are in the set of scheduled nodes.
      * 3. Unscheduled nodes who's parents have all been scheduled will be added to the list of nodes available to be scheduled
      *
-     * @param dataMap representing the digraph, scheduledNodes set of nodes which have been scheduled,
-     *                unscheduledNodes set of nodes which haven't been scheduled.
+     * @param scheduledNodes set of nodes which have been scheduled
+     * @param unscheduledNodes set of nodes which haven't been scheduled.
      * @return List nodes available to be scheduled.
      */
-    public List<Node> getAvailableNodes(Map<String, Node> dataMap, Set<Node> scheduledNodes, Set<Node> unscheduledNodes) {
+    public List<Node> getAvailableNodes(Set<Node> scheduledNodes, Set<Node> unscheduledNodes) {
 
         List<Node> nextAvailableNodes = new ArrayList<>();
-        Iterator<Map.Entry<String, Node>> dataMapIterator = dataMap.entrySet().iterator();
+        Iterator<Node> unscheduledNodesIterator = unscheduledNodes.iterator();
 
-        while (dataMapIterator.hasNext()) {
-            Node currentNode = dataMapIterator.next().getValue();
-            if (scheduledNodes.contains(currentNode)) {
-                continue;
-            }
+        while (unscheduledNodesIterator.hasNext()) {
+            Node currentNode = unscheduledNodesIterator.next();
 
             boolean isAvailable = true;
             Map<Node, Integer> dependentParentMap = currentNode.getParentMap();

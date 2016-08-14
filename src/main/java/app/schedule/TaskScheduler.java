@@ -39,7 +39,7 @@ public class TaskScheduler {
             scheduledNodes = currentPartialSolution.getScheduledNodes();
             unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
 
-            nextAvailableNodes = schedulerHelper.getAvailableNodes(dataMap, scheduledNodes, unscheduledNodes);
+            nextAvailableNodes = schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
             // Hit if clause when leaf is reached
             if (nextAvailableNodes.isEmpty()) {
