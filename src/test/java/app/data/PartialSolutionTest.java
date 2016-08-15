@@ -1,7 +1,5 @@
 package app.data;
 
-import app.data.Node;
-import app.data.PartialSolution;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,9 +45,11 @@ public class PartialSolutionTest {
 
     @Test
     public void testClone() throws Exception {
+        firstPS.getScheduledNodes().add(newNode1);
         PartialSolution clonedSolution = new PartialSolution(3, firstPS);
 
         assertEquals(clonedSolution.getNumberOfProcessors(), firstPS.getNumberOfProcessors());
+        assertTrue(clonedSolution.getScheduledNodes().contains(newNode1));
     }
 
 }
