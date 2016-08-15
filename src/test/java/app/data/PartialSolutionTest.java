@@ -52,4 +52,49 @@ public class PartialSolutionTest {
         assertTrue(clonedSolution.getScheduledNodes().contains(newNode1));
     }
 
+    @Test
+    public void testAddNodeToProcessor_SingleProcessor_CorrectlyUpdatesPartialSolutionAndProcessor(){
+        Node nodeToAdd = new Node("A", 1);
+        HashSet<Node> unscheduledNodes = new HashSet<>();
+        unscheduledNodes.add(nodeToAdd);
+        PartialSolution partialSolution = new PartialSolution(1, unscheduledNodes);
+        partialSolution.addNodeToProcessor(nodeToAdd, 0);
+
+        assertTrue(partialSolution.getScheduledNodes().contains(nodeToAdd));
+        assertEquals(0, partialSolution.getUnscheduledNodes().size());
+        assertEquals(1, partialSolution.getProcessors()[0].getCurrentTimeStamp());
+    }
+
+    @Test
+    public void testAddNodeToProcessor_ConflictingParent_CorrectlyUpdatesProcessor(){
+        Node nodeToAdd = new Node("A", 1);
+        Node parent = new Node("B", 5);
+        parent.addChild(nodeToAdd, 10);
+        nodeToAdd.addParent(parent, 10);
+        HashSet<Node> unscheduledNodes = new HashSet<>();
+        unscheduledNodes.add(nodeToAdd);
+        unscheduledNodes.add(parent);
+        PartialSolution partialSolution = new PartialSolution(2, unscheduledNodes);
+        partialSolution.addNodeToProcessor(parent, 0);
+        partialSolution.addNodeToProcessor(nodeToAdd, 1);
+
+        assertEquals(15, partialSolution.getProcessors()[1].getTimeStamp(nodeToAdd));
+    }
+
+    @Test
+    public void testAddNodeToProcessor_NonConflictingParent_CorrectlyUpdatesProcessor(){
+        Node nodeToAdd = new Node("A", 1);
+        Node parent = new Node("B", 5);
+        parent.addChild(nodeToAdd, 10);
+        nodeToAdd.addParent(parent, 10);
+        HashSet<Node> unscheduledNodes = new HashSet<>();
+        unscheduledNodes.add(nodeToAdd);
+        unscheduledNodes.add(parent);
+        PartialSolution partialSolution = new PartialSolution(2, unscheduledNodes);
+        partialSolution.addNodeToProcessor(parent, 1);
+        partialSolution.addNodeToProcessor(nodeToAdd, 1);
+
+        assertEquals(5, partialSolution.getProcessors()[1].getTimeStamp(nodeToAdd));
+    }
+
 }
