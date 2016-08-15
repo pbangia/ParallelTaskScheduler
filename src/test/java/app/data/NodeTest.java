@@ -1,5 +1,6 @@
 package app.data;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,17 +12,22 @@ public class NodeTest {
 
     private Node nodeInitialisedWithoutWeight;
     private Node nodeInitialisedWithWeight;
+    private Node a;
+    private Node b;
+    private Node c;
+    private Node d;
+    private Integer dependencyWeight;
 
     @Before
     public void setUp() throws Exception {
         nodeInitialisedWithoutWeight = new Node("name");
         nodeInitialisedWithWeight = new Node("name", 1);
-    }
+        a = new Node("a", 2);
+        b = new Node("b", 2);
 
-    @Test
-    public void testNode_PostConstruct_InitialisesScheduledBool() throws Exception {
-        assertFalse(nodeInitialisedWithoutWeight.hasBeenScheduled());
-        assertFalse(nodeInitialisedWithoutWeight.hasBeenScheduled());
+        c = new Node("c", 2);
+        d = new Node("d", 2);
+        dependencyWeight = 2;
     }
 
     @Test
@@ -38,6 +44,29 @@ public class NodeTest {
         Map<Node, Integer> parentMap2 = nodeInitialisedWithWeight.getParentMap();
         assertNotNull(parentMap1);
         assertNotNull(parentMap2);
+    }
+
+    @Test
+    public void testAddChildNode() {
+        a.addChild(b, dependencyWeight);
+
+        Assert.assertTrue(a.getChildrenMap().containsKey(b));
+        Assert.assertEquals(a.getChildrenMap().get(b), dependencyWeight);
+
+        Assert.assertTrue(b.getParentMap().containsKey(a));
+        Assert.assertEquals(b.getParentMap().get(a), dependencyWeight);
+    }
+
+    @Test
+    public void testAddParentNode() {
+        c.addParent(d, dependencyWeight);
+
+        Assert.assertTrue(c.getParentMap().containsKey(d));
+        Assert.assertEquals(c.getParentMap().get(d), dependencyWeight);
+
+        Assert.assertTrue(d.getChildrenMap().containsKey(c));
+        Assert.assertEquals(d.getChildrenMap().get(c), dependencyWeight);
+
     }
 
 }

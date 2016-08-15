@@ -1,6 +1,5 @@
 package app.data;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -8,6 +7,8 @@ public class Node {
 
     private String name;
     private int weight;
+    private int timestamp;
+    private int processorNumber;
     private Map<Node, Integer> parentMap = new ConcurrentHashMap<>();
     private Map<Node, Integer> childrenMap = new ConcurrentHashMap<>();
 
@@ -18,6 +19,19 @@ public class Node {
     public Node(String name, int weight) {
         this.name = name;
         this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(this.name + "\t");
+        sb.append("[Weight=" + weight);
+        sb.append(",Start=" + timestamp);
+        sb.append(",Processor=" + processorNumber);
+        sb.append("];\n");
+
+        return sb.toString();
     }
 
     public String getName() {
@@ -32,38 +46,38 @@ public class Node {
         this.weight = weight;
     }
 
+    public int getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(int timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public void setProcessorNumber(int processorNumber) {
+        this.processorNumber = processorNumber;
+    }
+
     public Map<Node, Integer> getChildrenMap() {
         return childrenMap;
     }
 
-    public Map<Node, Integer> getParentMap(){
+    public Map<Node, Integer> getParentMap() {
         return parentMap;
     }
 
     public void addChild(Node child, int dependencyWeight) {
         childrenMap.put(child, dependencyWeight);
-    }
-
-    public void addParent(Node parent, int dependencyWeight){
-        parentMap.put(parent, dependencyWeight);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("------------------------------------\n");
-        sb.append("Name: " + name + "\t" + "Weight: " + weight + "\n");
-        sb.append("Children:\n");
-
-        Iterator<Node> childrenNodeIterator = childrenMap.keySet().iterator();
-        while (childrenNodeIterator.hasNext()) {
-            Node childNode = childrenNodeIterator.next();
-            String childName = childNode.getName();
-            Integer dependencyWeight = childrenMap.get(childNode);
-            sb.append("\t" + "Child name: " + childName + ", " + "Dependency weight: " + dependencyWeight + "\n");
+        if (!child.getParentMap().containsKey(this)){
+            child.addParent(this, dependencyWeight);
         }
-        sb.append("------------------------------------\n");
-        return sb.toString();
+    }
+
+    public void addParent(Node parent, int dependencyWeight) {
+        parentMap.put(parent, dependencyWeight);
+        if(!parent.getChildrenMap().containsKey(this)){
+            parent.addChild(this, dependencyWeight);
+        }
     }
 
 }

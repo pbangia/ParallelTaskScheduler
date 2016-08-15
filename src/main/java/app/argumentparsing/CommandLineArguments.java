@@ -19,14 +19,15 @@ public class CommandLineArguments {
     /**
      * This method takes in the arguments passed through the command line and parses them to initialise
      * the CommandLineArguments instance
+     *
      * @param args arguments passed through the command line
      */
     public void parse(String[] args) throws InvalidArgumentTypeException, MissingArgumentsException {
-        if(args.length < 2) {
+        if (args.length < 2) {
             throw new MissingArgumentsException("Arguments missing.");
         }
 
-        if(!args[0].endsWith(".dot")){
+        if (!args[0].endsWith(".dot")) {
             throw new InvalidArgumentTypeException("Input File not of .dot format.");
 
         } else {
@@ -36,19 +37,20 @@ public class CommandLineArguments {
 
         numberOfProcessors = Integer.parseInt(args[1]);
 
-        for(int i = 2; i < args.length; i++) {
-            switch(args[i]) {
+        for (int i = 2; i < args.length; i++) {
+            switch (args[i]) {
                 case "-p":
                     i++;
                     numberOfThreads = Integer.parseInt(args[i]);
                     break;
                 case "-v":
+                    //No increment of i as -v is not preceded by any value
                     visualiseSearch = true;
                     break;
                 case "-o":
                     i++;
                     outputFileName = args[i];
-                    if(!outputFileName.endsWith(".dot")) {
+                    if (!outputFileName.endsWith(".dot")) {
                         outputFileName = outputFileName.concat(".dot");
                     }
                     break;
@@ -56,18 +58,23 @@ public class CommandLineArguments {
         }
     }
 
-    public void showFields() {
-        System.out.println("Input File Name: " + inputFileName);
-        System.out.println("Number of Processors: " + numberOfProcessors);
-        System.out.println("Number of Threads: " + numberOfThreads);
-        System.out.println("Visualise Search: " + visualiseSearch);
-        System.out.println("Output File Name: " + outputFileName);
+    public String getInputFileName() {
+        return this.inputFileName;
     }
 
-    // Getters
-    public String getInputFileName() { return this.inputFileName; }
-    public int getNumberOfProcessors() { return this.numberOfProcessors; }
-    public int getNumberOfThreads() { return this.numberOfThreads; }
-    public boolean getVisualiseSearch() { return this.visualiseSearch; }
-    public String getOutputFileName() { return this.outputFileName; }
+    public int getNumberOfProcessors() {
+        return this.numberOfProcessors;
+    }
+
+    public int getNumberOfThreads() {
+        return this.numberOfThreads;
+    }
+
+    public boolean getVisualiseSearch() {
+        return this.visualiseSearch;
+    }
+
+    public String getOutputFileName() {
+        return this.outputFileName;
+    }
 }

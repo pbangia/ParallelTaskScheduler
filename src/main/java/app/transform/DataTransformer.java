@@ -5,37 +5,38 @@ import app.exceptions.transform.EmptyMapException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static app.input.InputSyntax.DEFINITION_DELIMITER;
-import static app.input.InputSyntax.DEPENDENCY_ARROW;
+import static app.io.Syntax.DEFINITION_DELIMITER;
+import static app.io.Syntax.DEPENDENCY_ARROW;
 
-/**
- * Singleton DataTransformer class
- */
 public class DataTransformer implements IDataTransformer {
 
     private static Logger logger = LoggerFactory.getLogger(DataTransformer.class);
 
     private StringToMapTransformation toMapTransformation;
+    private List<String> dependencies = new ArrayList<>();
 
     public DataTransformer(StringToMapTransformation stringToMapTransformation) {
         this.toMapTransformation = stringToMapTransformation;
     }
 
     public Map<String, Node> transformIntoMap(String data) throws EmptyMapException {
-        logger.info("Starting transformation of input to map representation.");
+        logger.info("Starting transformation of io to map representation.");
         Map<String, Node> dataMap = new ConcurrentHashMap<String, Node>();
         String[] definitions = data.split(DEFINITION_DELIMITER);
         for (String definition : definitions) {
-            if (definition.trim().length() == 0) {
+            if (definition.trim().length() == 0 || !definition.toLowerCase().contains("weight")) {
                 continue;
             } else if (definition.contains(DEPENDENCY_ARROW)) {
-                logger.debug("Parsing node dependency: " + definition);
+                logger.debug("Parsing node dependency: " + definition.trim());
                 toMapTransformation.parseNodeDependency(definition, dataMap);
+                dependencies.add(definition.trim() + DEFINITION_DELIMITER + "\n");
             } else {
-                logger.debug("Parsing node declaration: " + definition);
+                logger.debug("Parsing node declaration: " + definition.trim());
                 toMapTransformation.parseNodeDeclaration(definition, dataMap);
             }
         }
@@ -49,9 +50,8 @@ public class DataTransformer implements IDataTransformer {
 
     }
 
-    public String transformIntoString(Map<String, Node> data) {
-        // TODO implement later
-        return null;
+    public List<String> getDependencies() {
+        return dependencies;
     }
 
 }

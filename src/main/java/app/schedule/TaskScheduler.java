@@ -2,37 +2,60 @@ package app.schedule;
 
 
 import app.data.Node;
+import app.data.PartialSolution;
 import app.exceptions.utils.NoRootFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
 public class TaskScheduler {
 
-    private Set<Node> scheduledNodes = new HashSet<>();
-    private Map<String, Node> dataMap;
+    private static Logger logger = LoggerFactory.getLogger(TaskScheduler.class);
+
+    private final Collection<Node> nodes;
     private SchedulerHelper schedulerHelper;
-    private List<Node> nextAvailableNodes;
+    private int numberOfProcessors;
 
-    public TaskScheduler(Map<String, Node> dataMap, SchedulerHelper schedulerHelper){
-        this.dataMap = dataMap;
+    // Constructor For Class
+    public TaskScheduler(Collection<Node> nodes, SchedulerHelper schedulerHelper, int numberOfProcessors) {
+        this.nodes = nodes;
         this.schedulerHelper = schedulerHelper;
+        this.numberOfProcessors = numberOfProcessors;
     }
 
-    //void for now as not sure what it will be returning.
-    public void scheduleTasks() throws NoRootFoundException {
-        nextAvailableNodes = schedulerHelper.getAvailableNodes(null, dataMap, scheduledNodes);
+    public PartialSolution scheduleTasks() throws NoRootFoundException {
+
+        PartialSolution bestPartialSolution = null;
+        Stack<PartialSolution> solutionStack = new Stack<>();
+        List<Node> nextAvailableNodes;
+
+        solutionStack.push(new PartialSolution(numberOfProcessors, nodes));
+
+        while (!solutionStack.empty()) {
+            PartialSolution currentPartialSolution = solutionStack.pop();
+            Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
+            Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
+
+            nextAvailableNodes = schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
+
+            if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
+                continue;
+            }
+
+            if (nextAvailableNodes.isEmpty()) {
+                bestPartialSolution = currentPartialSolution;
+                logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
+                continue;
+            }
+
+            for (Node availableNode : nextAvailableNodes) {
+                List<PartialSolution> availablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
+                solutionStack.addAll(availablePartialSolutions);
+            }
+        }
+
+        return bestPartialSolution;
     }
-
-    public void setScheduledNodes(Node node){
-        scheduledNodes.add(node);
-    }
-
-    public Set<Node> getScheduledNodes(){
-
-        return scheduledNodes;
-    }
-
-
-
 
 }

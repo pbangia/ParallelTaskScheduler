@@ -6,12 +6,9 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static app.input.InputSyntax.DEFINITION_DELIMITER;
-import static app.input.InputSyntax.DEPENDENCY_ARROW;
+import static app.io.Syntax.DEFINITION_DELIMITER;
+import static app.io.Syntax.DEPENDENCY_ARROW;
 
-/**
- * Singleton DataTransformer class
- */
 public class DataTransformer2 implements IDataTransformer2 {
 
     private StringToMatrixTransformation toMapTransformation;
@@ -47,20 +44,22 @@ public class DataTransformer2 implements IDataTransformer2 {
 
         int[][] matrix = new int[dataMap.size()][dataMap.size()];
         //-1 to represent no dependency. Cols/rows represent node from map.
-        for (int[] row: matrix) { Arrays.fill(row, -1); }
+        for (int[] row : matrix) {
+            Arrays.fill(row, -1);
+        }
 
         String[] definitions = data.split(DEFINITION_DELIMITER);
         int nodeCol = 0;
         for (String definition : definitions) {
 
-            if (definition.trim().length() == 0) {
+            if (definition.trim().length() == 0 || !definition.toLowerCase().contains("weight")) {
                 continue;
             } else if (definition.contains(DEPENDENCY_ARROW)) {
                 //dependency to be stored in matrix[parent][child]
-                toMapTransformation.parseNodeDependency(definition,dataMap,matrix);
+                toMapTransformation.parseNodeDependency(definition, dataMap, matrix);
             } else {
                 //self weight to be stored in matrix[i][i]
-                toMapTransformation.parseNodeWeight(definition,dataMap,matrix);
+                toMapTransformation.parseNodeWeight(definition, dataMap, matrix);
             }
         }
 
