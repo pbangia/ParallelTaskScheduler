@@ -46,10 +46,12 @@ public class PartialSolutionTest {
     @Test
     public void testClone() throws Exception {
         firstPS.getScheduledNodes().add(newNode1);
+        firstPS.getUnscheduledNodes().add(newNode2);
         PartialSolution clonedSolution = new PartialSolution(3, firstPS);
 
         assertEquals(clonedSolution.getNumberOfProcessors(), firstPS.getNumberOfProcessors());
         assertTrue(clonedSolution.getScheduledNodes().contains(newNode1));
+        assertTrue(clonedSolution.getUnscheduledNodes().contains(newNode2));
     }
 
     @Test
