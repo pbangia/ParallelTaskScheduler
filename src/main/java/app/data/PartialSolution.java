@@ -84,6 +84,7 @@ public class PartialSolution {
     private void clone(PartialSolution solutionToClone) {
 
         this.scheduledNodes = new HashSet<>(solutionToClone.scheduledNodes);
+        this.unscheduledNodes = new HashSet<>(solutionToClone.unscheduledNodes);
         this.numberOfProcessors = solutionToClone.numberOfProcessors;
         for (Processor processor : solutionToClone.processors) {
             this.processors.add(processor.clone());
