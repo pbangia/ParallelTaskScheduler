@@ -10,16 +10,16 @@ public class PartialSolution {
     private static Logger logger = LoggerFactory.getLogger(PartialSolution.class);
 
     private int numberOfProcessors;
-    private Node latestNodeAdded;
     private Set<Node> scheduledNodes = new HashSet<>();
     private Set<Node> unscheduledNodes = new HashSet<>();
-    private List<Processor> processors = new ArrayList<>();
+    private Processor[] processors;
+    //private List<Processor> processors = new ArrayList<>();
 
     public PartialSolution(int numberOfProcessors) {
         this.numberOfProcessors = numberOfProcessors;
+        processors = new Processor[numberOfProcessors];
         for (int i = 0; i < numberOfProcessors; i++) {
-            processors.add(new Processor());
-
+            processors[i] = new Processor();
         }
     }
 
@@ -39,7 +39,7 @@ public class PartialSolution {
         return this.length() < otherPartialSolution.length();
     }
 
-    int length() {
+    private int length() {
         int maxDuration = 0;
         for (Processor processor : processors) {
             if (maxDuration < processor.getCurrentTimeStamp()) {
@@ -50,10 +50,9 @@ public class PartialSolution {
     }
 
     public void addNodeToProcessor(Node nodeToAdd, int processorNumber) {
-        this.latestNodeAdded = nodeToAdd;
         scheduledNodes.add(nodeToAdd);
 
-        Processor currentProcessor = processors.get(processorNumber);
+        Processor currentProcessor = processors[processorNumber];
         Iterator<Map.Entry<Node, Integer>> parentsIterator = nodeToAdd.getParentMap().entrySet().iterator();
         List<Node> parentList = new ArrayList<>();
         while (parentsIterator.hasNext()) {
@@ -70,8 +69,8 @@ public class PartialSolution {
                     continue;
                 }
 
-                if (processors.get(i).getNodeEndTimeMap().containsKey(parent)) {
-                    int parentEndTime = processors.get(i).getNodeEndTimeMap().get(parent);
+                if (processors[i].getNodeEndTimeMap().containsKey(parent)) {
+                    int parentEndTime = processors[i].getNodeEndTimeMap().get(parent);
                     int dependencyWeight = nodeToAdd.getParentMap().get(parent);
                     int tempTimeToStart = parentEndTime + dependencyWeight;
                     if (minTimeToStart < tempTimeToStart) {
@@ -80,18 +79,18 @@ public class PartialSolution {
                 }
             }
         }
-        processors.get(processorNumber).addNodeToQueue(nodeToAdd, minTimeToStart);
+        processors[processorNumber].addNodeToQueue(nodeToAdd, minTimeToStart);
     }
 
-    void clone(PartialSolution solutionToClone) {
+    private void clone(PartialSolution solutionToClone) {
 
         this.scheduledNodes = new HashSet<>(solutionToClone.scheduledNodes);
+        this.unscheduledNodes = new HashSet<>(solutionToClone.unscheduledNodes);
         this.numberOfProcessors = solutionToClone.numberOfProcessors;
-        this.latestNodeAdded = solutionToClone.latestNodeAdded;
-        for (Processor processor : solutionToClone.processors) {
-            this.processors.add(processor.clone());
-        }
 
+        for (int i = 0; i < solutionToClone.processors.length; i++) {
+            this.processors[i] = solutionToClone.processors[i].clone();
+        }
     }
 
     @Override
@@ -112,16 +111,12 @@ public class PartialSolution {
         return sb.toString();
     }
 
-    public List<Processor> getProcessors() {
+    public Processor[] getProcessors() {
         return processors;
     }
 
     public int getNumberOfProcessors() {
         return numberOfProcessors;
-    }
-
-    public Node getLatestNode() {
-        return latestNodeAdded;
     }
 
     public Set<Node> getScheduledNodes() {
