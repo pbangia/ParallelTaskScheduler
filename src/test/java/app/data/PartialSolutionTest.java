@@ -37,11 +37,7 @@ public class PartialSolutionTest {
 
     @Test
     public void testAddNodeToProcessor() throws Exception {
-        firstPS.addNodeToProcessor(newNode1, 1);
 
-        assertEquals(firstPS.getLatestNode().getName(), "A");
-        assertEquals(firstPS.getLatestNode().getWeight(), 2);
-        assertTrue(firstPS.getScheduledNodes().contains(newNode1));
     }
 
     @Test
@@ -49,7 +45,6 @@ public class PartialSolutionTest {
         PartialSolution clonedSolution = new PartialSolution(0, firstPS);
 
         assertEquals(clonedSolution.getNumberOfProcessors(), firstPS.getNumberOfProcessors());
-        assertEquals(clonedSolution.getLatestNode(), firstPS.getLatestNode());
     }
 
 }

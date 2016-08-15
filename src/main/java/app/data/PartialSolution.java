@@ -10,7 +10,6 @@ public class PartialSolution {
     private static Logger logger = LoggerFactory.getLogger(PartialSolution.class);
 
     private int numberOfProcessors;
-    private Node latestNodeAdded;
     private Set<Node> scheduledNodes = new HashSet<>();
     private Set<Node> unscheduledNodes = new HashSet<>();
     private List<Processor> processors = new ArrayList<>();
@@ -50,7 +49,6 @@ public class PartialSolution {
     }
 
     public void addNodeToProcessor(Node nodeToAdd, int processorNumber) {
-        this.latestNodeAdded = nodeToAdd;
         scheduledNodes.add(nodeToAdd);
 
         Processor currentProcessor = processors.get(processorNumber);
@@ -87,7 +85,6 @@ public class PartialSolution {
 
         this.scheduledNodes = new HashSet<>(solutionToClone.scheduledNodes);
         this.numberOfProcessors = solutionToClone.numberOfProcessors;
-        this.latestNodeAdded = solutionToClone.latestNodeAdded;
         for (Processor processor : solutionToClone.processors) {
             this.processors.add(processor.clone());
         }
@@ -118,10 +115,6 @@ public class PartialSolution {
 
     public int getNumberOfProcessors() {
         return numberOfProcessors;
-    }
-
-    public Node getLatestNode() {
-        return latestNodeAdded;
     }
 
     public Set<Node> getScheduledNodes() {
