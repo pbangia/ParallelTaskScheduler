@@ -1,6 +1,9 @@
 package app.schedule;
 
 import app.data.Node;
+import app.data.PartialSolution;
+import app.data.Processor;
+import app.exceptions.AppException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,26 +24,23 @@ public class TaskSchedulerTest {
     }
 
     @Test
-    public void testNodes_7_OutTree() {
-        Node a = new Node("a", 5);
-        Node b = new Node("b", 6);
-        Node c = new Node("c", 5);
-        Node d = new Node("d", 6);
-        Node e = new Node("e", 4);
-        Node f = new Node("f", 7);
-        Node g = new Node("g", 7);
+    public void testScheduler_TwoProcessors() throws AppException {
+        Node a = new Node("a", 3);
+        Node b = new Node("b", 2);
 
-        a.addChild(b, 15);
-        b.addParent(a, 15);
+        a.addChild(b, 20);
 
+        dataMap.put("a", a);
+        dataMap.put("b", b);
 
+        TaskScheduler taskScheduler = new TaskScheduler(dataMap.values(), schedulerHelper, 2);
+        PartialSolution bestSolution = taskScheduler.scheduleTasks();
 
+        Assert.assertEquals(bestSolution.getNumberOfProcessors(), 2);
 
+        Processor[] processors = bestSolution.getProcessors();
+        Processor processor = processors [1];
 
-
-
-
-
-
+        Assert.assertEquals(processor.getCurrentTimeStamp(), 5);
     }
 }
