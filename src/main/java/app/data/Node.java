@@ -9,7 +9,6 @@ public class Node {
     private int weight;
     private int timestamp;
     private int processorNumber;
-    private boolean hasBeenScheduled = false;
     private Map<Node, Integer> parentMap = new ConcurrentHashMap<>();
     private Map<Node, Integer> childrenMap = new ConcurrentHashMap<>();
 
@@ -57,14 +56,6 @@ public class Node {
 
     public void setProcessorNumber(int processorNumber) {
         this.processorNumber = processorNumber;
-    }
-
-    public boolean hasBeenScheduled() {
-        return hasBeenScheduled;
-    }
-
-    public void setHasBeenScheduled(boolean hasBeenScheduled) {
-        this.hasBeenScheduled = hasBeenScheduled;
     }
 
     public Map<Node, Integer> getChildrenMap() {

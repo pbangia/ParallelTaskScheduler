@@ -1,10 +1,12 @@
 package app.data;
 
-import app.io.InputSyntax;
+import app.io.Syntax;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 public class PartialSolution {
 
@@ -105,7 +107,7 @@ public class PartialSolution {
                 sb.append("[Weight=" + n.getWeight());
                 sb.append(",Start=" + p.getTimeStamp(n));
                 sb.append(",Processor=" + processorNumber);
-                sb.append("]" + InputSyntax.DEFINITION_DELIMITER + "\n");
+                sb.append("]" + Syntax.DEFINITION_DELIMITER + "\n");
             }
             processorNumber++;
         }

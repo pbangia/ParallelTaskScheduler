@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static app.io.InputSyntax.DEFINITION_DELIMITER;
-import static app.io.InputSyntax.DEPENDENCY_ARROW;
+import static app.io.Syntax.DEFINITION_DELIMITER;
+import static app.io.Syntax.DEPENDENCY_ARROW;
 
 public class DataTransformer implements IDataTransformer {
 
