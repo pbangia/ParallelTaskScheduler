@@ -48,7 +48,6 @@ public class StringToMapTransformation {
         }
 
         parentNode.addChild(childNode, dependencyWeight);
-        childNode.addParent(parentNode, dependencyWeight);
         logger.debug("Added parent/child dependency between " + parentNodeName +
                 " and " + childNodeName + " with a weight of " + dependencyWeight);
 
