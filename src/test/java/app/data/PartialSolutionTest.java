@@ -13,6 +13,7 @@ public class PartialSolutionTest {
     private PartialSolution secondPS;
     private Node newNode1;
     private Node newNode2;
+
     @Before
     public void setUp() throws Exception {
         firstPS = new PartialSolution(2);
@@ -42,7 +43,7 @@ public class PartialSolutionTest {
 
     @Test
     public void testClone() throws Exception {
-        PartialSolution clonedSolution = new PartialSolution(0, firstPS);
+        PartialSolution clonedSolution = new PartialSolution(3, firstPS);
 
         assertEquals(clonedSolution.getNumberOfProcessors(), firstPS.getNumberOfProcessors());
     }

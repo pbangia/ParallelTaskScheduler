@@ -1,5 +1,7 @@
 package app.data;
 
+import app.io.InputSyntax;
+import jdk.internal.util.xml.impl.Input;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,13 +19,14 @@ public class PartialSolution {
 
     public PartialSolution(int numberOfProcessors) {
         this.numberOfProcessors = numberOfProcessors;
-        processors = new Processor[numberOfProcessors];
+        this.processors = new Processor[numberOfProcessors];
         for (int i = 0; i < numberOfProcessors; i++) {
             processors[i] = new Processor();
         }
     }
 
     public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone) {
+        this.processors = new Processor[numberOfProcessors];
         this.numberOfProcessors = numberOfProcessors;
         if (solutionToClone != null) {
             clone(solutionToClone);
@@ -41,11 +44,13 @@ public class PartialSolution {
 
     private int length() {
         int maxDuration = 0;
-        for (Processor processor : processors) {
-            if (maxDuration < processor.getCurrentTimeStamp()) {
-                maxDuration = processor.getCurrentTimeStamp();
+
+        for (int i = 0; i < processors.length; i++) {
+            if (maxDuration < processors[i].getCurrentTimeStamp()) {
+                maxDuration = processors[i].getCurrentTimeStamp();
             }
         }
+
         return maxDuration;
     }
 
@@ -89,6 +94,7 @@ public class PartialSolution {
         this.numberOfProcessors = solutionToClone.numberOfProcessors;
 
         for (int i = 0; i < solutionToClone.processors.length; i++) {
+            System.out.println("i is now " + i);
             this.processors[i] = solutionToClone.processors[i].clone();
         }
     }
@@ -104,7 +110,7 @@ public class PartialSolution {
                 sb.append("[Weight=" + n.getWeight());
                 sb.append(",Start=" + p.getTimeStamp(n));
                 sb.append(",Processor=" + processorNumber);
-                sb.append("];\n");
+                sb.append("]" + InputSyntax.DEFINITION_DELIMITER + "\n");
             }
             processorNumber++;
         }
