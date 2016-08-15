@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class OutputGeneratorTest {
@@ -49,7 +50,7 @@ public class OutputGeneratorTest {
         dependencies.add(dependencyBD);
         dependencies.add(dependencyCD);
 
-        partialSolution = new PartialSolution(2);
+        partialSolution = new PartialSolution(2, new HashSet<Node>());
         processors = partialSolution.getProcessors();
         processors[0].addNodeToQueue(a, 0);
         processors[0].addNodeToQueue(b, 2);
