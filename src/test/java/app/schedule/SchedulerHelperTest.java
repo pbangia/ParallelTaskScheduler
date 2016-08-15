@@ -264,7 +264,7 @@ public class SchedulerHelperTest {
 
     @Test
     public void testGetAvailablePartialSolutions_SingleProcessor_ReturnsCorrectList() {
-        PartialSolution currentPartialSolution = new PartialSolution(1);
+        PartialSolution currentPartialSolution = new PartialSolution(1, new HashSet<Node>());
 
         Node a = new Node("a", 1);
 
@@ -285,7 +285,7 @@ public class SchedulerHelperTest {
 
     @Test
     public void testGetAvailablePartialSolutions_MultipleProcessors_ReturnsCorrectList(){
-        PartialSolution currentPartialSolution = new PartialSolution(2);
+        PartialSolution currentPartialSolution = new PartialSolution(2, new HashSet<Node>());
 
         Node a = new Node("a", 1);
 
