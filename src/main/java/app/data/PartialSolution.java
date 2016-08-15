@@ -38,7 +38,7 @@ public class PartialSolution {
         return this.length() < otherPartialSolution.length();
     }
 
-    int length() {
+    private int length() {
         int maxDuration = 0;
         for (Processor processor : processors) {
             if (maxDuration < processor.getCurrentTimeStamp()) {
@@ -81,7 +81,7 @@ public class PartialSolution {
         processors.get(processorNumber).addNodeToQueue(nodeToAdd, minTimeToStart);
     }
 
-    void clone(PartialSolution solutionToClone) {
+    private void clone(PartialSolution solutionToClone) {
 
         this.scheduledNodes = new HashSet<>(solutionToClone.scheduledNodes);
         this.numberOfProcessors = solutionToClone.numberOfProcessors;
