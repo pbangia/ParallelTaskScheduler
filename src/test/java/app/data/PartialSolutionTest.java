@@ -29,11 +29,11 @@ public class PartialSolutionTest {
         assertTrue(firstPS.isBetterThan(secondPS));
     }
 
-    @Test
-    public void testLength() throws Exception {
-        firstPS.addNodeToProcessor(newNode1, 1);
-        assertEquals(firstPS.length(), 2);
-    }
+//    @Test
+//    public void testLength() throws Exception {
+//        firstPS.addNodeToProcessor(newNode1, 1);
+//        assertEquals(firstPS.length(), 2);
+//    }
 
     @Test
     public void testAddNodeToProcessor() throws Exception {
