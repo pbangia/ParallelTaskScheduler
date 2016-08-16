@@ -109,9 +109,14 @@ public class SchedulerHelper {
     public List<PartialSolution> getAvailablePartialSolutions(Node nodeToAdd, PartialSolution currentPartialSolution, int numberOfProcessors) {
 
         List<PartialSolution> availablePartialSolutions = new ArrayList<>();
+        int loopCounter = numberOfProcessors;
+        if (currentPartialSolution.getId() == 0){
+            loopCounter = 1;
+        }
 
-        for (int i = 0; i < numberOfProcessors; i++) {
-            PartialSolution newPartialSolution = new PartialSolution(numberOfProcessors, currentPartialSolution);
+        for (int i = 0; i < loopCounter; i++) {
+            int newId = currentPartialSolution.getId() + i + 1;
+            PartialSolution newPartialSolution = new PartialSolution(numberOfProcessors, currentPartialSolution, newId);
             newPartialSolution.addNodeToProcessor(nodeToAdd, i);
             availablePartialSolutions.add(newPartialSolution);
         }
