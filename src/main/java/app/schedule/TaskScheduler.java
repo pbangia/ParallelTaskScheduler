@@ -41,10 +41,8 @@ public class TaskScheduler implements Runnable {
         solutionStack.push(new PartialSolution(numberOfProcessors, nodes, 0));
 
         while (!solutionStack.empty()) {
-            if (solutionStack.size() >= numberOfThreads){
+            for (int i = 0; i < numberOfThreads; i++){
                 executorService.execute(this);
-            } else{
-                run();
             }
         }
 
@@ -57,10 +55,11 @@ public class TaskScheduler implements Runnable {
     public void run() {
 
         if (solutionStack.empty()){
-            executorService.shutdown();
+            return;
         }
 
         PartialSolution currentPartialSolution = solutionStack.pop();
+
         Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
         Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
 
