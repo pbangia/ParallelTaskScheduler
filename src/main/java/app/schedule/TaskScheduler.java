@@ -16,12 +16,13 @@ public class TaskScheduler {
     private final Collection<Node> nodes;
     private SchedulerHelper schedulerHelper;
     private int numberOfProcessors;
+    private int numberOfThreads;
 
-    // Constructor For Class
-    public TaskScheduler(Collection<Node> nodes, SchedulerHelper schedulerHelper, int numberOfProcessors) {
+    public TaskScheduler(Collection<Node> nodes, SchedulerHelper schedulerHelper, int numberOfProcessors, int numberOfThreads) {
         this.nodes = nodes;
         this.schedulerHelper = schedulerHelper;
         this.numberOfProcessors = numberOfProcessors;
+        this.numberOfThreads = numberOfThreads;
     }
 
     public PartialSolution scheduleTasks() throws NoRootFoundException {

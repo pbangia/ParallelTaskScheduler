@@ -102,7 +102,7 @@ public class BranchAndBoundApp {
      */
     private PartialSolution run(Map<String, Node> dataMap) throws AppException {
         logger.info("Starting branch and bound algorithm to find optimal schedule.");
-        taskScheduler = TaskSchedulerFactory.createTaskScheduler(dataMap, numProcessors);
+        taskScheduler = TaskSchedulerFactory.createTaskScheduler(dataMap, numProcessors, numThreads);
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.start();
         PartialSolution bestSolution = taskScheduler.scheduleTasks();
