@@ -41,7 +41,6 @@ public class TaskScheduler implements Runnable {
         solutionStack.push(new PartialSolution(numberOfProcessors, nodes, 0));
 
         while (!solutionStack.empty()) {
-            logger.error(String.valueOf(solutionStack.size()));
             if (solutionStack.size() >= numberOfThreads){
                 executorService.execute(this);
             } else{
