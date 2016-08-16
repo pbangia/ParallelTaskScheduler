@@ -31,14 +31,15 @@ public class TaskScheduler {
     }
 
     public PartialSolution scheduleTasks() throws NoRootFoundException {
-
-//        sv.getSolutionTree().display();
+        Graph g = new SingleGraph("SolutionTree");
+        sv.init(g);
 
         PartialSolution bestPartialSolution = null;
         Stack<PartialSolution> solutionStack = new Stack<>();
         List<Node> nextAvailableNodes;
 
         solutionStack.push(new PartialSolution(numberOfProcessors, nodes, 0));
+        sv.addRoot();
 
         while (!solutionStack.empty()) {
             PartialSolution currentPartialSolution = solutionStack.pop();
@@ -62,7 +63,7 @@ public class TaskScheduler {
                 solutionStack.addAll(availablePartialSolutions);
 
                 for (PartialSolution p: availablePartialSolutions){
-                   // sv.addNode(currentPartialSolution.getId(), p.getId());
+                    //sv.addNode(currentPartialSolution.getId(), p.getId());
                 }
             }
         }
