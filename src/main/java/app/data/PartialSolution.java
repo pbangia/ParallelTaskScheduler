@@ -1,6 +1,8 @@
 package app.data;
 
 import app.io.Syntax;
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.SingleGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,6 +67,7 @@ public class PartialSolution {
 
         int minTimeToStart = 0;
         while (parentsIterator.hasNext()) {
+
             Node parent = parentsIterator.next().getKey();
             if (currentProcessor.getNodeSet().contains(parent)) continue;
 
