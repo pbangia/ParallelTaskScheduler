@@ -4,6 +4,9 @@ package app.schedule;
 import app.data.Node;
 import app.data.PartialSolution;
 import app.exceptions.utils.NoRootFoundException;
+import graphvisualization.SolutionVisualizer;
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.SingleGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,15 +19,20 @@ public class TaskScheduler {
     private final Collection<Node> nodes;
     private SchedulerHelper schedulerHelper;
     private int numberOfProcessors;
+    private SolutionVisualizer sv;
 
     // Constructor For Class
     public TaskScheduler(Collection<Node> nodes, SchedulerHelper schedulerHelper, int numberOfProcessors) {
         this.nodes = nodes;
         this.schedulerHelper = schedulerHelper;
         this.numberOfProcessors = numberOfProcessors;
+        this.sv = new SolutionVisualizer();
+
     }
 
     public PartialSolution scheduleTasks() throws NoRootFoundException {
+
+//        sv.getSolutionTree().display();
 
         PartialSolution bestPartialSolution = null;
         Stack<PartialSolution> solutionStack = new Stack<>();
@@ -52,6 +60,10 @@ public class TaskScheduler {
             for (Node availableNode : nextAvailableNodes) {
                 List<PartialSolution> availablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
                 solutionStack.addAll(availablePartialSolutions);
+
+                for (PartialSolution p: availablePartialSolutions){
+                   // sv.addNode(currentPartialSolution.getId(), p.getId());
+                }
             }
         }
 
