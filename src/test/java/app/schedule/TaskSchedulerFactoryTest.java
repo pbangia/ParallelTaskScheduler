@@ -13,6 +13,7 @@ public class TaskSchedulerFactoryTest {
     public void testFactoryCreation() {
         Map<String, Node> map = new HashMap<>();
         int numberOfProcessors = 0;
-        Assert.assertTrue(TaskSchedulerFactory.createTaskScheduler(map, numberOfProcessors) instanceof TaskScheduler);
+        int numThreads = 0;
+        Assert.assertTrue(TaskSchedulerFactory.createTaskScheduler(map, numberOfProcessors, numThreads) instanceof TaskScheduler);
     }
 }

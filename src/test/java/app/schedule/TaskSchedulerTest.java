@@ -33,7 +33,7 @@ public class TaskSchedulerTest {
         dataMap.put("a", a);
         dataMap.put("b", b);
 
-        TaskScheduler taskScheduler = new TaskScheduler(dataMap.values(), schedulerHelper, 2);
+        TaskScheduler taskScheduler = new TaskScheduler(dataMap.values(), schedulerHelper, 2, 1);
         PartialSolution bestSolution = taskScheduler.scheduleTasks();
 
         Assert.assertEquals(bestSolution.getNumberOfProcessors(), 2);
