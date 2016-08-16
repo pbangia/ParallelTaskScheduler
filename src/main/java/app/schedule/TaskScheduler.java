@@ -8,8 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.RunnableFuture;
+import java.util.concurrent.ThreadPoolExecutor;
 
-public class TaskScheduler {
+public class TaskScheduler implements Runnable {
 
     private static Logger logger = LoggerFactory.getLogger(TaskScheduler.class);
 
@@ -17,6 +21,11 @@ public class TaskScheduler {
     private SchedulerHelper schedulerHelper;
     private int numberOfProcessors;
     private int numberOfThreads;
+
+    private Stack<PartialSolution> solutionStack;
+    private ExecutorService executorService;
+    private PartialSolution bestPartialSolution = null;
+    List<Node> nextAvailableNodes;
 
     public TaskScheduler(Collection<Node> nodes, SchedulerHelper schedulerHelper, int numberOfProcessors, int numberOfThreads) {
         this.nodes = nodes;
@@ -27,36 +36,52 @@ public class TaskScheduler {
 
     public PartialSolution scheduleTasks() throws NoRootFoundException {
 
-        PartialSolution bestPartialSolution = null;
-        Stack<PartialSolution> solutionStack = new Stack<>();
-        List<Node> nextAvailableNodes;
-
+        solutionStack = new Stack<>();
+        executorService = Executors.newFixedThreadPool(numberOfThreads);
         solutionStack.push(new PartialSolution(numberOfProcessors, nodes, 0));
 
         while (!solutionStack.empty()) {
-            PartialSolution currentPartialSolution = solutionStack.pop();
-            Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
-            Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
-
-            nextAvailableNodes = schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
-
-            if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
-                continue;
-            }
-
-            if (nextAvailableNodes.isEmpty()) {
-                bestPartialSolution = currentPartialSolution;
-                logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
-                continue;
-            }
-
-            for (Node availableNode : nextAvailableNodes) {
-                List<PartialSolution> availablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
-                solutionStack.addAll(availablePartialSolutions);
+            logger.error(String.valueOf(solutionStack.size()));
+            if (solutionStack.size() >= numberOfThreads){
+                executorService.execute(this);
+            } else{
+                run();
             }
         }
+
+        logger.error("came out");
 
         return bestPartialSolution;
     }
 
+    @Override
+    public void run() {
+
+        if (solutionStack.empty()){
+            executorService.shutdown();
+        }
+
+        PartialSolution currentPartialSolution = solutionStack.pop();
+        Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
+        Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
+
+        nextAvailableNodes = schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
+
+        if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
+            return;
+        }
+
+        if (nextAvailableNodes.isEmpty()) {
+            bestPartialSolution = currentPartialSolution;
+            logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
+            return;
+        }
+
+        for (Node availableNode : nextAvailableNodes) {
+            List<PartialSolution> availablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
+            solutionStack.addAll(availablePartialSolutions);
+        }
+
+
+    }
 }

@@ -9,10 +9,10 @@ public class TestRunner {
 
     public static void main(String[] args) throws URISyntaxException, AppException {
 
-        String inputFileName = "/input.dot";
+        String inputFileName = "/Nodes_11_OutTree.dot";
         String outputFileName = "output.dot";
         int numProcessors = 2;
-        int numThreads = 1;
+        int numThreads = 10;
         boolean visualiseSearch = false;
 
         File inputFile = new File(TestRunner.class.getClass().getResource(inputFileName).toURI());
