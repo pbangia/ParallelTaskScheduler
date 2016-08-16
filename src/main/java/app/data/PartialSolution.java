@@ -1,8 +1,6 @@
 package app.data;
 
 import app.io.Syntax;
-import org.graphstream.graph.Graph;
-import org.graphstream.graph.implementations.SingleGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +11,7 @@ public class PartialSolution {
     private static Logger logger = LoggerFactory.getLogger(PartialSolution.class);
 
     private int numberOfProcessors;
+    private int id;
     private Set<Node> scheduledNodes = new HashSet<>();
     private Set<Node> unscheduledNodes;
     private Processor[] processors;
@@ -27,6 +26,25 @@ public class PartialSolution {
     }
 
     public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone) {
+        this.processors = new Processor[numberOfProcessors];
+        this.numberOfProcessors = numberOfProcessors;
+        if (solutionToClone != null) {
+            clone(solutionToClone);
+        }
+    }
+
+    public PartialSolution(int numberOfProcessors, Collection<Node> nodes, int id) {
+        this.id = id;
+        this.numberOfProcessors = numberOfProcessors;
+        this.processors = new Processor[numberOfProcessors];
+        for (int i = 0; i < numberOfProcessors; i++) {
+            processors[i] = new Processor();
+        }
+        this.unscheduledNodes = new HashSet<>(nodes);
+    }
+
+    public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone, int id) {
+        this.id = id;
         this.processors = new Processor[numberOfProcessors];
         this.numberOfProcessors = numberOfProcessors;
         if (solutionToClone != null) {
@@ -67,7 +85,6 @@ public class PartialSolution {
 
         int minTimeToStart = 0;
         while (parentsIterator.hasNext()) {
-
             Node parent = parentsIterator.next().getKey();
             if (currentProcessor.getNodeSet().contains(parent)) continue;
 
@@ -128,4 +145,6 @@ public class PartialSolution {
     }
 
     public Set<Node> getUnscheduledNodes() { return unscheduledNodes; }
+
+    public int getId(){ return id; }
 }
