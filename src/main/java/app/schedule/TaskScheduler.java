@@ -30,7 +30,7 @@ public class TaskScheduler {
         Stack<PartialSolution> solutionStack = new Stack<>();
         List<Node> nextAvailableNodes;
 
-        solutionStack.push(new PartialSolution(numberOfProcessors, nodes));
+        solutionStack.push(new PartialSolution(numberOfProcessors, nodes, 0));
 
         while (!solutionStack.empty()) {
             PartialSolution currentPartialSolution = solutionStack.pop();
