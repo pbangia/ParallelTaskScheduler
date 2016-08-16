@@ -20,6 +20,7 @@ public class TaskScheduler {
     private SchedulerHelper schedulerHelper;
     private int numberOfProcessors;
     private SolutionVisualizer sv;
+    private int idCounter = 0;
 
     // Constructor For Class
     public TaskScheduler(Collection<Node> nodes, SchedulerHelper schedulerHelper, int numberOfProcessors) {
@@ -39,6 +40,7 @@ public class TaskScheduler {
         List<Node> nextAvailableNodes;
 
         solutionStack.push(new PartialSolution(numberOfProcessors, nodes, 0));
+        idCounter++;
         sv.addRoot();
 
         while (!solutionStack.empty()) {
@@ -59,11 +61,12 @@ public class TaskScheduler {
             }
 
             for (Node availableNode : nextAvailableNodes) {
-                List<PartialSolution> availablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
+                List<PartialSolution> availablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors, idCounter);
                 solutionStack.addAll(availablePartialSolutions);
 
                 for (PartialSolution p: availablePartialSolutions){
-                    //sv.addNode(currentPartialSolution.getId(), p.getId());
+                    idCounter++;
+                    sv.addNode(currentPartialSolution.getId(), p.getId());
                 }
             }
         }
@@ -72,3 +75,4 @@ public class TaskScheduler {
     }
 
 }
+

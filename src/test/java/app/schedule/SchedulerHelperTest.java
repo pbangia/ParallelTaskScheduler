@@ -268,7 +268,7 @@ public class SchedulerHelperTest {
 
         Node a = new Node("a", 1);
 
-        List<PartialSolution> actualAvailablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(a, currentPartialSolution, 1);
+        List<PartialSolution> actualAvailablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(a, currentPartialSolution, 1, 0);
 
         Processor processor = actualAvailablePartialSolutions.get(0).getProcessors()[0];
         Queue<Node> nodeQueue = processor.getNodeQueue();
@@ -289,7 +289,7 @@ public class SchedulerHelperTest {
 
         Node a = new Node("a", 1);
 
-        List<PartialSolution> actualAvailablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(a, currentPartialSolution, 2);
+        List<PartialSolution> actualAvailablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(a, currentPartialSolution, 2, 0);
 
         for (int i = 0; i < actualAvailablePartialSolutions.size(); i++){
             Processor processor = actualAvailablePartialSolutions.get(i).getProcessors()[i];

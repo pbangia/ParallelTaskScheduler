@@ -103,10 +103,11 @@ public class SchedulerHelper {
      * @param nodeToAdd              Node to be added to the partial solution provided
      * @param currentPartialSolution the partial solution provided
      * @param numberOfProcessors     number of processors in each partial solution
+     * @param idCounter
      * @return list of all partial solutions that correspond to the next available partial solutions
      */
 
-    public List<PartialSolution> getAvailablePartialSolutions(Node nodeToAdd, PartialSolution currentPartialSolution, int numberOfProcessors) {
+    public List<PartialSolution> getAvailablePartialSolutions(Node nodeToAdd, PartialSolution currentPartialSolution, int numberOfProcessors, int idCounter) {
 
         List<PartialSolution> availablePartialSolutions = new ArrayList<>();
         int loopCounter = numberOfProcessors;
@@ -115,7 +116,7 @@ public class SchedulerHelper {
         }
 
         for (int i = 0; i < loopCounter; i++) {
-            int newId = currentPartialSolution.getId() + i + 1;
+            int newId = idCounter + i;
             PartialSolution newPartialSolution = new PartialSolution(numberOfProcessors, currentPartialSolution, newId);
             newPartialSolution.addNodeToProcessor(nodeToAdd, i);
             availablePartialSolutions.add(newPartialSolution);
