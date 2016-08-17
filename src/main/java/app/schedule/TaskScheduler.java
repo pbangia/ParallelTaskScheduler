@@ -23,9 +23,7 @@ public class TaskScheduler {
     private int numberOfThreads;
 
     private Stack<PartialSolution> solutionStack;
-    private ExecutorService executorService;
     private PartialSolution bestPartialSolution = null;
-    List<Node> nextAvailableNodes;
 
     public TaskScheduler(Collection<Node> nodes, SchedulerHelper schedulerHelper, int numberOfProcessors, int numberOfThreads) {
         this.nodes = nodes;
@@ -37,7 +35,6 @@ public class TaskScheduler {
     public PartialSolution scheduleTasks() throws NoRootFoundException {
 
         solutionStack = new Stack<>();
-        executorService = Executors.newFixedThreadPool(numberOfThreads);
         solutionStack.push(new PartialSolution(numberOfProcessors, nodes, 0));
 
         List<BranchThread> branchThreadList = new ArrayList<>(numberOfThreads);
