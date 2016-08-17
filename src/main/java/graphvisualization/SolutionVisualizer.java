@@ -14,7 +14,8 @@ public class SolutionVisualizer implements IGraphPublisher{
     public void addRoot() {
         solutionTree.addNode("0");
         Node n = solutionTree.getNode("0");
-        n.addAttribute("ui.style", "fill-color: #6CC50D; size: 30px;");
+        n.addAttribute("ui.style", "fill-color: #6CC50D;");
+        n.addAttribute("ui.label","Root");
         n.setAttribute("xyz", 0, 0, 0);
     }
 
@@ -24,9 +25,7 @@ public class SolutionVisualizer implements IGraphPublisher{
         String edgeName = parentName + "," + childName;
 
         solutionTree.addNode(childName);
-        solutionTree.getNode(childName).addAttribute("ui.style", "fill-color: #808080; size: 20px;");
-
-        //solutionTree.getNode(childName).addAttribute("ui.style", "fill-color: ;");
+        solutionTree.getNode(childName).addAttribute("ui.style", "fill-color: #808080;");
 
         solutionTree.addEdge(edgeName, parentName, childName);
     }
