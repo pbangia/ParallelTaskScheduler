@@ -18,7 +18,6 @@ public class TaskScheduler {
     private static Logger logger = LoggerFactory.getLogger(TaskScheduler.class);
 
     private final Collection<Node> nodes;
-    private SchedulerHelper schedulerHelper;
     private int numberOfProcessors;
     private int numberOfThreads;
 
