@@ -45,14 +45,14 @@ public class BranchThread extends Thread {
 
         if (nextAvailableNodes.isEmpty()) {
             taskScheduler.setBestPartialSolution(currentPartialSolution);
+            this.notifyAll();
             return;
         }
 
         for (Node availableNode : nextAvailableNodes) {
             List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, currentPartialSolution.getNumberOfProcessors());
-            synchronized (this){
-                taskScheduler.addPartialSolutions(availablePartialSolutions);
-            }
+            taskScheduler.addPartialSolutions(availablePartialSolutions);
+            this.notifyAll();
 
         }
 
