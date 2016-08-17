@@ -21,7 +21,12 @@ public class SolutionVisualizer implements IGraphPublisher{
 
         solutionTree.addNode(childName);
         solutionTree.addEdge(edgeName, parentName, childName);
+    }
 
+    public void removeNode(int child){
+        String childName = Integer.toString(child);
+
+        solutionTree.removeNode(childName);
     }
 
     public void init(Graph solutionTree) {

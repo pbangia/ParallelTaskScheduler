@@ -51,6 +51,9 @@ public class TaskScheduler {
             nextAvailableNodes = schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
             if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
+                logger.debug("Solution Bounded: \n");
+                sv.removeNode(currentPartialSolution.getId());
+                currentPartialSolution = null;
                 continue;
             }
 

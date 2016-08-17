@@ -147,4 +147,5 @@ public class PartialSolution {
     public Set<Node> getUnscheduledNodes() { return unscheduledNodes; }
 
     public int getId(){ return id; }
+
 }
