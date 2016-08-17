@@ -19,28 +19,22 @@ public class TaskScheduler {
 
     private final Collection<Node> nodes;
     private int numberOfProcessors;
-    private int numberOfThreads;
+    private List<BranchThread> branchThreadList;
 
     private Stack<PartialSolution> solutionStack;
     private PartialSolution bestPartialSolution = null;
 
-    public TaskScheduler(Collection<Node> nodes, int numberOfProcessors, int numberOfThreads) {
+    public TaskScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList) {
         this.nodes = nodes;
         this.numberOfProcessors = numberOfProcessors;
-        this.numberOfThreads = numberOfThreads;
+        this.branchThreadList = branchThreadList;
     }
 
     public PartialSolution scheduleTasks() throws NoRootFoundException {
 
         solutionStack = new Stack<>();
         solutionStack.push(new PartialSolution(numberOfProcessors, nodes, 0));
-        
-        // Take away this for loop since we'll initialise the branch threads below
-        // No longer need this arraylist too
-        List<BranchThread> branchThreadList = new ArrayList<>(numberOfThreads);
-        for (int i = 0; i < numberOfThreads; i++){
-            branchThreadList.add(i, new BranchThread(this));
-        }
+
 
         int currentIndex = 0;
         boolean loopCondition = true;
@@ -53,7 +47,7 @@ public class TaskScheduler {
                 branchThreadList.get(currentIndex).setCurrentPartialSolution(current); // Get rid of this line - redundant
                 branchThreadList.get(currentIndex).start();
 
-                if (currentIndex == numberOfThreads - 1){
+                if (currentIndex == branchThreadList.size() - 1){
                     currentIndex = 0;
                 } else{
                     currentIndex++;
