@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.RunnableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
 
-public class TaskScheduler implements Runnable {
+public class TaskScheduler {
 
     private static Logger logger = LoggerFactory.getLogger(TaskScheduler.class);
 
@@ -80,40 +80,6 @@ public class TaskScheduler implements Runnable {
         }
 
         return false;
-
-    }
-
-    @Override
-    public void run() {
-
-        if (solutionStack.empty()){
-            return;
-        }
-
-        PartialSolution currentPartialSolution = solutionStack.pop();
-        logger.error(currentPartialSolution.toString());
-
-        Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
-        Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
-
-        nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
-
-        if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
-            return;
-        }
-
-        if (nextAvailableNodes.isEmpty()) {
-            bestPartialSolution = currentPartialSolution;
-            logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
-            return;
-        }
-
-        for (Node availableNode : nextAvailableNodes) {
-            logger.error("camealkdjflkadjslsk");
-            List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
-            solutionStack.addAll(availablePartialSolutions);
-        }
-
 
     }
 
