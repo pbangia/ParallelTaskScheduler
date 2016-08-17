@@ -36,7 +36,8 @@ public class TaskScheduler {
 
         solutionStack = new Stack<>();
         solutionStack.push(new PartialSolution(numberOfProcessors, nodes, 0));
-
+        
+        // Take away this for loop since we'll initialise the branch threads below
         List<BranchThread> branchThreadList = new ArrayList<>(numberOfThreads);
         for (int i = 0; i < numberOfThreads; i++){
             branchThreadList.add(i, new BranchThread(this));
@@ -45,11 +46,12 @@ public class TaskScheduler {
         int currentIndex = 0;
         boolean loopCondition = true;
         while (loopCondition) {
-
+            
+            // Need to clean this as an empty ArrayList will return NULL
             if (!solutionStack.isEmpty() && !branchThreadList.get(currentIndex).isAlive()){
                 PartialSolution current = solutionStack.pop();
                 branchThreadList.set(currentIndex, new BranchThread(this, current));
-                branchThreadList.get(currentIndex).setCurrentPartialSolution(current);
+                branchThreadList.get(currentIndex).setCurrentPartialSolution(current); // Get rid of this line - redundant
                 branchThreadList.get(currentIndex).start();
 
                 if (currentIndex == numberOfThreads - 1){
@@ -58,7 +60,8 @@ public class TaskScheduler {
                     currentIndex++;
                 }
             }
-
+            
+            // Wait until empty stack or ALL threads have died (one active thread might add to solutionStack)
             loopCondition = !solutionStack.empty() || atLeastOneActive(branchThreadList);
 
         }
@@ -76,7 +79,9 @@ public class TaskScheduler {
         return false;
 
     }
-
+    
+    // Might have to rename this to clarify what it's actually doing
+    // Not specifically setting the bestPartialSolution, but comparing Partial Solutions
     public synchronized void setBestPartialSolution(PartialSolution bestPartialSolution) {
         if (bestPartialSolution.isWorseThan(this.bestPartialSolution)){
             return;
