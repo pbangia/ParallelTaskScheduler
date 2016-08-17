@@ -36,6 +36,7 @@ public class TaskScheduler {
         solutionStack.push(new PartialSolution(numberOfProcessors, nodes, 0));
         
         // Take away this for loop since we'll initialise the branch threads below
+        // No longer need this arraylist too
         List<BranchThread> branchThreadList = new ArrayList<>(numberOfThreads);
         for (int i = 0; i < numberOfThreads; i++){
             branchThreadList.add(i, new BranchThread(this));
@@ -60,6 +61,7 @@ public class TaskScheduler {
             }
             
             // Wait until empty stack or ALL threads have died (one active thread might add to solutionStack)
+            //If true, algorithm not finished, do not exit while
             loopCondition = !solutionStack.empty() || atLeastOneActive(branchThreadList);
 
         }
@@ -67,6 +69,7 @@ public class TaskScheduler {
         return bestPartialSolution;
     }
 
+    //Change method to be more intuitive. Move to a Thread Util Class
     private boolean atLeastOneActive(List<? extends Thread> branchThreadList) {
         for (Thread thread : branchThreadList){
             if (thread.isAlive()){
