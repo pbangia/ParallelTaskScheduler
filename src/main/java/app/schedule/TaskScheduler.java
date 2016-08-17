@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.RunnableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
 
-public class TaskScheduler {
+public class TaskScheduler implements BranchThreadListener{
 
     private static Logger logger = LoggerFactory.getLogger(TaskScheduler.class);
 
@@ -77,7 +77,8 @@ public class TaskScheduler {
     
     // Might have to rename this to clarify what it's actually doing
     // Not specifically setting the bestPartialSolution, but comparing Partial Solutions
-    public synchronized void setBestPartialSolution(PartialSolution bestPartialSolution) {
+    @Override
+    public synchronized void onLeafReached(PartialSolution bestPartialSolution) {
         if (bestPartialSolution.isWorseThan(this.bestPartialSolution)){
             return;
         }
@@ -85,11 +86,13 @@ public class TaskScheduler {
         this.bestPartialSolution = bestPartialSolution;
     }
 
+    @Override
     public PartialSolution getBestPartialSolution() {
         return bestPartialSolution;
     }
 
-    public synchronized void addPartialSolutions(List<PartialSolution> availablePartialSolutions) {
+    @Override
+    public synchronized void onNewPartialSolutionsGenerated(List<PartialSolution> availablePartialSolutions) {
         this.solutionStack.addAll(availablePartialSolutions);
     }
 }

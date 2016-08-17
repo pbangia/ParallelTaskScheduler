@@ -16,17 +16,17 @@ public class BranchThread extends Thread {
 
     private LinkedBlockingDeque<PartialSolution> solutionStack;
     private PartialSolution currentPartialSolution;
-    private TaskScheduler taskScheduler;
+    private BranchThreadListener branchThreadListener;
 
     //TODO Branchthread should not take in a TaskScheduler instance. Change to interface reference.
-    public BranchThread(TaskScheduler taskScheduler, PartialSolution currentPartialSolution){
-        this.taskScheduler = taskScheduler;
+    public BranchThread(BranchThreadListener branchThreadListener, PartialSolution currentPartialSolution){
+        this.branchThreadListener = branchThreadListener;
         this.currentPartialSolution = currentPartialSolution;
     }
 
     //This can now be removed I think, or change to take in interface reference
-    public BranchThread(TaskScheduler taskScheduler) {
-        this.taskScheduler = taskScheduler;
+    public BranchThread(BranchThreadListener branchThreadListener) {
+        this.branchThreadListener = branchThreadListener;
     }
 
     public void setCurrentPartialSolution(PartialSolution currentPartialSolution){
@@ -42,14 +42,14 @@ public class BranchThread extends Thread {
 
         List<Node> nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
-        if (currentPartialSolution.isWorseThan(taskScheduler.getBestPartialSolution())) {
+        if (currentPartialSolution.isWorseThan(branchThreadListener.getBestPartialSolution())) {
             return;
         }
 
         //Reached end of solution tree, instead of comparing if this is the best partial solution, it gives the
         //current solution it just computed to taskScheduler which will then conpare
         if (nextAvailableNodes.isEmpty()) {
-            taskScheduler.setBestPartialSolution(currentPartialSolution);
+            branchThreadListener.onLeafReached(currentPartialSolution);
             this.notifyAll();
             return;
         }
@@ -57,7 +57,7 @@ public class BranchThread extends Thread {
         //After creation of all new partial solutions where node can be places next, gives this to taskScheduler to add onto the stack
         for (Node availableNode : nextAvailableNodes) {
             List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, currentPartialSolution.getNumberOfProcessors());
-            taskScheduler.addPartialSolutions(availablePartialSolutions);
+            branchThreadListener.onNewPartialSolutionsGenerated(availablePartialSolutions);
             this.notifyAll();
 
         }
