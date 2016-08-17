@@ -52,7 +52,6 @@ public class BranchThread extends Thread {
             List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, currentPartialSolution.getNumberOfProcessors());
             synchronized (this){
                 taskScheduler.addPartialSolutions(availablePartialSolutions);
-                logger.error("about to notify");
             }
 
         }

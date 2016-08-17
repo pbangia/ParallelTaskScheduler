@@ -53,7 +53,6 @@ public class TaskScheduler {
                 PartialSolution current = solutionStack.pop();
                 branchThreadList.set(currentIndex, new BranchThread(this, current));
                 branchThreadList.get(currentIndex).setCurrentPartialSolution(current);
-                logger.error(String.valueOf(branchThreadList.get(currentIndex).getState()));
                 branchThreadList.get(currentIndex).start();
 
                 if (currentIndex == numberOfThreads - 1){
@@ -66,8 +65,6 @@ public class TaskScheduler {
             loopCondition = !solutionStack.empty() || atLeastOneActive(branchThreadList);
 
         }
-
-        logger.error("came out");
 
         return bestPartialSolution;
     }
@@ -87,6 +84,7 @@ public class TaskScheduler {
         if (bestPartialSolution.isWorseThan(this.bestPartialSolution)){
             return;
         }
+        logger.info("New optimal solution found: " + bestPartialSolution);
         this.bestPartialSolution = bestPartialSolution;
     }
 
