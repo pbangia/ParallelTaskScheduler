@@ -24,7 +24,7 @@ public class TaskSchedulerTest {
     }
 
     @Test
-    public void testScheduler_TwoProcessors() throws AppException {
+    public void testScheduler_TwoProcessors() throws AppException, InterruptedException {
         Node a = new Node("a", 3);
         Node b = new Node("b", 2);
 

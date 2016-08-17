@@ -40,15 +40,47 @@ public class TaskScheduler implements Runnable {
         executorService = Executors.newFixedThreadPool(numberOfThreads);
         solutionStack.push(new PartialSolution(numberOfProcessors, nodes, 0));
 
-        while (!solutionStack.empty()) {
-            for (int i = 0; i < numberOfThreads; i++){
-                executorService.execute(this);
+        List<BranchThread> branchThreadList = new ArrayList<>(numberOfThreads);
+        for (int i = 0; i < numberOfThreads; i++){
+            branchThreadList.add(i, new BranchThread(this));
+        }
+
+        int currentIndex = 0;
+        boolean loopCondition = true;
+        while (loopCondition) {
+
+            if (!solutionStack.isEmpty() && !branchThreadList.get(currentIndex).isAlive()){
+                PartialSolution current = solutionStack.pop();
+                branchThreadList.set(currentIndex, new BranchThread(this, current));
+                branchThreadList.get(currentIndex).setCurrentPartialSolution(current);
+                logger.error(String.valueOf(branchThreadList.get(currentIndex).getState()));
+                branchThreadList.get(currentIndex).start();
+
+                if (currentIndex == numberOfThreads - 1){
+                    currentIndex = 0;
+                } else{
+                    currentIndex++;
+                }
             }
+
+            loopCondition = !solutionStack.empty() || atLeastOneActive(branchThreadList);
+
         }
 
         logger.error("came out");
 
         return bestPartialSolution;
+    }
+
+    private boolean atLeastOneActive(List<? extends Thread> branchThreadList) {
+        for (Thread thread : branchThreadList){
+            if (thread.isAlive()){
+                return true;
+            }
+        }
+
+        return false;
+
     }
 
     @Override
@@ -59,11 +91,12 @@ public class TaskScheduler implements Runnable {
         }
 
         PartialSolution currentPartialSolution = solutionStack.pop();
+        logger.error(currentPartialSolution.toString());
 
         Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
         Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
 
-        nextAvailableNodes = schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
+        nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
         if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
             return;
@@ -76,10 +109,26 @@ public class TaskScheduler implements Runnable {
         }
 
         for (Node availableNode : nextAvailableNodes) {
-            List<PartialSolution> availablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
+            logger.error("camealkdjflkadjslsk");
+            List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
             solutionStack.addAll(availablePartialSolutions);
         }
 
 
+    }
+
+    public synchronized void setBestPartialSolution(PartialSolution bestPartialSolution) {
+        if (bestPartialSolution.isWorseThan(this.bestPartialSolution)){
+            return;
+        }
+        this.bestPartialSolution = bestPartialSolution;
+    }
+
+    public PartialSolution getBestPartialSolution() {
+        return bestPartialSolution;
+    }
+
+    public synchronized void addPartialSolutions(List<PartialSolution> availablePartialSolutions) {
+        this.solutionStack.addAll(availablePartialSolutions);
     }
 }

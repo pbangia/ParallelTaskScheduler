@@ -70,7 +70,7 @@ public class SchedulerHelper {
      * @param unscheduledNodes set of nodes which haven't been scheduled.
      * @return List nodes available to be scheduled.
      */
-    public List<Node> getAvailableNodes(Set<Node> scheduledNodes, Set<Node> unscheduledNodes) {
+    public static List<Node> getAvailableNodes(Set<Node> scheduledNodes, Set<Node> unscheduledNodes) {
 
         List<Node> nextAvailableNodes = new ArrayList<>();
         Iterator<Node> unscheduledNodesIterator = unscheduledNodes.iterator();
@@ -106,7 +106,7 @@ public class SchedulerHelper {
      * @return list of all partial solutions that correspond to the next available partial solutions
      */
 
-    public List<PartialSolution> getAvailablePartialSolutions(Node nodeToAdd, PartialSolution currentPartialSolution, int numberOfProcessors) {
+    public static List<PartialSolution> getAvailablePartialSolutions(Node nodeToAdd, PartialSolution currentPartialSolution, int numberOfProcessors) {
 
         List<PartialSolution> availablePartialSolutions = new ArrayList<>();
         int loopCounter = numberOfProcessors;

@@ -30,6 +30,8 @@ public class Main {
         } catch (AppException e) {
             // add error log message
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
     }
