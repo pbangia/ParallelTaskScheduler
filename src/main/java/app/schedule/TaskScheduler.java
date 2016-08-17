@@ -24,9 +24,8 @@ public class TaskScheduler {
     private Stack<PartialSolution> solutionStack;
     private PartialSolution bestPartialSolution = null;
 
-    public TaskScheduler(Collection<Node> nodes, SchedulerHelper schedulerHelper, int numberOfProcessors, int numberOfThreads) {
+    public TaskScheduler(Collection<Node> nodes, int numberOfProcessors, int numberOfThreads) {
         this.nodes = nodes;
-        this.schedulerHelper = schedulerHelper;
         this.numberOfProcessors = numberOfProcessors;
         this.numberOfThreads = numberOfThreads;
     }
