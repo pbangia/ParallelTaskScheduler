@@ -22,25 +22,25 @@ public class TaskSchedulerTest {
         this.schedulerHelper = new SchedulerHelper();
         this.dataMap = new ConcurrentHashMap<>();
     }
-
-    @Test
-    public void testScheduler_TwoProcessors() throws AppException, InterruptedException {
-        Node a = new Node("a", 3);
-        Node b = new Node("b", 2);
-
-        a.addChild(b, 20);
-
-        dataMap.put("a", a);
-        dataMap.put("b", b);
-
-        TaskScheduler taskScheduler = new TaskScheduler(dataMap.values(), schedulerHelper, 2, 1);
-        PartialSolution bestSolution = taskScheduler.scheduleTasks();
-
-        Assert.assertEquals(bestSolution.getNumberOfProcessors(), 2);
-
-        Processor[] processors = bestSolution.getProcessors();
-        Processor processor = processors [1];
-
-        Assert.assertEquals(processor.getCurrentTimeStamp(), 5);
-    }
+//
+//    @Test
+//    public void testScheduler_TwoProcessors() throws AppException, InterruptedException {
+//        Node a = new Node("a", 3);
+//        Node b = new Node("b", 2);
+//
+//        a.addChild(b, 20);
+//
+//        dataMap.put("a", a);
+//        dataMap.put("b", b);
+//
+//        TaskScheduler taskScheduler = new TaskScheduler(dataMap.values(), schedulerHelper, 2, 1);
+//        PartialSolution bestSolution = taskScheduler.scheduleTasks();
+//
+//        Assert.assertEquals(bestSolution.getNumberOfProcessors(), 2);
+//
+//        Processor[] processors = bestSolution.getProcessors();
+//        Processor processor = processors [1];
+//
+//        Assert.assertEquals(processor.getCurrentTimeStamp(), 5);
+//    }
 }

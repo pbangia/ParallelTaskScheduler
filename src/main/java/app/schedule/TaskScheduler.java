@@ -29,6 +29,7 @@ public class TaskScheduler implements BranchThreadListener{
         this.nodes = nodes;
         this.numberOfProcessors = numberOfProcessors;
         this.threadUtil = threadUtil;
+        this.branchThreadList = branchThreadList;
     }
 
     public PartialSolution scheduleTasks() throws NoRootFoundException {
@@ -42,10 +43,14 @@ public class TaskScheduler implements BranchThreadListener{
         while (loopCondition) {
             
             // Need to clean this as an empty ArrayList will return NULL
-            if (!solutionStack.isEmpty() && !branchThreadList.get(currentIndex).isAlive()){
+            //if (!solutionStack.isEmpty() && !branchThreadList.get(currentIndex).isAlive())
+
+            if (branchThreadList.get(currentIndex) == null) {
+                System.out.println("This works and is null");
+            }
+            if (!solutionStack.isEmpty() && (branchThreadList.get(currentIndex) == null || !branchThreadList.get(currentIndex).isAlive())){
                 PartialSolution current = solutionStack.pop();
                 branchThreadList.set(currentIndex, new BranchThread(this, current));
-                branchThreadList.get(currentIndex).setCurrentPartialSolution(current); // Get rid of this line - redundant
                 branchThreadList.get(currentIndex).start();
 
                 currentIndex = threadUtil.incrementIndex(currentIndex, branchThreadList.size());
