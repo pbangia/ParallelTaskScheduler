@@ -54,24 +54,13 @@ public class TaskScheduler implements BranchThreadListener{
             
             // Wait until empty stack or ALL threads have died (one active thread might add to solutionStack)
             //If true, algorithm not finished, do not exit while
-            loopCondition = !solutionStack.empty() || atLeastOneActive(branchThreadList);
+            loopCondition = !solutionStack.empty() || !threadUtil.allInactive(branchThreadList);
 
         }
 
         return bestPartialSolution;
     }
 
-    //Change method to be more intuitive. Move to a Thread Util Class
-    private boolean atLeastOneActive(List<? extends Thread> branchThreadList) {
-        for (Thread thread : branchThreadList){
-            if (thread.isAlive()){
-                return true;
-            }
-        }
-
-        return false;
-
-    }
     
     // Might have to rename this to clarify what it's actually doing
     // Not specifically setting the bestPartialSolution, but comparing Partial Solutions
