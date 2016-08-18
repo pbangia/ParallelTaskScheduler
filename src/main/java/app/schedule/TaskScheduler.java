@@ -4,6 +4,7 @@ package app.schedule;
 import app.data.Node;
 import app.data.PartialSolution;
 import app.exceptions.utils.NoRootFoundException;
+import app.utils.ThreadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,14 +21,14 @@ public class TaskScheduler implements BranchThreadListener{
     private final Collection<Node> nodes;
     private int numberOfProcessors;
     private List<BranchThread> branchThreadList;
-
+    private ThreadUtil threadUtil;
     private Stack<PartialSolution> solutionStack;
     private PartialSolution bestPartialSolution = null;
 
-    public TaskScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList) {
+    public TaskScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList, ThreadUtil threadUtil) {
         this.nodes = nodes;
         this.numberOfProcessors = numberOfProcessors;
-        this.branchThreadList = branchThreadList;
+        this.threadUtil = threadUtil;
     }
 
     public PartialSolution scheduleTasks() throws NoRootFoundException {
@@ -47,11 +48,8 @@ public class TaskScheduler implements BranchThreadListener{
                 branchThreadList.get(currentIndex).setCurrentPartialSolution(current); // Get rid of this line - redundant
                 branchThreadList.get(currentIndex).start();
 
-                if (currentIndex == branchThreadList.size() - 1){
-                    currentIndex = 0;
-                } else{
-                    currentIndex++;
-                }
+                currentIndex = threadUtil.incrementIndex(currentIndex, branchThreadList.size());
+
             }
             
             // Wait until empty stack or ALL threads have died (one active thread might add to solutionStack)
