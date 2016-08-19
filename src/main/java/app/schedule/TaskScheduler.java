@@ -55,6 +55,8 @@ public class TaskScheduler implements BranchThreadListener{
 
                 currentIndex = threadUtil.incrementIndex(currentIndex, branchThreadList.size());
 
+            } else{
+                currentIndex = threadUtil.incrementIndex(currentIndex, branchThreadList.size());
             }
             
             // Wait until empty stack or ALL threads have died (one active thread might add to solutionStack)
@@ -71,6 +73,7 @@ public class TaskScheduler implements BranchThreadListener{
     // Not specifically setting the bestPartialSolution, but comparing Partial Solutions
     @Override
     public synchronized void onLeafReached(PartialSolution bestPartialSolution) {
+        this.bestPartialSolution = this.getBestPartialSolution();
         if (bestPartialSolution.isWorseThan(this.bestPartialSolution)){
             return;
         }

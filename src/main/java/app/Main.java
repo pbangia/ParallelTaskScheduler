@@ -24,7 +24,7 @@ public class Main {
 //        File inputFile = new File(inputFileName);
 //        BranchAndBoundApp app = new BranchAndBoundApp(inputFile, outputFileName, numProcessors, numThreads, visualiseSearch);
 
-        String filename = "/Nodes_8_Random.dot";
+        String filename = "/Nodes_7_OutTree.dot";
         File inputFile = new File(Main.class.getClass().getResource(filename).toURI());
         BranchAndBoundApp app = new BranchAndBoundApp(inputFile,"out.dot", 2, 1, false);
         try {
