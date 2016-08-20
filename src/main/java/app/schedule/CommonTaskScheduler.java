@@ -24,7 +24,7 @@ public abstract class CommonTaskScheduler {
         this.numberOfProcessors = numberOfProcessors;
     }
 
-    public PartialSolution scheduleTasks() throws NoRootFoundException {
+    public PartialSolution scheduleTasks() {
 
         PartialSolution bestPartialSolution = null;
         Stack<PartialSolution> solutionStack = new Stack<>();
