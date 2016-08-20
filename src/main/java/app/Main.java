@@ -12,30 +12,21 @@ public class Main {
 
     public static void main(String[] args) throws URISyntaxException, AppException {
 
-//        CommandLineArguments cmdArgs = new CommandLineArguments();
-//        cmdArgs.parse(args);
-//
-//        String inputFileName = cmdArgs.getInputFileName();
-//        String outputFileName = cmdArgs.getOutputFileName();
-//        int numProcessors = cmdArgs.getNumberOfProcessors();
-//        int numThreads = cmdArgs.getNumberOfThreads();
-//        boolean visualiseSearch = cmdArgs.getVisualiseSearch();
+        CommandLineArguments cmdArgs = new CommandLineArguments();
+        cmdArgs.parse(args);
 
-//        File inputFile = new File(inputFileName);
-//        BranchAndBoundApp app = new BranchAndBoundApp(inputFile, outputFileName, numProcessors, numThreads, visualiseSearch);
+        String inputFileName = cmdArgs.getInputFileName();
+        String outputFileName = cmdArgs.getOutputFileName();
+        int numProcessors = cmdArgs.getNumberOfProcessors();
+        int numThreads = cmdArgs.getNumberOfThreads();
+        boolean visualiseSearch = cmdArgs.getVisualiseSearch();
 
-        String filename = "/Nodes_7_OutTree.dot";
-        File inputFile = new File(Main.class.getClass().getResource(filename).toURI());
-        BranchAndBoundApp app = new BranchAndBoundApp(inputFile,"out.dot", 2, 1, false);
+        File inputFile = new File(inputFileName);
+        BranchAndBoundApp app = new BranchAndBoundApp(inputFile, outputFileName, numProcessors, numThreads, visualiseSearch);
+
         try {
             app.start();
-        } catch (IOException e) {
-            // add error log message
-            e.printStackTrace();
-        } catch (AppException e) {
-            // add error log message
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | AppException | InterruptedException e) {
             e.printStackTrace();
         }
 
