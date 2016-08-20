@@ -45,15 +45,14 @@ public class TaskScheduler {
 
 
         }
-
+        return bestPartialSolution;
     }
 
     
     // Might have to rename this to clarify what it's actually doing
     // Not specifically setting the bestPartialSolution, but comparing Partial Solutions
-    @Override
     public synchronized void onLeafReached(PartialSolution bestPartialSolution) {
-        this.bestPartialSolution = this.getBestPartialSolution();
+//        this.bestPartialSolution = this.getBestPartialSolution();
         if (bestPartialSolution.isWorseThan(this.bestPartialSolution)){
             return;
         }
@@ -61,12 +60,10 @@ public class TaskScheduler {
         this.bestPartialSolution = bestPartialSolution;
     }
 
-    @Override
     public PartialSolution getBestPartialSolution() {
         return bestPartialSolution;
     }
 
-    @Override
     public synchronized void onNewPartialSolutionsGenerated(List<PartialSolution> availablePartialSolutions) {
         this.solutionStack.addAll(availablePartialSolutions);
     }
