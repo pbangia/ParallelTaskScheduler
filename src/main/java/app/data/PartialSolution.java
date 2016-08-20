@@ -60,7 +60,7 @@ public class PartialSolution {
         return this.length() < otherPartialSolution.length();
     }
 
-    private int length() {
+    public int length() {
         int maxDuration = 0;
 
         for (int i = 0; i < processors.length; i++) {
@@ -70,6 +70,14 @@ public class PartialSolution {
         }
 
         return maxDuration;
+    }
+
+    public int unscheduledSerialLength(){
+        int length = 0;
+        for (Node node : unscheduledNodes){
+            length += node.getWeight();
+        }
+        return length;
     }
 
     public boolean isWorseThan(PartialSolution bestPartialSolution) {

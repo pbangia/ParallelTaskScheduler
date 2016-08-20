@@ -90,9 +90,7 @@ public class TaskScheduler implements BranchThreadListener{
     }
 
     @Override
-    public synchronized PartialSolution getBestSolution(){
+    public synchronized PartialSolution currentBest() {
         return bestPartialSolution;
     }
-
-
 }

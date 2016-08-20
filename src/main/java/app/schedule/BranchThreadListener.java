@@ -6,7 +6,6 @@ public interface BranchThreadListener {
 
     void onLeafReached(PartialSolution completeSolution);
 
-    PartialSolution getBestSolution();
-
+    PartialSolution currentBest();
 }
 
