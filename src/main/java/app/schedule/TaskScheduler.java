@@ -4,15 +4,11 @@ package app.schedule;
 import app.data.Node;
 import app.data.PartialSolution;
 import app.exceptions.utils.NoRootFoundException;
-import app.utils.ThreadUtil;
+import app.utils.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.RunnableFuture;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class TaskScheduler implements BranchThreadListener{
 
@@ -53,18 +49,24 @@ public class TaskScheduler implements BranchThreadListener{
             }
         }
 
+        logger.info(String.valueOf(solutionQueue.size()));
+
         int threadIndex = 0;
         while (!solutionQueue.isEmpty()){
             BranchThread currentThread = branchThreadList.get(threadIndex);
             PartialSolution partialSolutionToDistribute = solutionQueue.remove();
-            currentThread.setup(partialSolutionToDistribute, this);
-            currentThread.start();
+            currentThread.addPartialSolution(partialSolutionToDistribute);
             threadIndex = incrementIndex(threadIndex);
+        }
+
+        for (BranchThread thread : branchThreadList){
+            thread.setBranchThreadListener(this);
+            thread.start();
         }
 
         boolean loopCondition = true;
         while (loopCondition){
-            loopCondition = ThreadUtil.allInactive(branchThreadList);
+            loopCondition = ThreadUtils.allThreadsInactive(branchThreadList);
         }
 
         return bestPartialSolution;

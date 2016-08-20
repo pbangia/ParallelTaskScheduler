@@ -20,9 +20,8 @@ public class BranchThread extends Thread {
     private Stack<PartialSolution> solutionStack = new Stack<>();
     private BranchThreadListener branchThreadListener;
 
-    public void setup(PartialSolution solutionToBranchOn, BranchThreadListener listener) {
-        this.solutionStack.push(solutionToBranchOn);
-        this.branchThreadListener = listener;
+    public void addPartialSolution(PartialSolution partialSolution){
+        this.solutionStack.push(partialSolution);
     }
 
     @Override
@@ -59,5 +58,9 @@ public class BranchThread extends Thread {
         }
 
         return bestPartialSolution;
+    }
+
+    public void setBranchThreadListener(BranchThreadListener listener) {
+        this.branchThreadListener = listener;
     }
 }
