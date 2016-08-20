@@ -47,7 +47,6 @@ public class BranchThread extends Thread {
 
             if (nextAvailableNodes.isEmpty()) {
                 bestPartialSolution = currentPartialSolution;
-                logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
                 continue;
             }
 

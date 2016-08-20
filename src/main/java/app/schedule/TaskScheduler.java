@@ -32,30 +32,31 @@ public class TaskScheduler implements BranchThreadListener{
 
         while (solutionQueue.size() < branchThreadList.size()){
 
-            PartialSolution currentPartialSolution = solutionQueue.remove();
-            Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
-            Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
+            PartialSolution current = solutionQueue.remove();
+            Set<Node> scheduledNodes = current.getScheduledNodes();
+            Set<Node> unscheduledNodes = current.getUnscheduledNodes();
             List<Node> nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
             if (nextAvailableNodes.isEmpty()) {
-                bestPartialSolution = currentPartialSolution;
+                bestPartialSolution = current;
                 logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
                 continue;
             }
 
             for (Node availableNode : nextAvailableNodes) {
-                List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution);
+                List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, current);
                 solutionQueue.addAll(availablePartialSolutions);
             }
         }
 
-        logger.info(String.valueOf(solutionQueue.size()));
+        logger.debug("Solution queue has size : " + solutionQueue.size() + " before parallel execution.");
 
         int threadIndex = 0;
         while (!solutionQueue.isEmpty()){
             BranchThread currentThread = branchThreadList.get(threadIndex);
             PartialSolution partialSolutionToDistribute = solutionQueue.remove();
             currentThread.addPartialSolution(partialSolutionToDistribute);
+            logger.debug("Distributed :\n" + partialSolutionToDistribute.toString() + " to thread " + threadIndex);
             threadIndex = incrementIndex(threadIndex);
         }
 
@@ -76,7 +77,7 @@ public class TaskScheduler implements BranchThreadListener{
         if (currentIndex == branchThreadList.size() - 1){
             return 0;
         } else{
-            return currentIndex++;
+            return currentIndex + 1;
         }
     }
 
@@ -84,6 +85,7 @@ public class TaskScheduler implements BranchThreadListener{
     public synchronized void onCompletion(PartialSolution completeSolution) {
         if (completeSolution.isBetterThan(bestPartialSolution)){
             bestPartialSolution = completeSolution;
+            logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
         }
     }
 }
