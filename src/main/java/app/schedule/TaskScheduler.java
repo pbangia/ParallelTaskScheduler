@@ -14,22 +14,22 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.RunnableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
 
-public class TaskScheduler implements BranchThreadListener{
+public class TaskScheduler {
 
     private static Logger logger = LoggerFactory.getLogger(TaskScheduler.class);
 
     private final Collection<Node> nodes;
     private int numberOfProcessors;
-    private List<BranchThread> branchThreadList;
+    private int numThreads;
     private ThreadUtil threadUtil;
     private Stack<PartialSolution> solutionStack;
     private PartialSolution bestPartialSolution = null;
 
-    public TaskScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList, ThreadUtil threadUtil) {
+    public TaskScheduler(Collection<Node> nodes, int numberOfProcessors, int numThreads, ThreadUtil threadUtil) {
         this.nodes = nodes;
         this.numberOfProcessors = numberOfProcessors;
         this.threadUtil = threadUtil;
-        this.branchThreadList = branchThreadList;
+        this.numThreads = numThreads;
     }
 
     public PartialSolution scheduleTasks() throws NoRootFoundException {
@@ -42,30 +42,10 @@ public class TaskScheduler implements BranchThreadListener{
         boolean loopCondition = true;
         while (loopCondition) {
             
-            // Need to clean this as an empty ArrayList will return NULL
-            //if (!solutionStack.isEmpty() && !branchThreadList.get(currentIndex).isAlive())
 
-            if (branchThreadList.get(currentIndex) == null) {
-                System.out.println("This works and is null");
-            }
-            if (!solutionStack.isEmpty() && (branchThreadList.get(currentIndex) == null || !branchThreadList.get(currentIndex).isAlive())){
-                PartialSolution current = solutionStack.pop();
-                branchThreadList.set(currentIndex, new BranchThread(this, current));
-                branchThreadList.get(currentIndex).start();
-
-                currentIndex = threadUtil.incrementIndex(currentIndex, branchThreadList.size());
-
-            } else{
-                currentIndex = threadUtil.incrementIndex(currentIndex, branchThreadList.size());
-            }
-            
-            // Wait until empty stack or ALL threads have died (one active thread might add to solutionStack)
-            //If true, algorithm not finished, do not exit while
-            loopCondition = !solutionStack.empty() || !threadUtil.allInactive(branchThreadList);
 
         }
 
-        return bestPartialSolution;
     }
 
     
