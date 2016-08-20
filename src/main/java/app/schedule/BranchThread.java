@@ -27,7 +27,6 @@ public class BranchThread extends Thread {
     @Override
     public void run(){
         PartialSolution bestPartialSolution = scheduleTasks();
-        branchThreadListener.onCompletion(bestPartialSolution);
         logger.info("Thread : "+ Thread.currentThread().getName() + " completed.");
     }
 
@@ -42,12 +41,13 @@ public class BranchThread extends Thread {
 
             List<Node> nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
-            if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
+            if (currentPartialSolution.isWorseThan(branchThreadListener.getBestSolution())) {
                 continue;
             }
 
             if (nextAvailableNodes.isEmpty()) {
                 bestPartialSolution = currentPartialSolution;
+                branchThreadListener.onLeafReached(bestPartialSolution);
                 continue;
             }
 

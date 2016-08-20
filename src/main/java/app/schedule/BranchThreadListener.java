@@ -4,7 +4,9 @@ import app.data.PartialSolution;
 
 public interface BranchThreadListener {
 
-    void onCompletion(PartialSolution completeSolution);
+    void onLeafReached(PartialSolution completeSolution);
+
+    PartialSolution getBestSolution();
 
 }
 

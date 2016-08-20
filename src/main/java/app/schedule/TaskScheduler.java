@@ -82,10 +82,17 @@ public class TaskScheduler implements BranchThreadListener{
     }
 
     @Override
-    public synchronized void onCompletion(PartialSolution completeSolution) {
+    public synchronized void onLeafReached(PartialSolution completeSolution) {
         if (completeSolution.isBetterThan(bestPartialSolution)){
             bestPartialSolution = completeSolution;
             logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
         }
     }
+
+    @Override
+    public synchronized PartialSolution getBestSolution(){
+        return bestPartialSolution;
+    }
+
+
 }
