@@ -21,73 +21,67 @@ public class TaskScheduler implements BranchThreadListener{
     private final Collection<Node> nodes;
     private int numberOfProcessors;
     private List<BranchThread> branchThreadList;
-    private ThreadUtil threadUtil;
-    private Stack<PartialSolution> solutionStack;
     private PartialSolution bestPartialSolution = null;
 
-    public TaskScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList, ThreadUtil threadUtil) {
+    public TaskScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList) {
         this.nodes = nodes;
         this.numberOfProcessors = numberOfProcessors;
-        this.threadUtil = threadUtil;
         this.branchThreadList = branchThreadList;
     }
 
     public PartialSolution scheduleTasks() throws NoRootFoundException {
 
-        solutionStack = new Stack<>();
-        solutionStack.push(new PartialSolution(numberOfProcessors, nodes, 0));
+        Queue<PartialSolution> solutionQueue = new LinkedList<>();
+        solutionQueue.add(new PartialSolution(numberOfProcessors, nodes, 0));
 
+        while (solutionQueue.size() < branchThreadList.size()){
 
-        int currentIndex = 0;
+            PartialSolution currentPartialSolution = solutionQueue.remove();
+            Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
+            Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
+            List<Node> nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
+
+            if (nextAvailableNodes.isEmpty()) {
+                bestPartialSolution = currentPartialSolution;
+                logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
+                continue;
+            }
+
+            for (Node availableNode : nextAvailableNodes) {
+                List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution);
+                solutionQueue.addAll(availablePartialSolutions);
+            }
+        }
+
+        int threadIndex = 0;
+        while (!solutionQueue.isEmpty()){
+            BranchThread currentThread = branchThreadList.get(threadIndex);
+            PartialSolution partialSolutionToDistribute = solutionQueue.remove();
+            currentThread.setup(partialSolutionToDistribute, this);
+            currentThread.start();
+            threadIndex = incrementIndex(threadIndex);
+        }
+
         boolean loopCondition = true;
-        while (loopCondition) {
-            
-            // Need to clean this as an empty ArrayList will return NULL
-            //if (!solutionStack.isEmpty() && !branchThreadList.get(currentIndex).isAlive())
-
-            if (branchThreadList.get(currentIndex) == null) {
-                System.out.println("This works and is null");
-            }
-            if (!solutionStack.isEmpty() && (branchThreadList.get(currentIndex) == null || !branchThreadList.get(currentIndex).isAlive())){
-                PartialSolution current = solutionStack.pop();
-                branchThreadList.set(currentIndex, new BranchThread(this, current));
-                branchThreadList.get(currentIndex).start();
-
-                currentIndex = threadUtil.incrementIndex(currentIndex, branchThreadList.size());
-
-            } else{
-                currentIndex = threadUtil.incrementIndex(currentIndex, branchThreadList.size());
-            }
-            
-            // Wait until empty stack or ALL threads have died (one active thread might add to solutionStack)
-            //If true, algorithm not finished, do not exit while
-            loopCondition = !solutionStack.empty() || !threadUtil.allInactive(branchThreadList);
-
+        while (loopCondition){
+            loopCondition = ThreadUtil.allInactive(branchThreadList);
         }
 
         return bestPartialSolution;
     }
 
-    
-    // Might have to rename this to clarify what it's actually doing
-    // Not specifically setting the bestPartialSolution, but comparing Partial Solutions
-    @Override
-    public synchronized void onLeafReached(PartialSolution bestPartialSolution) {
-        this.bestPartialSolution = this.getBestPartialSolution();
-        if (bestPartialSolution.isWorseThan(this.bestPartialSolution)){
-            return;
+    private int incrementIndex(int currentIndex){
+        if (currentIndex == branchThreadList.size() - 1){
+            return 0;
+        } else{
+            return currentIndex++;
         }
-        logger.info("New optimal solution found: " + bestPartialSolution);
-        this.bestPartialSolution = bestPartialSolution;
     }
 
     @Override
-    public PartialSolution getBestPartialSolution() {
-        return bestPartialSolution;
-    }
-
-    @Override
-    public synchronized void onNewPartialSolutionsGenerated(List<PartialSolution> availablePartialSolutions) {
-        this.solutionStack.addAll(availablePartialSolutions);
+    public synchronized void onCompletion(PartialSolution completeSolution) {
+        if (completeSolution.isBetterThan(bestPartialSolution)){
+            bestPartialSolution = completeSolution;
+        }
     }
 }

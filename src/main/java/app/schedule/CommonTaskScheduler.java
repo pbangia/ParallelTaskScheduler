@@ -24,38 +24,38 @@ public abstract class CommonTaskScheduler {
         this.numberOfProcessors = numberOfProcessors;
     }
 
-    public PartialSolution scheduleTasks() {
-
-        PartialSolution bestPartialSolution = null;
-        Stack<PartialSolution> solutionStack = new Stack<>();
-        List<Node> nextAvailableNodes;
-
-        solutionStack.push(new PartialSolution(numberOfProcessors, nodes));
-
-        while (!solutionStack.empty()) {
-            PartialSolution currentPartialSolution = solutionStack.pop();
-            Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
-            Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
-
-            nextAvailableNodes = schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
-
-            if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
-                continue;
-            }
-
-            if (nextAvailableNodes.isEmpty()) {
-                bestPartialSolution = currentPartialSolution;
-                logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
-                continue;
-            }
-
-            for (Node availableNode : nextAvailableNodes) {
-                List<PartialSolution> availablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
-                solutionStack.addAll(availablePartialSolutions);
-            }
-        }
-
-        return bestPartialSolution;
-    }
+//    public PartialSolution scheduleTasks() {
+//
+//        PartialSolution bestPartialSolution = null;
+//        Stack<PartialSolution> solutionStack = new Stack<>();
+//        List<Node> nextAvailableNodes;
+//
+//        solutionStack.push(new PartialSolution(numberOfProcessors, nodes));
+//
+//        while (!solutionStack.empty()) {
+//            PartialSolution currentPartialSolution = solutionStack.pop();
+//            Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
+//            Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
+//
+//            nextAvailableNodes = schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
+//
+//            if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
+//                continue;
+//            }
+//
+//            if (nextAvailableNodes.isEmpty()) {
+//                bestPartialSolution = currentPartialSolution;
+//                logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
+//                continue;
+//            }
+//
+//            for (Node availableNode : nextAvailableNodes) {
+//                List<PartialSolution> availablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors);
+//                solutionStack.addAll(availablePartialSolutions);
+//            }
+//        }
+//
+//        return bestPartialSolution;
+//    }
 
 }

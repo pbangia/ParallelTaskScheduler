@@ -9,26 +9,55 @@ import org.slf4j.LoggerFactory;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.RunnableFuture;
 
-//TODO NEED TO REMOVE
-public class BranchThread extends CommonTaskScheduler implements Runnable {
+public class BranchThread extends Thread {
 
     private static Logger logger = LoggerFactory.getLogger(BranchThread.class);
 
+    private Stack<PartialSolution> solutionStack = new Stack<>();
     private BranchThreadListener branchThreadListener;
 
-    public BranchThread(Collection<Node> nodes, SchedulerHelper schedulerHelper, int numberOfProcessors, BranchThreadListener listener) {
-        super(nodes, schedulerHelper, numberOfProcessors);
+    public void setup(PartialSolution solutionToBranchOn, BranchThreadListener listener) {
+        this.solutionStack.push(solutionToBranchOn);
         this.branchThreadListener = listener;
     }
 
     @Override
     public void run(){
-
         PartialSolution bestPartialSolution = scheduleTasks();
         branchThreadListener.onCompletion(bestPartialSolution);
+    }
 
+    private PartialSolution scheduleTasks() {
+
+        PartialSolution bestPartialSolution = null;
+
+        while (!solutionStack.empty()) {
+            PartialSolution currentPartialSolution = solutionStack.pop();
+            Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
+            Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
+
+            List<Node> nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
+
+            if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
+                continue;
+            }
+
+            if (nextAvailableNodes.isEmpty()) {
+                bestPartialSolution = currentPartialSolution;
+                logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
+                continue;
+            }
+
+            for (Node availableNode : nextAvailableNodes) {
+                List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution);
+                solutionStack.addAll(availablePartialSolutions);
+            }
+        }
+
+        return bestPartialSolution;
     }
 }
