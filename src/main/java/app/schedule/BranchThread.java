@@ -27,12 +27,8 @@ public class BranchThread extends CommonTaskScheduler implements Runnable {
     @Override
     public void run(){
 
-        try {
-            PartialSolution bestPartialSolution = scheduleTasks();
-            branchThreadListener.onCompletion(bestPartialSolution);
-        } catch (NoRootFoundException e) {
-            e.printStackTrace();
-        }
+        PartialSolution bestPartialSolution = scheduleTasks();
+        branchThreadListener.onCompletion(bestPartialSolution);
 
     }
 }
