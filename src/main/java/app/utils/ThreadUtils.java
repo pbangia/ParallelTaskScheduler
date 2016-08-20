@@ -1,33 +1,18 @@
 package app.utils;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 public class ThreadUtils {
 
-    public static boolean allThreadsInactive(List<? extends Thread> branchThreadList) {
-        for (Thread thread : branchThreadList) {
-            if (thread.isAlive()) {
-                return false;
-            }
-        }
-        return true;
-
-    }
-
-    public static boolean allThreadsActive(List<? extends Thread> branchThreadList) {
-        for (Thread thread : branchThreadList) {
-            if (!thread.isAlive()) {
-                return false;
-            }
-        }
-        return true;
-
-    }
+    private static Logger logger = LoggerFactory.getLogger(ThreadUtils.class);
 
     public static boolean atLeastOneThreadActive(List<? extends Thread> branchThreadList) {
         for (Thread thread : branchThreadList) {
-            if (thread.isAlive()) {
+            if (thread.getState() != Thread.State.TERMINATED) {
                 return true;
             }
         }

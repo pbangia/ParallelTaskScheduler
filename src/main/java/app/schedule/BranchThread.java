@@ -28,6 +28,7 @@ public class BranchThread extends Thread {
     public void run(){
         PartialSolution bestPartialSolution = scheduleTasks();
         branchThreadListener.onCompletion(bestPartialSolution);
+        logger.info("Thread : "+ Thread.currentThread().getName() + " completed.");
     }
 
     private PartialSolution scheduleTasks() {
