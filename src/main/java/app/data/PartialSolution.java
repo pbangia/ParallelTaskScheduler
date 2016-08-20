@@ -64,20 +64,13 @@ public class PartialSolution {
         int maxDuration = 0;
 
         for (int i = 0; i < processors.length; i++) {
-            if (maxDuration < processors[i].getCurrentTimeStamp()) {
-                maxDuration = processors[i].getCurrentTimeStamp();
+            int currentProcessorLength = processors[i].getCurrentTimeStamp();
+            if (maxDuration < currentProcessorLength) {
+                maxDuration = currentProcessorLength;
             }
         }
 
         return maxDuration;
-    }
-
-    public int unscheduledSerialLength(){
-        int length = 0;
-        for (Node node : unscheduledNodes){
-            length += node.getWeight();
-        }
-        return length;
     }
 
     public boolean isWorseThan(PartialSolution bestPartialSolution) {

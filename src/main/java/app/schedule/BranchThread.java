@@ -39,12 +39,13 @@ public class BranchThread extends Thread {
 
             List<Node> nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
-            if (currentPartialSolution.isWorseThan(branchThreadListener.currentBest())) {
+            if (nextAvailableNodes.isEmpty()) {
+                branchThreadListener.onLeafReached(currentPartialSolution);
                 continue;
             }
 
-            if (nextAvailableNodes.isEmpty()) {
-                branchThreadListener.onLeafReached(currentPartialSolution);
+            PartialSolution best = branchThreadListener.currentBest();
+            if (currentPartialSolution.isWorseThan(best)) {
                 continue;
             }
 
