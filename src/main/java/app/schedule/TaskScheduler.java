@@ -56,7 +56,7 @@ public class TaskScheduler implements BranchThreadListener{
             BranchThread currentThread = branchThreadList.get(threadIndex);
             PartialSolution partialSolutionToDistribute = solutionQueue.remove();
             currentThread.addPartialSolution(partialSolutionToDistribute);
-            logger.debug("Distributed :\n" + partialSolutionToDistribute.toString() + " to thread " + threadIndex);
+            logger.debug("Distributed to thread: " + threadIndex + "\n" + partialSolutionToDistribute.toString());
             threadIndex = incrementIndex(threadIndex);
         }
 
