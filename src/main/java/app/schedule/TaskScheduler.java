@@ -67,7 +67,7 @@ public class TaskScheduler implements BranchThreadListener{
 
         boolean loopCondition = true;
         while (loopCondition){
-            loopCondition = ThreadUtils.allThreadsInactive(branchThreadList);
+            loopCondition = ThreadUtils.atLeastOneThreadActive(branchThreadList);
         }
 
         return bestPartialSolution;
