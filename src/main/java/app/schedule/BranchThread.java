@@ -27,7 +27,7 @@ public class BranchThread extends Thread {
     @Override
     public void run(){
         scheduleTasks();
-        logger.info("Thread : "+ Thread.currentThread().getName() + " completed.");
+        logger.debug("Thread : "+ Thread.currentThread().getName() + " completed.");
     }
 
     private void scheduleTasks() {
