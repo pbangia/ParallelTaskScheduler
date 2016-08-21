@@ -1,4 +1,4 @@
-package app.system;
+package system;
 
 import app.BranchAndBoundApp;
 import app.Main;
