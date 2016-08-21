@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
+import static java.lang.Integer.MAX_VALUE;
+
 public class PartialSolution {
 
     private static Logger logger = LoggerFactory.getLogger(PartialSolution.class);
@@ -57,7 +59,9 @@ public class PartialSolution {
             return true;
         }
 
-        return this.length() < otherPartialSolution.length();
+        int thisValue = this.length() < this.minLength() ? this.minLength() : this.length();
+
+        return thisValue < otherPartialSolution.length();
     }
 
     public int length() {
@@ -89,6 +93,27 @@ public class PartialSolution {
         }
 
         //return maxDuration;
+    }
+
+    public int minLength(){
+        int minDuration = MAX_VALUE;
+
+        for (int i = 0; i < processors.length; i++) {
+            int currentProcessorLength = processors[i].getCurrentTimeStamp();
+            if (minDuration > currentProcessorLength) {
+                minDuration = currentProcessorLength;
+            }
+        }
+
+        int maxNode = 0;
+        for (Node node : unscheduledNodes){
+            if (maxNode < node.getWeight()){
+                maxNode = node.getWeight();
+            }
+        }
+
+        return minDuration + maxNode;
+
     }
 
     public boolean isWorseThan(PartialSolution bestPartialSolution) {
