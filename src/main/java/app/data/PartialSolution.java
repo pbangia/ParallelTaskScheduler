@@ -62,32 +62,13 @@ public class PartialSolution {
 
     public int length() {
         int maxDuration = 0;
-        int minDuration = 0;
-        int minDistanceLeft = 0;
 
         for (int i = 0; i < processors.length; i++) {
             int currentProcessorLength = processors[i].getCurrentTimeStamp();
             if (maxDuration < currentProcessorLength) {
                 maxDuration = currentProcessorLength;
             }
-//            if (minDuration == 0) {
-//                minDuration = currentProcessorLength;
-//            } else if(minDuration > currentProcessorLength){
-//                minDuration = currentProcessorLength;
-//            }
         }
-
-        for (Node nodes : unscheduledNodes){
-            minDistanceLeft += nodes.getWeight();
-        }
-
-////        if((minDistanceLeft + minDuration) > maxDuration){
-//        if(minDistanceLeft > maxDuration){
-////            return minDistanceLeft + minDuration;
-//            return minDistanceLeft;
-//        } else{
-//            return maxDuration;
-//        }
 
         return maxDuration;
     }
