@@ -9,7 +9,7 @@ public class TestRunner {
 
     public static void main(String[] args) throws URISyntaxException, AppException {
 
-        String inputFileName = "/Nodes_7_OutTree.dot";
+        String inputFileName = "/Nodes_11_OutTree.dot";
         String outputFileName = "output.dot";
         int numProcessors = 2;
         int numThreads = 10;

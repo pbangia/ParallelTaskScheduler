@@ -70,25 +70,26 @@ public class PartialSolution {
             if (maxDuration < currentProcessorLength) {
                 maxDuration = currentProcessorLength;
             }
-            if (minDuration == 0) {
-                minDuration = currentProcessorLength;
-            } else if(minDuration > currentProcessorLength){
-                minDuration = currentProcessorLength;
-            }
+//            if (minDuration == 0) {
+//                minDuration = currentProcessorLength;
+//            } else if(minDuration > currentProcessorLength){
+//                minDuration = currentProcessorLength;
+//            }
         }
 
         for (Node nodes : unscheduledNodes){
             minDistanceLeft += nodes.getWeight();
         }
 
-        if((minDistanceLeft + minDuration) > maxDuration){
-            return minDistanceLeft + minDuration;
+//        if((minDistanceLeft + minDuration) > maxDuration){
+        if(minDistanceLeft > maxDuration){
+//            return minDistanceLeft + minDuration;
+            return minDistanceLeft;
         } else{
             return maxDuration;
         }
 
         //return maxDuration;
-        //return minDuration + minDistanceLeft;
     }
 
     public boolean isWorseThan(PartialSolution bestPartialSolution) {
