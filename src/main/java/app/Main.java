@@ -2,7 +2,6 @@ package app;
 
 import app.argumentparsing.CommandLineArguments;
 import app.exceptions.AppException;
-import app.schedule.BranchThread;
 
 import java.io.File;
 import java.io.IOException;

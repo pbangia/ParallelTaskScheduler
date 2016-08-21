@@ -2,16 +2,12 @@ package app.schedule;
 
 import app.data.Node;
 import app.data.PartialSolution;
-import app.exceptions.utils.NoRootFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.RunnableFuture;
 
 public class BranchThread extends Thread {
 
