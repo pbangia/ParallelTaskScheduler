@@ -73,7 +73,6 @@ public class PartialSolution {
                 maxDuration = currentProcessorLength;
             }
         }
-
         return maxDuration;
     }
 
