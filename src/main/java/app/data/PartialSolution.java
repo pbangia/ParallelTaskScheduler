@@ -81,15 +81,15 @@ public class PartialSolution {
             minDistanceLeft += nodes.getWeight();
         }
 
-//        if((minDistanceLeft + minDuration) > maxDuration){
-        if(minDistanceLeft > maxDuration){
-//            return minDistanceLeft + minDuration;
-            return minDistanceLeft;
-        } else{
-            return maxDuration;
-        }
+////        if((minDistanceLeft + minDuration) > maxDuration){
+//        if(minDistanceLeft > maxDuration){
+////            return minDistanceLeft + minDuration;
+//            return minDistanceLeft;
+//        } else{
+//            return maxDuration;
+//        }
 
-        //return maxDuration;
+        return maxDuration;
     }
 
     public boolean isWorseThan(PartialSolution bestPartialSolution) {
