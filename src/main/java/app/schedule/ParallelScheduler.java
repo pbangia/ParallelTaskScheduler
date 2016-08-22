@@ -3,29 +3,28 @@ package app.schedule;
 
 import app.data.Node;
 import app.data.PartialSolution;
-import app.exceptions.utils.NoRootFoundException;
 import app.utils.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-public class TaskScheduler implements BranchThreadListener{
+public class ParallelScheduler implements BranchThreadListener{
 
-    private static Logger logger = LoggerFactory.getLogger(TaskScheduler.class);
+    private static Logger logger = LoggerFactory.getLogger(ParallelScheduler.class);
 
     private final Collection<Node> nodes;
     private int numberOfProcessors;
     private List<BranchThread> branchThreadList;
     private PartialSolution bestPartialSolution = null;
 
-    public TaskScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList) {
+    public ParallelScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList) {
         this.nodes = nodes;
         this.numberOfProcessors = numberOfProcessors;
         this.branchThreadList = branchThreadList;
     }
 
-    public PartialSolution scheduleTasks() throws NoRootFoundException {
+    public PartialSolution scheduleTasks() {
 
         Queue<PartialSolution> solutionQueue = new LinkedList<>();
         solutionQueue.add(new PartialSolution(numberOfProcessors, nodes, 0));
