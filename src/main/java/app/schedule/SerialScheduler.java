@@ -11,12 +11,10 @@ import java.util.*;
 public class SerialScheduler extends CommonScheduler {
 
     private Collection<Node> nodes;
-    private SchedulerHelper schedulerHelper;
 
     // Constructor For Class
-    public SerialScheduler(Collection<Node> nodes, SchedulerHelper schedulerHelper, int numberOfProcessors) {
+    public SerialScheduler(Collection<Node> nodes, int numberOfProcessors) {
         this.nodes = nodes;
-        this.schedulerHelper = schedulerHelper;
         this.numberOfProcessors = numberOfProcessors;
     }
 
@@ -34,7 +32,7 @@ public class SerialScheduler extends CommonScheduler {
             Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
             Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
 
-            nextAvailableNodes = schedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
+            nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
             // Hit if clause when leaf is reached
             if (nextAvailableNodes.isEmpty()) {

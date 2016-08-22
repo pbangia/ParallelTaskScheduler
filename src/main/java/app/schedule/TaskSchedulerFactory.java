@@ -10,6 +10,9 @@ public class TaskSchedulerFactory {
 
     public static ParallelScheduler createTaskScheduler(Map<String, Node> dataMap, int numProcessors, int numThreads) {
 
+        if (numThreads == 0) {
+            return new SerialScheduler(dataMap.values(), numProcessors)
+        }
         List<BranchThread> branchThreads = new ArrayList<>(numThreads);
         for (int i = 0; i < numThreads; i++){
             branchThreads.add(i, new BranchThread());
