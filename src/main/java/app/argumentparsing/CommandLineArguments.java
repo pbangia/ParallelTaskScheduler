@@ -12,7 +12,7 @@ public class CommandLineArguments {
     private String outputFileName;
 
     public CommandLineArguments() {
-        numberOfThreads = 1;
+        numberOfThreads = 0;
         visualiseSearch = false;
     }
 
