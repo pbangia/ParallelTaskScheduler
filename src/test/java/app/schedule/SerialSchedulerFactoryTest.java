@@ -7,13 +7,13 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParallelSchedulerFactoryTest {
+public class SerialSchedulerFactoryTest {
 
     @Test
     public void testFactoryCreation() {
         Map<String, Node> map = new HashMap<>();
         int numberOfProcessors = 0;
-        int numThreads = 1;
-        Assert.assertTrue(TaskSchedulerFactory.createTaskScheduler(map, numberOfProcessors, numThreads) instanceof ParallelScheduler);
+        int numThreads = 0;
+        Assert.assertTrue(TaskSchedulerFactory.createTaskScheduler(map, numberOfProcessors, numThreads) instanceof SerialScheduler);
     }
 }
