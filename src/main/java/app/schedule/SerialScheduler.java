@@ -10,7 +10,6 @@ import java.util.*;
  */
 public class SerialScheduler extends CommonScheduler {
 
-    private Collection<Node> nodes;
 
     // Constructor For Class
     public SerialScheduler(Collection<Node> nodes, int numberOfProcessors) {
