@@ -45,10 +45,10 @@ public class MainGUI extends JFrame {
         // TODO Find a better layout for this JFrame
 
         statisticsPanel = new StatisticsPanel();
-        bestSolutionPanel = new BestSolutionPanel(numberOfProcessors);
+        bestSolutionPanel = new BestSolutionPanel();
 
-        this.add(new StatisticsPanel());
-        this.add(new BestSolutionPanel(numberOfProcessors));
+        this.add(statisticsPanel);
+        this.add(bestSolutionPanel);
 
 //        for (int i = 0; i < numberOfThreads; i++) {
 //            GraphPanel graphPanel = new GraphPanel();
