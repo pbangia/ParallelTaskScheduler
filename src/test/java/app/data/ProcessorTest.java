@@ -64,11 +64,17 @@ public class ProcessorTest {
     }
 
     @Test
-    public void testGetTimeStamp(){
+    public void testGetTimeStamp() {
         Node node = new Node("A", 1);
         processor.addNodeToQueue(node, 1);
         assertEquals(1, processor.getTimeStamp(node));
     }
 
+    @Test
+    public void testGetTimeStamp_Null() {
+        Node node = new Node("B", 2);
+
+        assertEquals(-1, processor.getTimeStamp(node));
+    }
 
 }
