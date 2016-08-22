@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-public class ParallelScheduler implements BranchThreadListener{
+public class ParallelScheduler extends CommonScheduler implements BranchThreadListener{
 
     private static Logger logger = LoggerFactory.getLogger(ParallelScheduler.class);
 
@@ -24,7 +24,7 @@ public class ParallelScheduler implements BranchThreadListener{
         this.branchThreadList = branchThreadList;
     }
 
-    public PartialSolution scheduleTasks() {
+    public PartialSolution scheduleTasks(){
 
         Queue<PartialSolution> solutionQueue = new LinkedList<>();
         solutionQueue.add(new PartialSolution(numberOfProcessors, nodes, 0));

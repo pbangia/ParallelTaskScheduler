@@ -15,6 +15,6 @@ public abstract class CommonScheduler {
     protected int numberOfProcessors;
     protected PartialSolution bestPartialSolution = null;
 
-
+    protected abstract PartialSolution scheduleTasks();
 
 }
