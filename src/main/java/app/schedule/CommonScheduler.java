@@ -11,7 +11,7 @@ import java.util.List;
  */
 public abstract class CommonScheduler {
 
-    protected final Collection<Node> nodes;
+    protected Collection<Node> nodes;
     protected int numberOfProcessors;
     protected PartialSolution bestPartialSolution = null;
 
