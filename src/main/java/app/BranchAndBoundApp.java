@@ -6,6 +6,7 @@ import app.exceptions.AppException;
 import app.io.DigraphFileReader;
 import app.io.DigraphFileWriter;
 import app.io.OutputGenerator;
+import app.schedule.CommonScheduler;
 import app.schedule.ParallelScheduler;
 import app.schedule.TaskSchedulerFactory;
 import app.transform.IDataTransformer;
@@ -36,7 +37,7 @@ public class BranchAndBoundApp {
     private DigraphFileWriter digraphFileWriter;
     private IDataTransformer dataTransformer;
     private IDataTransformer2 dataTransformer2;
-    private ParallelScheduler taskScheduler;
+    private CommonScheduler taskScheduler;
     private OutputGenerator outputGenerator;
 
     public BranchAndBoundApp(File inputFile, String outputFilename, int numProcessors,

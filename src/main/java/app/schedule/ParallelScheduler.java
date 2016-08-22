@@ -12,7 +12,7 @@ import java.util.*;
 public class ParallelScheduler extends CommonScheduler implements BranchThreadListener{
 
     private static Logger logger = LoggerFactory.getLogger(ParallelScheduler.class);
-    
+
     private List<BranchThread> branchThreadList;
 
     public ParallelScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList) {
