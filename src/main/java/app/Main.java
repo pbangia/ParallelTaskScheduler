@@ -2,12 +2,16 @@ package app;
 
 import app.argumentparsing.CommandLineArguments;
 import app.exceptions.AppException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class Main {
+
+    private static Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws URISyntaxException, AppException {
 
@@ -26,7 +30,7 @@ public class Main {
         try {
             app.start();
         } catch (IOException | AppException | InterruptedException e) {
-            e.printStackTrace();
+            logger.error("Error : " + e.getMessage());
         }
 
     }
