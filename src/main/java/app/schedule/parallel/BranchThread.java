@@ -1,8 +1,8 @@
 package app.schedule.parallel;
 
+import app.schedule.SchedulerHelper;
 import app.schedule.datatypes.Node;
 import app.schedule.datatypes.PartialSolution;
-import app.schedule.SchedulerHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,15 +19,15 @@ public class BranchThread extends Thread {
     private PartialSolution bestPartialSolution = null;
     private ThreadManager threadCompletionListener;
 
-    public void addPartialSolution(PartialSolution partialSolution){
+    public void addPartialSolution(PartialSolution partialSolution) {
         this.solutionStack.push(partialSolution);
     }
 
     @Override
-    public void run(){
+    public void run() {
         scheduleTasks();
         threadCompletionListener.onThreadCompletion();
-        logger.debug("Thread : "+ Thread.currentThread().getName() + " completed.");
+        logger.debug("Thread : " + Thread.currentThread().getName() + " completed.");
     }
 
     private void scheduleTasks() {

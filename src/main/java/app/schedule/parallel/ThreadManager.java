@@ -16,7 +16,7 @@ public class ThreadManager implements ThreadCompletionListener {
         setupBranches();
     }
 
-    public void setListener(ParallelScheduler scheduler){
+    public void setListener(ParallelScheduler scheduler) {
         this.scheduler = scheduler;
     }
 
@@ -38,8 +38,8 @@ public class ThreadManager implements ThreadCompletionListener {
         int intName = Integer.parseInt(Thread.currentThread().getName());
         threadIDSet.remove(intName);
 
-        if (threadIDSet.size() == 0){
-            synchronized (scheduler){
+        if (threadIDSet.size() == 0) {
+            synchronized (scheduler) {
                 scheduler.notify();
             }
         }

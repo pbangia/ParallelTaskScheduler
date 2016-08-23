@@ -44,7 +44,7 @@ public class Processor {
     }
 
     public int getTimeStamp(Node n) {
-        return nodeStartTimeMap.get(n) == null ? -1: nodeStartTimeMap.get(n);
+        return nodeStartTimeMap.get(n) == null ? -1 : nodeStartTimeMap.get(n);
     }
 
     public Queue<Node> getNodeQueue() {

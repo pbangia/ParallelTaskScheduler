@@ -1,11 +1,14 @@
 package app.schedule.serial;
 
-import app.schedule.datatypes.Node;
-import app.schedule.datatypes.PartialSolution;
 import app.schedule.CommonScheduler;
 import app.schedule.SchedulerHelper;
+import app.schedule.datatypes.Node;
+import app.schedule.datatypes.PartialSolution;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.Stack;
 
 /**
  * Created by User on 23/08/2016.
@@ -20,7 +23,7 @@ public class SerialScheduler extends CommonScheduler {
     }
 
     @Override
-    public PartialSolution scheduleTasks(){
+    public PartialSolution scheduleTasks() {
 
         PartialSolution bestPartialSolution = null;
         Stack<PartialSolution> solutionStack = new Stack<>();

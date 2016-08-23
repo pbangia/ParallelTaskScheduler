@@ -1,16 +1,16 @@
 package app.schedule.parallel;
 
 
-import app.schedule.datatypes.Node;
-import app.schedule.datatypes.PartialSolution;
 import app.schedule.CommonScheduler;
 import app.schedule.SchedulerHelper;
+import app.schedule.datatypes.Node;
+import app.schedule.datatypes.PartialSolution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-public class ParallelScheduler extends CommonScheduler implements BranchThreadListener{
+public class ParallelScheduler extends CommonScheduler implements BranchThreadListener {
 
     private static Logger logger = LoggerFactory.getLogger(ParallelScheduler.class);
 
@@ -40,7 +40,7 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
 
     private void runBFS(Queue<PartialSolution> solutionQueue) {
 
-        while (solutionQueue.size() < branchThreadList.size()){
+        while (solutionQueue.size() < branchThreadList.size()) {
             PartialSolution current = solutionQueue.remove();
             Set<Node> scheduledNodes = current.getScheduledNodes();
             List<Node> unscheduledNodes = current.getUnscheduledNodes();
@@ -62,7 +62,7 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
 
     private void distributePartialSolutions(Queue<PartialSolution> solutionQueue) {
         int threadIndex = 0;
-        while (!solutionQueue.isEmpty()){
+        while (!solutionQueue.isEmpty()) {
             BranchThread currentThread = branchThreadList.get(threadIndex);
             PartialSolution partialSolutionToDistribute = solutionQueue.remove();
             currentThread.addPartialSolution(partialSolutionToDistribute);
@@ -72,14 +72,14 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
     }
 
     private void runThreads() {
-        for (BranchThread thread : branchThreadList){
+        for (BranchThread thread : branchThreadList) {
             thread.setBranchThreadListener(this);
             thread.start();
         }
     }
 
     private void sleep() {
-        synchronized (this){
+        synchronized (this) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -88,17 +88,17 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
         }
     }
 
-    private int incrementIndex(int currentIndex){
-        if (currentIndex == branchThreadList.size() - 1){
+    private int incrementIndex(int currentIndex) {
+        if (currentIndex == branchThreadList.size() - 1) {
             return 0;
-        } else{
+        } else {
             return currentIndex + 1;
         }
     }
 
     @Override
     public synchronized void onLeafReached(PartialSolution completeSolution) {
-        if (completeSolution.isBetterThan(bestPartialSolution)){
+        if (completeSolution.isBetterThan(bestPartialSolution)) {
             bestPartialSolution = completeSolution;
             logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
         }

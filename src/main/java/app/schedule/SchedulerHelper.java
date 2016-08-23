@@ -1,8 +1,8 @@
 package app.schedule;
 
+import app.exceptions.utils.NoRootFoundException;
 import app.schedule.datatypes.Node;
 import app.schedule.datatypes.PartialSolution;
-import app.exceptions.utils.NoRootFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,7 +66,7 @@ public class SchedulerHelper {
      * 2. For each of these nodes, check their parents are in the set of scheduled nodes.
      * 3. Unscheduled nodes who's parents have all been scheduled will be added to the list of nodes available to be scheduled
      *
-     * @param scheduledNodes set of nodes which have been scheduled
+     * @param scheduledNodes   set of nodes which have been scheduled
      * @param unscheduledNodes set of nodes which haven't been scheduled.
      * @return List nodes available to be scheduled.
      */
@@ -107,7 +107,7 @@ public class SchedulerHelper {
         List<PartialSolution> availablePartialSolutions = new ArrayList<>();
         int numberOfProcessors = currentPartialSolution.getNumberOfProcessors();
         int loopCounter = numberOfProcessors;
-        if (currentPartialSolution.getId() == 0){
+        if (currentPartialSolution.getId() == 0) {
             loopCounter = 1;
         }
 

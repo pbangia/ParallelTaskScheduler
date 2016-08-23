@@ -1,7 +1,7 @@
 package app.transform;
 
-import app.schedule.datatypes.Node;
 import app.exceptions.transform.EmptyMapException;
+import app.schedule.datatypes.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

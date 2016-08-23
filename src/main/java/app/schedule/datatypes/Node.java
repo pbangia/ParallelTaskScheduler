@@ -68,14 +68,14 @@ public class Node {
 
     public void addChild(Node child, int dependencyWeight) {
         childrenMap.put(child, dependencyWeight);
-        if (!child.getParentMap().containsKey(this)){
+        if (!child.getParentMap().containsKey(this)) {
             child.addParent(this, dependencyWeight);
         }
     }
 
     public void addParent(Node parent, int dependencyWeight) {
         parentMap.put(parent, dependencyWeight);
-        if(!parent.getChildrenMap().containsKey(this)){
+        if (!parent.getChildrenMap().containsKey(this)) {
             parent.addChild(this, dependencyWeight);
         }
     }

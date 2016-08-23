@@ -1,13 +1,13 @@
 package app;
 
-import app.schedule.datatypes.Node;
-import app.schedule.datatypes.PartialSolution;
 import app.exceptions.AppException;
 import app.io.DigraphFileReader;
 import app.io.DigraphFileWriter;
 import app.io.OutputGenerator;
 import app.schedule.CommonScheduler;
 import app.schedule.CommonSchedulerFactory;
+import app.schedule.datatypes.Node;
+import app.schedule.datatypes.PartialSolution;
 import app.transform.DataTransformer;
 import app.transform.TransformModuleFactory;
 import app.utils.Stopwatch;

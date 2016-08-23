@@ -80,7 +80,7 @@ public class PartialSolution {
         return maxDuration;
     }
 
-    public int minLength(){
+    public int minLength() {
         int minDuration = MAX_VALUE;
 
         for (int i = 0; i < processors.length; i++) {
@@ -91,7 +91,7 @@ public class PartialSolution {
         }
 
         int maxNode = 0;
-        if (!unscheduledNodes.isEmpty()){
+        if (!unscheduledNodes.isEmpty()) {
             maxNode = unscheduledNodes.get(0).getWeight();
         }
 
@@ -175,7 +175,11 @@ public class PartialSolution {
         return scheduledNodes;
     }
 
-    public List<Node> getUnscheduledNodes() { return unscheduledNodes; }
+    public List<Node> getUnscheduledNodes() {
+        return unscheduledNodes;
+    }
 
-    public int getId(){ return id; }
+    public int getId() {
+        return id;
+    }
 }

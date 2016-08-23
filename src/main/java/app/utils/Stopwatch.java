@@ -8,19 +8,19 @@ public class Stopwatch {
 
     private StopWatch stopWatch;
 
-    public Stopwatch(){
+    public Stopwatch() {
         stopWatch = new StopWatch();
     }
 
-    public void start(){
+    public void start() {
         stopWatch.start();
     }
 
-    public void stop(){
+    public void stop() {
         stopWatch.stop();
     }
 
-    public String getTimeString(){
+    public String getTimeString() {
         long timeTakenMs = getTimeMs();
         String timeTakenFormatted = String.format("%dm:%ds",
                 TimeUnit.MILLISECONDS.toMinutes(timeTakenMs),
@@ -30,7 +30,7 @@ public class Stopwatch {
         return timeTakenFormatted;
     }
 
-    public long getTimeMs(){
+    public long getTimeMs() {
         return stopWatch.getTime();
     }
 
