@@ -123,4 +123,9 @@ public class SchedulerHelper {
 
         return availablePartialSolutions;
     }
+
+    public static TreeSet<Node> sortUnscheduledNodes(TreeSet<Node> unscheduledNodes){
+
+        return null;
+    }
 }

@@ -32,9 +32,10 @@ public class ThreadManager implements ThreadCompletionListener {
     public synchronized void onThreadCompletion() {
         int intName = Integer.parseInt(Thread.currentThread().getName());
         threadIDSet.remove(intName);
+
     }
 
-    public synchronized boolean atLeastOneActiveThread() {
+    public synchronized boolean hasActiveThread() {
         return threadIDSet.size() != 0;
     }
 }

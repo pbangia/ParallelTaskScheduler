@@ -3,7 +3,6 @@ package app.schedule;
 
 import app.data.Node;
 import app.data.PartialSolution;
-import app.utils.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,9 +62,16 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
             thread.start();
         }
 
-        boolean loopCondition = true;
-        while (loopCondition){
-            loopCondition = threadManager.atLeastOneActiveThread();
+        while (true){
+            if (!threadManager.hasActiveThread()) {
+                break;
+            }
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                //will need to handle?
+                e.printStackTrace();
+            }
         }
 
         return bestPartialSolution;
