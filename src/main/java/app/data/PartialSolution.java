@@ -15,7 +15,7 @@ public class PartialSolution {
     private int numberOfProcessors;
     private int id;
     private Set<Node> scheduledNodes = new HashSet<>();
-    private Set<Node> unscheduledNodes;
+    private TreeSet<Node> unscheduledNodes;
     private Processor[] processors;
 
     public PartialSolution(int numberOfProcessors, Collection<Node> nodes) {
@@ -24,7 +24,7 @@ public class PartialSolution {
         for (int i = 0; i < numberOfProcessors; i++) {
             processors[i] = new Processor();
         }
-        this.unscheduledNodes = new HashSet<>(nodes);
+        this.unscheduledNodes = new TreeSet<>(nodes);
     }
 
     public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone) {
@@ -42,7 +42,7 @@ public class PartialSolution {
         for (int i = 0; i < numberOfProcessors; i++) {
             processors[i] = new Processor();
         }
-        this.unscheduledNodes = new HashSet<>(nodes);
+        this.unscheduledNodes = new TreeSet<>(nodes);
     }
 
     public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone, int id) {
@@ -155,6 +155,11 @@ public class PartialSolution {
             processorNumber++;
         }
         return sb.toString();
+    }
+
+    public TreeSet<Node> sortUnscheduledNodes(TreeSet<Node> unscheduledNodes){
+
+        return null;
     }
 
     public Processor[] getProcessors() {
