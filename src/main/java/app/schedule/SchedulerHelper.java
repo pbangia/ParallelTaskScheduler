@@ -73,11 +73,8 @@ public class SchedulerHelper {
     public static List<Node> getAvailableNodes(Set<Node> scheduledNodes, List<Node> unscheduledNodes) {
 
         List<Node> nextAvailableNodes = new ArrayList<>();
-        Iterator<Node> unscheduledNodesIterator = unscheduledNodes.iterator();
 
-        while (unscheduledNodesIterator.hasNext()) {
-            Node currentNode = unscheduledNodesIterator.next();
-
+        for (Node currentNode : unscheduledNodes) {
             boolean isAvailable = true;
             Map<Node, Integer> dependentParentMap = currentNode.getParentMap();
             for (Node parentNode : dependentParentMap.keySet()) {
