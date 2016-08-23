@@ -39,7 +39,7 @@ public class EndToEndTest_Parallel {
         numThreads = 10;
 
         int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
-        int expectedLength = 22;
+        int expectedLength = 28;
         Assert.assertEquals(expectedLength, actualLength);
     }
 
@@ -135,7 +135,7 @@ public class EndToEndTest_Parallel {
         numThreads = 10;
 
         int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
-        int expectedLength = 227;
+        int expectedLength = 350;
         Assert.assertEquals(expectedLength, actualLength);
     }
 
