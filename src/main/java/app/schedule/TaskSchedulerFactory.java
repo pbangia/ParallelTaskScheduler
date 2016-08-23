@@ -12,14 +12,17 @@ public class TaskSchedulerFactory {
 
         if (numThreads == 0) {
             return new SerialScheduler(dataMap.values(), numProcessors);
-        } else {
-            List<BranchThread> branchThreads = new ArrayList<>(numThreads);
-            for (int i = 0; i < numThreads; i++){
-                branchThreads.add(i, new BranchThread());
-            }
-
-            return new ParallelScheduler(dataMap.values(), numProcessors, branchThreads);
         }
+
+        List<BranchThread> branchThreads = new ArrayList<>(numThreads);
+        for (int i = 0; i < numThreads; i++) {
+            branchThreads.add(i, new BranchThread());
+        }
+
+        ThreadManager threadManager = new ThreadManager(branchThreads);
+
+        return new ParallelScheduler(dataMap.values(), numProcessors, branchThreads, threadManager);
+
 
     }
 }

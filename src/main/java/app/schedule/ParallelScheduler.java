@@ -15,7 +15,7 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
 
     private List<BranchThread> branchThreadList;
 
-    public ParallelScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList) {
+    public ParallelScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList, ThreadManager threadManager) {
         this.nodes = nodes;
         this.numberOfProcessors = numberOfProcessors;
         this.branchThreadList = branchThreadList;
@@ -58,7 +58,6 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
 
         for (BranchThread thread : branchThreadList){
             thread.setBranchThreadListener(this);
-            thread.setPriority(Thread.MAX_PRIORITY);
             thread.start();
         }
 
