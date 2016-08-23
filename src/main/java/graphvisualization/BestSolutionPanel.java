@@ -5,9 +5,6 @@ import app.data.PartialSolution;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-
-import static app.io.Syntax.DEFINITION_DELIMITER;
-import static app.io.Syntax.DEPENDENCY_ARROW;
 import static app.io.Syntax.NEW_LINE;
 
 public class BestSolutionPanel extends JPanel {
@@ -33,7 +30,6 @@ public class BestSolutionPanel extends JPanel {
 
         this.bestSolutionTitle = new JLabel("Current Best Solution");
         this.add(bestSolutionTitle, BorderLayout.NORTH);
-
 
 
         DefaultTableModel model = (DefaultTableModel) solutionTable.getModel();

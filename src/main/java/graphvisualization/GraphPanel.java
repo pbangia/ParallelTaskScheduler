@@ -4,7 +4,6 @@ import app.data.Node;
 import org.graphstream.graph.Graph;
 import org.graphstream.ui.swingViewer.View;
 import org.graphstream.ui.swingViewer.Viewer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
