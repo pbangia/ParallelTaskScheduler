@@ -17,9 +17,10 @@ public class GraphPanel extends JPanel {
 
         this.number = i;
         this.inputGraph=inputGraph;
-        inputGraph.setAutoCreate(true);
 
-        Viewer viewer = new Viewer(inputGraph, Viewer.ThreadingModel.GRAPH_IN_SWING_THREAD);
+        this.inputGraph.setAutoCreate(true);
+
+        Viewer viewer = new Viewer(this.inputGraph, Viewer.ThreadingModel.GRAPH_IN_SWING_THREAD);
         viewer.enableAutoLayout();
         View view = viewer.addDefaultView(false);/**/   // false indicates "no JFrame".
         View defaultView = viewer.getDefaultView();
@@ -30,29 +31,28 @@ public class GraphPanel extends JPanel {
         //JPanel panel = new JPanel();
         //panel.add(defaultView);
         this.setLayout(new BoxLayout(this,1));
-        this.add(label);
+        //this.add(label);
         this.add(defaultView);
 
     }
 
     public void colorNode(String name, Color c) {
-        if (inputGraph==null){ System.out.println("input null");}
-
         String color = "#000000";
 
         if(c == Color.black){
-            color = "#000000";
+            color="#000000";
+           // node.removeAttribute("ui.style");
         } else if (c == Color.green){
             color = "#5fec18";
         }
 
         org.graphstream.graph.Node node = inputGraph.getNode(name);
-        //String color = c.toString();
 
         try {
             Thread.sleep(10);
             node.addAttribute("ui.style", "fill-color: " + color + ";fill-mode: dyn-plain; z-index:1;");
         } catch (Exception e) {}
+
     }
 }
 

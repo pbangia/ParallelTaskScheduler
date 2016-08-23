@@ -122,8 +122,7 @@ public class MainGUI extends JFrame {
         int numberOfElements = numberOfCores + 2;
         this.setLayout(new GridLayout(0, numberOfElements, 0, 0));
 
-
-
+        //this.validate();
     }
 
     public void changeColor(int threadIndex, String node, Color c){
@@ -143,7 +142,14 @@ public class MainGUI extends JFrame {
 
         graphPanelsMap.get(threadIndex).colorNode(node, c);
         this.validate();
+    }
 
+    public void updateCurrentBestLength(int endTime) {
+        statisticsPanel.updateCurrentBestLength(endTime);
+    }
+
+    public void updateNumberOfSolutionsExplored() {
+        statisticsPanel.updateNumberOfSolutionsExplored();
     }
 
     /**

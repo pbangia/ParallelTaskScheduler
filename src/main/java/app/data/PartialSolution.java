@@ -60,7 +60,7 @@ public class PartialSolution {
         return this.length() < otherPartialSolution.length();
     }
 
-    private int length() {
+    public int length() {
         int maxDuration = 0;
 
         for (int i = 0; i < processors.length; i++) {
