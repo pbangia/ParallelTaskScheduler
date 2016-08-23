@@ -40,7 +40,9 @@ public class BranchThread extends Thread {
                 if (bestPartialSolution == null){
                     bestPartialSolution = currentPartialSolution;
                 } else{
-                    //check bestPartialSolution is not Worse than the masters. ie better than the masters.
+                    //else if pr something, check if current leaf partial solution is better than our best partial solution
+                    //if it is, replace best partial solution with it
+                    //check if it is bestPartialSolution better than the masters.
                     //set masters best current solution to this bestcurrent soluion
                 }
 //                branchThreadListener.onLeafReached(currentPartialSolution);
