@@ -14,11 +14,13 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
     private static Logger logger = LoggerFactory.getLogger(ParallelScheduler.class);
 
     private List<BranchThread> branchThreadList;
+    private ThreadManager threadManager;
 
     public ParallelScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList, ThreadManager threadManager) {
         this.nodes = nodes;
         this.numberOfProcessors = numberOfProcessors;
         this.branchThreadList = branchThreadList;
+        this.threadManager = threadManager;
     }
 
     public PartialSolution scheduleTasks(){
@@ -63,7 +65,7 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
 
         boolean loopCondition = true;
         while (loopCondition){
-            loopCondition = ThreadUtils.atLeastOneThreadActive(branchThreadList);
+            loopCondition = threadManager.atLeastOneActiveThread();
         }
 
         return bestPartialSolution;

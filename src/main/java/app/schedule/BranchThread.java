@@ -16,6 +16,7 @@ public class BranchThread extends Thread {
     private Stack<PartialSolution> solutionStack = new Stack<>();
     private BranchThreadListener branchThreadListener;
     private PartialSolution bestPartialSolution = null;
+    private ThreadManager threadCompletionListener;
 
     public void addPartialSolution(PartialSolution partialSolution){
         this.solutionStack.push(partialSolution);
@@ -24,6 +25,7 @@ public class BranchThread extends Thread {
     @Override
     public void run(){
         scheduleTasks();
+        threadCompletionListener.onThreadCompletion();
         logger.debug("Thread : "+ Thread.currentThread().getName() + " completed.");
     }
 
@@ -63,5 +65,9 @@ public class BranchThread extends Thread {
 
     public void setBranchThreadListener(BranchThreadListener listener) {
         this.branchThreadListener = listener;
+    }
+
+    public void setThreadCompletionListener(ThreadManager threadCompletionListener) {
+        this.threadCompletionListener = threadCompletionListener;
     }
 }
