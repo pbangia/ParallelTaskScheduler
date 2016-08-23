@@ -1,6 +1,7 @@
 package app.data;
 
 import app.io.Syntax;
+import app.utils.NodeComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,7 @@ public class PartialSolution {
     private int numberOfProcessors;
     private int id;
     private Set<Node> scheduledNodes = new HashSet<>();
-    private TreeSet<Node> unscheduledNodes;
+    private Set<Node> unscheduledNodes = new TreeSet<>(new NodeComparator());
     private Processor[] processors;
 
     public PartialSolution(int numberOfProcessors, Collection<Node> nodes) {
@@ -24,7 +25,8 @@ public class PartialSolution {
         for (int i = 0; i < numberOfProcessors; i++) {
             processors[i] = new Processor();
         }
-        this.unscheduledNodes = new TreeSet<>(nodes);
+        this.unscheduledNodes.addAll(nodes);
+
     }
 
     public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone) {
@@ -42,7 +44,7 @@ public class PartialSolution {
         for (int i = 0; i < numberOfProcessors; i++) {
             processors[i] = new Processor();
         }
-        this.unscheduledNodes = new TreeSet<>(nodes);
+        this.unscheduledNodes.addAll(nodes);
     }
 
     public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone, int id) {
@@ -131,7 +133,8 @@ public class PartialSolution {
     private void clone(PartialSolution solutionToClone) {
 
         this.scheduledNodes = new HashSet<>(solutionToClone.scheduledNodes);
-        this.unscheduledNodes = new HashSet<>(solutionToClone.unscheduledNodes);
+        this.unscheduledNodes = new TreeSet<>(new NodeComparator());
+        this.unscheduledNodes.addAll(solutionToClone.unscheduledNodes);
         this.numberOfProcessors = solutionToClone.numberOfProcessors;
 
         for (int i = 0; i < solutionToClone.processors.length; i++) {
