@@ -44,8 +44,4 @@ public class ThreadManager implements ThreadCompletionListener {
             }
         }
     }
-
-    public synchronized boolean hasActiveThread() {
-        return threadIDSet.size() != 0;
-    }
 }

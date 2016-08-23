@@ -28,9 +28,17 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
         Queue<PartialSolution> solutionQueue = new LinkedList<>();
         solutionQueue.add(new PartialSolution(numberOfProcessors, nodes, 0));
 
+        runBFS(solutionQueue);
+        distributePartialSolutions(solutionQueue);
+        runThreads();
+        sleep();
+
+        return bestPartialSolution;
+    }
+
+    private void runBFS(Queue<PartialSolution> solutionQueue) {
 
         while (solutionQueue.size() < branchThreadList.size()){
-
             PartialSolution current = solutionQueue.remove();
             Set<Node> scheduledNodes = current.getScheduledNodes();
             List<Node> unscheduledNodes = current.getUnscheduledNodes();
@@ -47,9 +55,10 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
                 solutionQueue.addAll(availablePartialSolutions);
             }
         }
-
         logger.debug("Solution queue has size : " + solutionQueue.size() + " before parallel execution.");
+    }
 
+    private void distributePartialSolutions(Queue<PartialSolution> solutionQueue) {
         int threadIndex = 0;
         while (!solutionQueue.isEmpty()){
             BranchThread currentThread = branchThreadList.get(threadIndex);
@@ -58,12 +67,16 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
             logger.debug("Distributed to thread: " + threadIndex + "\n" + partialSolutionToDistribute.toString());
             threadIndex = incrementIndex(threadIndex);
         }
+    }
 
+    private void runThreads() {
         for (BranchThread thread : branchThreadList){
             thread.setBranchThreadListener(this);
             thread.start();
         }
+    }
 
+    private void sleep() {
         synchronized (this){
             try {
                 wait();
@@ -71,8 +84,6 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
                 logger.error("Unexpected interruption of current thread: " + Thread.currentThread().getId());
             }
         }
-
-        return bestPartialSolution;
     }
 
     private int incrementIndex(int currentIndex){
