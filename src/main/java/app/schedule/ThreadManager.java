@@ -6,6 +6,7 @@ import java.util.Set;
 
 public class ThreadManager implements ThreadCompletionListener {
 
+    private ParallelScheduler scheduler;
     private List<BranchThread> branchThreads;
     private Set<Integer> threadIDSet;
 
@@ -13,6 +14,10 @@ public class ThreadManager implements ThreadCompletionListener {
         this.branchThreads = branchThreads;
         this.threadIDSet = new HashSet<>();
         setupBranches();
+    }
+
+    public void setListener(ParallelScheduler scheduler){
+        this.scheduler = scheduler;
     }
 
     private void setupBranches() {
@@ -33,6 +38,11 @@ public class ThreadManager implements ThreadCompletionListener {
         int intName = Integer.parseInt(Thread.currentThread().getName());
         threadIDSet.remove(intName);
 
+        if (threadIDSet.size() == 0){
+            synchronized (scheduler){
+                scheduler.notify();
+            }
+        }
     }
 
     public synchronized boolean hasActiveThread() {

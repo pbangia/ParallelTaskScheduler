@@ -20,12 +20,14 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
         this.numberOfProcessors = numberOfProcessors;
         this.branchThreadList = branchThreadList;
         this.threadManager = threadManager;
+        threadManager.setListener(this);
     }
 
-    public PartialSolution scheduleTasks(){
+    public PartialSolution scheduleTasks() {
 
         Queue<PartialSolution> solutionQueue = new LinkedList<>();
         solutionQueue.add(new PartialSolution(numberOfProcessors, nodes, 0));
+
 
         while (solutionQueue.size() < branchThreadList.size()){
 
@@ -62,13 +64,21 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
             thread.start();
         }
 
-        while (threadManager.hasActiveThread()) {
+        synchronized (this){
             try {
-                Thread.sleep(50);
+                wait();
             } catch (InterruptedException e) {
-                logger.error("Unexpected interruption of current thread: " + Thread.currentThread().getId());
+                e.printStackTrace();
             }
         }
+//
+//        while (threadManager.hasActiveThread()) {
+//            try {
+//                Thread.sleep(50);
+//            } catch (InterruptedException e) {
+//                logger.error("Unexpected interruption of current thread: " + Thread.currentThread().getId());
+//            }
+//        }
 
         return bestPartialSolution;
     }
