@@ -34,7 +34,7 @@ public class ThreadManager implements ThreadCompletionListener {
         threadIDSet.remove(intName);
     }
 
-    public boolean atLeastOneActiveThread() {
+    public synchronized boolean atLeastOneActiveThread() {
         return threadIDSet.size() != 0;
     }
 }
