@@ -34,7 +34,7 @@ public class BranchThread extends Thread {
         while (!solutionStack.empty()) {
             PartialSolution currentPartialSolution = solutionStack.pop();
             Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
-            Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
+            List<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
 
             List<Node> nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 

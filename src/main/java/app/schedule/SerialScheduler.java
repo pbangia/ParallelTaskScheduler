@@ -29,7 +29,8 @@ public class SerialScheduler extends CommonScheduler {
         while (!solutionStack.empty()) {
             PartialSolution currentPartialSolution = solutionStack.pop();
             Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
-            Set<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
+            List<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
+
 
             nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 

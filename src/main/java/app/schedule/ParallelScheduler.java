@@ -31,7 +31,7 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
 
             PartialSolution current = solutionQueue.remove();
             Set<Node> scheduledNodes = current.getScheduledNodes();
-            Set<Node> unscheduledNodes = current.getUnscheduledNodes();
+            List<Node> unscheduledNodes = current.getUnscheduledNodes();
             List<Node> nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
             if (nextAvailableNodes.isEmpty()) {

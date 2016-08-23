@@ -16,7 +16,8 @@ public class PartialSolution {
     private int numberOfProcessors;
     private int id;
     private Set<Node> scheduledNodes = new HashSet<>();
-    private Set<Node> unscheduledNodes = new TreeSet<>(new NodeComparator());
+    //private TreeSet<Node> unscheduledNodes = new TreeSet<>(new NodeComparator());
+    List<Node> unscheduledNodes;
     private Processor[] processors;
 
     public PartialSolution(int numberOfProcessors, Collection<Node> nodes) {
@@ -25,8 +26,8 @@ public class PartialSolution {
         for (int i = 0; i < numberOfProcessors; i++) {
             processors[i] = new Processor();
         }
-        this.unscheduledNodes.addAll(nodes);
-
+        this.unscheduledNodes = new ArrayList<>(nodes);
+        Collections.sort(this.unscheduledNodes, new NodeComparator());
     }
 
     public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone) {
@@ -44,7 +45,8 @@ public class PartialSolution {
         for (int i = 0; i < numberOfProcessors; i++) {
             processors[i] = new Processor();
         }
-        this.unscheduledNodes.addAll(nodes);
+        this.unscheduledNodes = new ArrayList<>(nodes);
+        Collections.sort(this.unscheduledNodes, new NodeComparator());
     }
 
     public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone, int id) {
@@ -89,10 +91,8 @@ public class PartialSolution {
         }
 
         int maxNode = 0;
-        for (Node node : unscheduledNodes){
-            if (maxNode < node.getWeight()){
-                maxNode = node.getWeight();
-            }
+        if (!unscheduledNodes.isEmpty()){
+            maxNode = unscheduledNodes.get(0).getWeight();
         }
 
         return minDuration + maxNode;
@@ -133,8 +133,10 @@ public class PartialSolution {
     private void clone(PartialSolution solutionToClone) {
 
         this.scheduledNodes = new HashSet<>(solutionToClone.scheduledNodes);
-        this.unscheduledNodes = new TreeSet<>(new NodeComparator());
-        this.unscheduledNodes.addAll(solutionToClone.unscheduledNodes);
+        //this.unscheduledNodes = new TreeSet<>(new NodeComparator());
+        //this.unscheduledNodes.addAll(solutionToClone.unscheduledNodes);
+        this.unscheduledNodes = new ArrayList<>(solutionToClone.unscheduledNodes);
+        Collections.sort(this.unscheduledNodes, new NodeComparator());
         this.numberOfProcessors = solutionToClone.numberOfProcessors;
 
         for (int i = 0; i < solutionToClone.processors.length; i++) {
@@ -173,7 +175,7 @@ public class PartialSolution {
         return scheduledNodes;
     }
 
-    public Set<Node> getUnscheduledNodes() { return unscheduledNodes; }
+    public List<Node> getUnscheduledNodes() { return unscheduledNodes; }
 
     public int getId(){ return id; }
 }

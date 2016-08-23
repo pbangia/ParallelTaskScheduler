@@ -70,7 +70,7 @@ public class SchedulerHelper {
      * @param unscheduledNodes set of nodes which haven't been scheduled.
      * @return List nodes available to be scheduled.
      */
-    public static List<Node> getAvailableNodes(Set<Node> scheduledNodes, Set<Node> unscheduledNodes) {
+    public static List<Node> getAvailableNodes(Set<Node> scheduledNodes, List<Node> unscheduledNodes) {
 
         List<Node> nextAvailableNodes = new ArrayList<>();
         Iterator<Node> unscheduledNodesIterator = unscheduledNodes.iterator();
