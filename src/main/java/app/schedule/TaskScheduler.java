@@ -83,6 +83,9 @@ public class TaskScheduler {
 
                     MainGUI.getInstance().updateNumberOfSolutionsExplored();
                     idCounter++;
+                    try {
+                        Thread.sleep(100);
+                    } catch (Exception e){}
                     MainGUI.getInstance().validate();
                 }
             }

@@ -47,5 +47,21 @@ public class StatisticsPanel extends JPanel {
         this.solutionsExploredCount++;
         this.numberOfSolutionsExplored.setText("Solutions explored:  " + solutionsExploredCount);
     }
+
+    public void setInputFileName(String inputFileName) {
+        this.inputFileName.setText("Input file name:  " + inputFileName);
+    }
+
+    public void setNumberOfNodes(int numberOfNodes) {
+        this.numberOfNodes.setText("Number of Nodes:  " + numberOfNodes);
+    }
+
+    public void setNumberOfEdges(int numberOfEdges) {
+        this.numberOfEdges.setText("Number of Edges:  " + numberOfEdges);
+    }
+
+    public void setNumberOfProcessors(int numberOfProcessors) {
+        this.numberOfProcessors.setText("Number of Processes:  " + numberOfProcessors);
+    }
 }
 

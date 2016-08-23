@@ -61,6 +61,7 @@ public class BranchAndBoundApp {
         Map<String, Node> dataMap = readInput();
         MainGUI.getInstance().setVisible(true);
         MainGUI.getInstance().setGraphPanels(numThreads, dataMap);
+        MainGUI.getInstance().setStatisticsInfo(this.inputFile.getName(), dataMap.size(), dataTransformer.getDependencies().size(), this.numProcessors);
         PartialSolution bestSolution = run(dataMap);
         String output = outputGenerator.generateOutput(bestSolution, dataTransformer.getDependencies());
         digraphFileWriter.writeDigraphFile(output);

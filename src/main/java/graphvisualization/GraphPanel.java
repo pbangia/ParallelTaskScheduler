@@ -31,22 +31,22 @@ public class GraphPanel extends JPanel {
         //JPanel panel = new JPanel();
         //panel.add(defaultView);
         this.setLayout(new BoxLayout(this,1));
-        //this.add(label);
+        this.add(label);
         this.add(defaultView);
 
     }
 
     public void colorNode(String name, Color c) {
         String color = "#000000";
+        org.graphstream.graph.Node node = inputGraph.getNode(name);
 
         if(c == Color.black){
             color="#000000";
-           // node.removeAttribute("ui.style");
+            node.removeAttribute("ui.style");
         } else if (c == Color.green){
             color = "#5fec18";
         }
 
-        org.graphstream.graph.Node node = inputGraph.getNode(name);
 
         try {
             Thread.sleep(10);

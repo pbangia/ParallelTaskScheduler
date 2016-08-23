@@ -122,7 +122,7 @@ public class MainGUI extends JFrame {
         int numberOfElements = numberOfCores + 2;
         this.setLayout(new GridLayout(0, numberOfElements, 0, 0));
 
-        //this.validate();
+        this.validate();
     }
 
     public void changeColor(int threadIndex, String node, Color c){
@@ -152,6 +152,13 @@ public class MainGUI extends JFrame {
         statisticsPanel.updateNumberOfSolutionsExplored();
     }
 
+    public void setStatisticsInfo(String inputFileName, int numberOfNodes, int numberOfEdges, int numberOfCores) {
+        statisticsPanel.setInputFileName(inputFileName);
+        statisticsPanel.setNumberOfNodes(numberOfNodes);
+        statisticsPanel.setNumberOfEdges(numberOfEdges);
+        statisticsPanel.setNumberOfProcessors(numberOfCores);
+    }
+
     /**
      * getInstance method for singleton pattern. Will instantiate MainGUI
      * object if null.
@@ -169,6 +176,8 @@ public class MainGUI extends JFrame {
     public BestSolutionPanel getBestSolutionPanel() {
         return this.bestSolutionPanel;
     }
+
+
 
 }
 
