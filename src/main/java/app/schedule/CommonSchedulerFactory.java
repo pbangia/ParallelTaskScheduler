@@ -1,12 +1,16 @@
 package app.schedule;
 
 import app.data.Node;
+import app.schedule.parallel.BranchThread;
+import app.schedule.parallel.ParallelScheduler;
+import app.schedule.parallel.ThreadManager;
+import app.schedule.serial.SerialScheduler;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class TaskSchedulerFactory {
+public class CommonSchedulerFactory {
 
     public static CommonScheduler createTaskScheduler(Map<String, Node> dataMap, int numProcessors, int numThreads) {
 

@@ -1,6 +1,7 @@
 package app.schedule;
 
 import app.data.Node;
+import app.schedule.serial.SerialScheduler;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,6 +15,6 @@ public class SerialSchedulerFactoryTest {
         Map<String, Node> map = new HashMap<>();
         int numberOfProcessors = 0;
         int numThreads = 0;
-        Assert.assertTrue(TaskSchedulerFactory.createTaskScheduler(map, numberOfProcessors, numThreads) instanceof SerialScheduler);
+        Assert.assertTrue(CommonSchedulerFactory.createTaskScheduler(map, numberOfProcessors, numThreads) instanceof SerialScheduler);
     }
 }

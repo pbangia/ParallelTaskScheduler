@@ -1,4 +1,4 @@
-package app.schedule;
+package app.schedule.parallel;
 
 import java.util.HashSet;
 import java.util.List;

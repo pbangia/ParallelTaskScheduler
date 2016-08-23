@@ -7,8 +7,7 @@ import app.io.DigraphFileReader;
 import app.io.DigraphFileWriter;
 import app.io.OutputGenerator;
 import app.schedule.CommonScheduler;
-import app.schedule.ParallelScheduler;
-import app.schedule.TaskSchedulerFactory;
+import app.schedule.CommonSchedulerFactory;
 import app.transform.IDataTransformer;
 import app.transform.IDataTransformer2;
 import app.transform.TransformModuleFactory;
@@ -99,7 +98,7 @@ public class BranchAndBoundApp {
      */
     private PartialSolution run(Map<String, Node> dataMap) throws AppException, InterruptedException {
         logger.info("Starting branch and bound algorithm to find optimal schedule.");
-        taskScheduler = TaskSchedulerFactory.createTaskScheduler(dataMap, numProcessors, numThreads);
+        taskScheduler = CommonSchedulerFactory.createTaskScheduler(dataMap, numProcessors, numThreads);
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.start();
         PartialSolution bestSolution = taskScheduler.scheduleTasks();

@@ -1,4 +1,4 @@
-package app.schedule;
+package app.schedule.parallel;
 
 import app.data.PartialSolution;
 

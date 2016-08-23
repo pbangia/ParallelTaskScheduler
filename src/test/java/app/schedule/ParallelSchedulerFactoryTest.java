@@ -1,6 +1,7 @@
 package app.schedule;
 
 import app.data.Node;
+import app.schedule.parallel.ParallelScheduler;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,6 +15,6 @@ public class ParallelSchedulerFactoryTest {
         Map<String, Node> map = new HashMap<>();
         int numberOfProcessors = 0;
         int numThreads = 1;
-        Assert.assertTrue(TaskSchedulerFactory.createTaskScheduler(map, numberOfProcessors, numThreads) instanceof ParallelScheduler);
+        Assert.assertTrue(CommonSchedulerFactory.createTaskScheduler(map, numberOfProcessors, numThreads) instanceof ParallelScheduler);
     }
 }
