@@ -24,7 +24,7 @@ public class SchedulerHelper {
      * @return List of roots in the digraph
      * @throws NoRootFoundException if no roots are found in the digraph (for e.g. cyclic graphs)
      */
-    public List<Node> findRoots(Map<String, Node> dataMap) throws NoRootFoundException {
+    public ArrayList<Node> findRoots(Map<String, Node> dataMap) throws NoRootFoundException {
 
         Set<Node> nodeSet = new HashSet<>();
 

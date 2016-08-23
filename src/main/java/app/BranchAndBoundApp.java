@@ -13,6 +13,7 @@ import app.transform.IDataTransformer2;
 import app.transform.TransformModuleFactory;
 import app.transform.TransformModuleFactory2;
 import app.utils.Stopwatch;
+import graphvisualization.MainGUI;
 import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,6 +59,8 @@ public class BranchAndBoundApp {
     public void start() throws AppException, IOException {
         loadModules();
         Map<String, Node> dataMap = readInput();
+        MainGUI.getInstance().setVisible(true);
+        MainGUI.getInstance().setGraphPanels(numThreads, dataMap);
         PartialSolution bestSolution = run(dataMap);
         String output = outputGenerator.generateOutput(bestSolution, dataTransformer.getDependencies());
         digraphFileWriter.writeDigraphFile(output);
@@ -72,6 +75,7 @@ public class BranchAndBoundApp {
         this.dataTransformer2 = TransformModuleFactory2.createTransformer();
         this.outputGenerator = new OutputGenerator(outputFilename);
         this.digraphFileWriter = new DigraphFileWriter(outputFilename);
+
         logger.info("Loaded all modules required for application.");
     }
 
@@ -107,6 +111,7 @@ public class BranchAndBoundApp {
         stopwatch.start();
         PartialSolution bestSolution = taskScheduler.scheduleTasks();
         stopwatch.stop();
+        // Pass dataMap into the MainGUI singleton object
         logger.info("Algorithm completed in " + stopwatch.getTimeString() + ".");
         return bestSolution;
     }
