@@ -8,7 +8,7 @@ import app.io.DigraphFileWriter;
 import app.io.OutputGenerator;
 import app.schedule.CommonScheduler;
 import app.schedule.CommonSchedulerFactory;
-import app.transform.IDataTransformer;
+import app.transform.DataTransformer;
 import app.transform.TransformModuleFactory;
 import app.utils.Stopwatch;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public class BranchAndBoundApp {
     // Implemented modules
     private DigraphFileReader digraphFileReader;
     private DigraphFileWriter digraphFileWriter;
-    private IDataTransformer dataTransformer;
+    private DataTransformer dataTransformer;
     private CommonScheduler taskScheduler;
     private OutputGenerator outputGenerator;
 
