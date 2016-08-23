@@ -14,10 +14,8 @@ public class PartialSolution {
     private static Logger logger = LoggerFactory.getLogger(PartialSolution.class);
 
     private int numberOfProcessors;
-    private int id;
     private Set<Node> scheduledNodes = new HashSet<>();
-    //private TreeSet<Node> unscheduledNodes = new TreeSet<>(new NodeComparator());
-    List<Node> unscheduledNodes;
+    private List<Node> unscheduledNodes;
     private Processor[] processors;
 
     public PartialSolution(int numberOfProcessors, Collection<Node> nodes) {
@@ -113,8 +111,6 @@ public class PartialSolution {
     private void clone(PartialSolution solutionToClone) {
 
         this.scheduledNodes = new HashSet<>(solutionToClone.scheduledNodes);
-        //this.unscheduledNodes = new TreeSet<>(new NodeComparator());
-        //this.unscheduledNodes.addAll(solutionToClone.unscheduledNodes);
         this.unscheduledNodes = new ArrayList<>(solutionToClone.unscheduledNodes);
         Collections.sort(this.unscheduledNodes, new NodeComparator());
         this.numberOfProcessors = solutionToClone.numberOfProcessors;
@@ -159,7 +155,4 @@ public class PartialSolution {
         return unscheduledNodes;
     }
 
-    public int getId() {
-        return id;
-    }
 }
