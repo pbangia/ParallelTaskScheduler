@@ -52,8 +52,7 @@ public class BranchAndBoundApp {
         loadModules();
         Map<String, Node> dataMap = readInput();
         PartialSolution bestSolution = run(dataMap);
-        String output = outputGenerator.generateOutput(bestSolution, dataTransformer.getDependencies());
-        digraphFileWriter.writeDigraphFile(output);
+        writeOutput(bestSolution);
     }
 
     /**
@@ -96,6 +95,11 @@ public class BranchAndBoundApp {
         stopwatch.stop();
         logger.info("Algorithm completed in " + stopwatch.getTimeString() + ".");
         return bestSolution;
+    }
+
+    private void writeOutput(PartialSolution bestSolution) {
+        String output = outputGenerator.generateOutput(bestSolution, dataTransformer.getDependencies());
+        digraphFileWriter.writeDigraphFile(output);
     }
 
 }
