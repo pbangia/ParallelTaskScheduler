@@ -68,17 +68,9 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
             try {
                 wait();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.error("Unexpected interruption of current thread: " + Thread.currentThread().getId());
             }
         }
-//
-//        while (threadManager.hasActiveThread()) {
-//            try {
-//                Thread.sleep(50);
-//            } catch (InterruptedException e) {
-//                logger.error("Unexpected interruption of current thread: " + Thread.currentThread().getId());
-//            }
-//        }
 
         return bestPartialSolution;
     }
