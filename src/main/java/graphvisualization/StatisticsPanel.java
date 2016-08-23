@@ -3,26 +3,49 @@ package graphvisualization;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by gtiongco95 on 22/08/16.
- */
 public class StatisticsPanel extends JPanel {
 
     // Labels
     private JLabel statisticsPanelTitle;
     private JLabel inputFileName;
+    private JLabel numberOfNodes;
+    private JLabel numberOfEdges;
+    private JLabel numberOfProcessors;
+    private JLabel currentBestLength;
+    private JLabel numberOfSolutionsExplored;
+    private int solutionsExploredCount;
 
-    public StatisticsPanel() {
+    public StatisticsPanel(String inputNameFile, int numberOfNodes, int numberOfEdges, int numberOfProcessors) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        statisticsPanelTitle = new JLabel("Statistics");
-        inputFileName = new JLabel("Input file name: input.dot");
         this.setPreferredSize(new Dimension(250, 300));
-        this.setBorder(BorderFactory.createLineBorder(Color.blue));
+        this.setBorder(BorderFactory.createLineBorder(Color.gray));
+
+        this.statisticsPanelTitle = new JLabel("Statistics");
+        this.inputFileName = new JLabel("Input file name:  " + inputNameFile);
+        this.numberOfNodes = new JLabel("Number of Nodes:  " + numberOfNodes);
+        this.numberOfEdges = new JLabel("Number of Edges:  " + numberOfEdges);
+        this.numberOfProcessors = new JLabel("Number of Processes:  " + numberOfProcessors);
+        this.currentBestLength = new JLabel("Current best time:  ");
+        this.numberOfSolutionsExplored = new JLabel("Solutions explored:  ");
+        this.solutionsExploredCount = 0;
+
         this.add(statisticsPanelTitle);
-        this.add(new JSeparator(SwingConstants.HORIZONTAL));
-        this.add(inputFileName);
+        this.add(new JLabel("     "));
+        this.add(this.inputFileName);
+        this.add(this.numberOfNodes);
+        this.add(this.numberOfEdges);
+        this.add(this.numberOfProcessors);
+        this.add(this.currentBestLength);
+        this.add(this.numberOfSolutionsExplored);
+    }
 
+    public void updateCurrentBestLength(int endTime) {
+        this.currentBestLength.setText("Current best time:  " + endTime);
+    }
 
+    public void updateNumberOfSolutionsExplored() {
+        this.solutionsExploredCount++;
+        this.numberOfSolutionsExplored.setText("Solutions explored:  " + solutionsExploredCount);
     }
 }
 
