@@ -32,6 +32,18 @@ public class EndToEndTest_Parallel {
     }
 
     @Test
+    public void testNodes7_FourProcessorsTwoThreads_ReturnsCorrectLength() throws Exception {
+        inputFile = "Nodes_7_OutTree.dot";
+        numProcessors = 4;
+        outputFile = "output.dot";
+        numThreads = 2;
+
+        int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
+        int expectedLength = 22;
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    @Test
     public void testNodes7_TwoProcessorsTenThreads_ReturnsCorrectLength() throws Exception {
         inputFile = "Nodes_7_OutTree.dot";
         numProcessors = 2;
@@ -44,9 +56,33 @@ public class EndToEndTest_Parallel {
     }
 
     @Test
+    public void testNodes7_FourProcessorsTenThreads_ReturnsCorrectLength() throws Exception {
+        inputFile = "Nodes_7_OutTree.dot";
+        numProcessors = 4;
+        outputFile = "output.dot";
+        numThreads = 10;
+
+        int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
+        int expectedLength = 22;
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    @Test
     public void testNodes8_TwoProcessorsTwoThreads_ReturnsCorrectLength() throws Exception {
         inputFile = "Nodes_8_Random.dot";
         numProcessors = 2;
+        outputFile = "output.dot";
+        numThreads = 2;
+
+        int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
+        int expectedLength = 581;
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    @Test
+    public void testNodes8_FourProcessorsTwoThreads_ReturnsCorrectLength() throws Exception {
+        inputFile = "Nodes_8_Random.dot";
+        numProcessors = 4;
         outputFile = "output.dot";
         numThreads = 2;
 
@@ -68,9 +104,33 @@ public class EndToEndTest_Parallel {
     }
 
     @Test
+    public void testNodes8_FourProcessorsTenThreads_ReturnsCorrectLength() throws Exception {
+        inputFile = "Nodes_8_Random.dot";
+        numProcessors = 4;
+        outputFile = "output.dot";
+        numThreads = 10;
+
+        int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
+        int expectedLength = 581;
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    @Test
     public void testNodes9_TwoProcessorsTwoThreads_ReturnsCorrectLength() throws Exception {
         inputFile = "Nodes_9_SeriesParallel.dot";
         numProcessors = 2;
+        outputFile = "output.dot";
+        numThreads = 2;
+
+        int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
+        int expectedLength = 55;
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    @Test
+    public void testNodes9_FourProcessorsTwoThreads_ReturnsCorrectLength() throws Exception {
+        inputFile = "Nodes_9_SeriesParallel.dot";
+        numProcessors = 4;
         outputFile = "output.dot";
         numThreads = 2;
 
@@ -92,9 +152,33 @@ public class EndToEndTest_Parallel {
     }
 
     @Test
+    public void testNodes9_FourProcessorsTenThreads_ReturnsCorrectLength() throws Exception {
+        inputFile = "Nodes_9_SeriesParallel.dot";
+        numProcessors = 4;
+        outputFile = "output.dot";
+        numThreads = 10;
+
+        int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
+        int expectedLength = 55;
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    @Test
     public void testNodes10_TwoProcessorsTwoThreads_ReturnsCorrectLength() throws Exception {
         inputFile = "Nodes_10_Random.dot";
         numProcessors = 2;
+        outputFile = "output.dot";
+        numThreads = 2;
+
+        int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
+        int expectedLength = 50;
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    @Test
+    public void testNodes10_FourProcessorsTwoThreads_ReturnsCorrectLength() throws Exception {
+        inputFile = "Nodes_10_Random.dot";
+        numProcessors = 4;
         outputFile = "output.dot";
         numThreads = 2;
 
@@ -116,6 +200,18 @@ public class EndToEndTest_Parallel {
     }
 
     @Test
+    public void testNodes10_FourProcessorsTenThreads_ReturnsCorrectLength() throws Exception {
+        inputFile = "Nodes_10_Random.dot";
+        numProcessors = 4;
+        outputFile = "output.dot";
+        numThreads = 10;
+
+        int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
+        int expectedLength = 50;
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    @Test
     public void testNodes11_TwoProcessorsTwoThreads_ReturnsCorrectLength() throws Exception {
         inputFile = "Nodes_11_OutTree.dot";
         numProcessors = 2;
@@ -128,6 +224,18 @@ public class EndToEndTest_Parallel {
     }
 
     @Test
+    public void testNodes11_FourProcessorsTwoThreads_ReturnsCorrectLength() throws Exception {
+        inputFile = "Nodes_11_OutTree.dot";
+        numProcessors = 4;
+        outputFile = "output.dot";
+        numThreads = 2;
+
+        int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
+        int expectedLength = 227;
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    @Test
     public void testNodes11_TwoProcessorsTenThreads_ReturnsCorrectLength() throws Exception {
         inputFile = "Nodes_11_OutTree.dot";
         numProcessors = 2;
@@ -136,6 +244,18 @@ public class EndToEndTest_Parallel {
 
         int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
         int expectedLength = 350;
+        Assert.assertEquals(expectedLength, actualLength);
+    }
+
+    @Test
+    public void testNodes11_FourProcessorsTenThreads_ReturnsCorrectLength() throws Exception {
+        inputFile = "Nodes_11_OutTree.dot";
+        numProcessors = 4;
+        outputFile = "output.dot";
+        numThreads = 10;
+
+        int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
+        int expectedLength = 227;
         Assert.assertEquals(expectedLength, actualLength);
     }
 
