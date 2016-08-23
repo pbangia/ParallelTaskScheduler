@@ -38,21 +38,18 @@ public class BranchThread extends Thread {
 
             List<Node> nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
-            if (nextAvailableNodes.isEmpty()) {
-                if (bestPartialSolution == null){
-                    bestPartialSolution = currentPartialSolution;
-                } else{
-                    //else if pr something, check if current leaf partial solution is better than our best partial solution
-                    //if it is, replace best partial solution with it
-                    //check if it is bestPartialSolution better than the masters.
-                    //set masters best current solution to this bestcurrent soluion
-                }
-//                branchThreadListener.onLeafReached(currentPartialSolution);
-//                continue;
+            if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
+                continue;
             }
 
-//            PartialSolution best = branchThreadListener.currentBest();
+            bestPartialSolution = branchThreadListener.currentBest();
             if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
+                continue;
+            }
+
+            if (nextAvailableNodes.isEmpty()) {
+                bestPartialSolution = currentPartialSolution;
+                branchThreadListener.onLeafReached(bestPartialSolution);
                 continue;
             }
 
