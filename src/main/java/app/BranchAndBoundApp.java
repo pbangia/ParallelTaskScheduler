@@ -9,9 +9,7 @@ import app.io.OutputGenerator;
 import app.schedule.CommonScheduler;
 import app.schedule.CommonSchedulerFactory;
 import app.transform.IDataTransformer;
-import app.transform.IDataTransformer2;
 import app.transform.TransformModuleFactory;
-import app.transform.TransformModuleFactory2;
 import app.utils.Stopwatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +33,6 @@ public class BranchAndBoundApp {
     private DigraphFileReader digraphFileReader;
     private DigraphFileWriter digraphFileWriter;
     private IDataTransformer dataTransformer;
-    private IDataTransformer2 dataTransformer2;
     private CommonScheduler taskScheduler;
     private OutputGenerator outputGenerator;
 
@@ -65,7 +62,6 @@ public class BranchAndBoundApp {
     private void loadModules() {
         this.digraphFileReader = new DigraphFileReader(inputFile);
         this.dataTransformer = TransformModuleFactory.createTransformer();
-        this.dataTransformer2 = TransformModuleFactory2.createTransformer();
         this.outputGenerator = new OutputGenerator(outputFilename);
         this.digraphFileWriter = new DigraphFileWriter(outputFilename);
         logger.info("Loaded all modules required for application.");
@@ -81,11 +77,6 @@ public class BranchAndBoundApp {
     private Map<String, Node> readInput() throws AppException, IOException {
         String fileContents = digraphFileReader.readDigraphFile();
         Map<String, Node> dataMap = dataTransformer.transformIntoMap(fileContents);
-
-        // TODO figure out where and how to use this data transformation
-        Map<String, Integer> dataMap2 = dataTransformer2.transformIntoMap(fileContents);
-        int[][] matrix = dataTransformer2.transformIntoMatrix(dataMap2, fileContents);
-
         logger.info("Initialised all required components for application.");
         return dataMap;
     }
