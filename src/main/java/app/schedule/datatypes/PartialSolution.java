@@ -38,26 +38,6 @@ public class PartialSolution {
         }
     }
 
-    public PartialSolution(int numberOfProcessors, Collection<Node> nodes, int id) {
-        this.id = id;
-        this.numberOfProcessors = numberOfProcessors;
-        this.processors = new Processor[numberOfProcessors];
-        for (int i = 0; i < numberOfProcessors; i++) {
-            processors[i] = new Processor();
-        }
-        this.unscheduledNodes = new ArrayList<>(nodes);
-        Collections.sort(this.unscheduledNodes, new NodeComparator());
-    }
-
-    public PartialSolution(int numberOfProcessors, PartialSolution solutionToClone, int id) {
-        this.id = id;
-        this.processors = new Processor[numberOfProcessors];
-        this.numberOfProcessors = numberOfProcessors;
-        if (solutionToClone != null) {
-            clone(solutionToClone);
-        }
-    }
-
     public boolean isBetterThan(PartialSolution otherPartialSolution) {
         if (otherPartialSolution == null) {
             return true;
