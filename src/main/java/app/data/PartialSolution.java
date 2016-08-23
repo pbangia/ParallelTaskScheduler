@@ -157,10 +157,6 @@ public class PartialSolution {
         return sb.toString();
     }
 
-    public TreeSet<Node> sortUnscheduledNodes(TreeSet<Node> unscheduledNodes){
-
-        return null;
-    }
 
     public Processor[] getProcessors() {
         return processors;
