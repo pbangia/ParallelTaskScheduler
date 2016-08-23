@@ -24,7 +24,6 @@ public class EndToEndTest_Serial {
         inputFile = "Nodes_7_OutTree.dot";
         numProcessors = 2;
         outputFile = "output.dot";
-        numThreads = 1;
 
         int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
         int expectedLength = 28;
@@ -36,7 +35,6 @@ public class EndToEndTest_Serial {
         inputFile = "Nodes_7_OutTree.dot";
         numProcessors = 4;
         outputFile = "output.dot";
-        numThreads = 1;
 
         int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
         int expectedLength = 22;
@@ -48,7 +46,6 @@ public class EndToEndTest_Serial {
         inputFile = "Nodes_8_Random.dot";
         numProcessors = 2;
         outputFile = "output.dot";
-        numThreads = 1;
 
         int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
         int expectedLength = 581;
@@ -60,7 +57,6 @@ public class EndToEndTest_Serial {
         inputFile = "Nodes_8_Random.dot";
         numProcessors = 4;
         outputFile = "output.dot";
-        numThreads = 1;
 
         int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
         int expectedLength = 581;
@@ -72,7 +68,6 @@ public class EndToEndTest_Serial {
         inputFile = "Nodes_9_SeriesParallel.dot";
         numProcessors = 2;
         outputFile = "output.dot";
-        numThreads = 1;
 
         int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
         int expectedLength = 55;
@@ -84,7 +79,6 @@ public class EndToEndTest_Serial {
         inputFile = "Nodes_9_SeriesParallel.dot";
         numProcessors = 4;
         outputFile = "output.dot";
-        numThreads = 1;
 
         int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
         int expectedLength = 55;
@@ -96,7 +90,6 @@ public class EndToEndTest_Serial {
         inputFile = "Nodes_10_Random.dot";
         numProcessors = 2;
         outputFile = "output.dot";
-        numThreads = 1;
 
         int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
         int expectedLength = 50;
@@ -108,7 +101,6 @@ public class EndToEndTest_Serial {
         inputFile = "Nodes_10_Random.dot";
         numProcessors = 4;
         outputFile = "output.dot";
-        numThreads = 1;
 
         int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
         int expectedLength = 50;
@@ -120,7 +112,6 @@ public class EndToEndTest_Serial {
         inputFile = "Nodes_11_OutTree.dot";
         numProcessors = 2;
         outputFile = "output.dot";
-        numThreads = 1;
 
         int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
         int expectedLength = 350;
@@ -132,7 +123,6 @@ public class EndToEndTest_Serial {
         inputFile = "Nodes_11_OutTree.dot";
         numProcessors = 4;
         outputFile = "output.dot";
-        numThreads = 1;
 
         int actualLength = runner(inputFile, numProcessors, numThreads, visualisation, outputFile);
         int expectedLength = 227;
