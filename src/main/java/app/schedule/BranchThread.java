@@ -15,6 +15,7 @@ public class BranchThread extends Thread {
 
     private Stack<PartialSolution> solutionStack = new Stack<>();
     private BranchThreadListener branchThreadListener;
+    private PartialSolution bestPartialSolution = null;
 
     public void addPartialSolution(PartialSolution partialSolution){
         this.solutionStack.push(partialSolution);
@@ -36,12 +37,18 @@ public class BranchThread extends Thread {
             List<Node> nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
             if (nextAvailableNodes.isEmpty()) {
-                branchThreadListener.onLeafReached(currentPartialSolution);
-                continue;
+                if (bestPartialSolution == null){
+                    bestPartialSolution = currentPartialSolution;
+                } else{
+                    //check bestPartialSolution is not Worse than the masters. ie better than the masters.
+                    //set masters best current solution to this bestcurrent soluion
+                }
+//                branchThreadListener.onLeafReached(currentPartialSolution);
+//                continue;
             }
 
-            PartialSolution best = branchThreadListener.currentBest();
-            if (currentPartialSolution.isWorseThan(best)) {
+//            PartialSolution best = branchThreadListener.currentBest();
+            if (currentPartialSolution.isWorseThan(bestPartialSolution)) {
                 continue;
             }
 
