@@ -1,10 +1,9 @@
 package app.schedule;
 
-import app.data.Node;
-import app.data.PartialSolution;
+import app.schedule.datatypes.Node;
+import app.schedule.datatypes.PartialSolution;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by User on 23/08/2016.

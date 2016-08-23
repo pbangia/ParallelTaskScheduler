@@ -1,9 +1,9 @@
 package app.io;
 
 
-import app.data.PartialSolution;
-import app.data.Node;
-import app.data.Processor;
+import app.schedule.datatypes.PartialSolution;
+import app.schedule.datatypes.Node;
+import app.schedule.datatypes.Processor;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

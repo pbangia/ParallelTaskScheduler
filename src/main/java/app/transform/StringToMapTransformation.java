@@ -1,6 +1,6 @@
 package app.transform;
 
-import app.data.Node;
+import app.schedule.datatypes.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,6 +1,6 @@
 package app.schedule;
 
-import app.data.Node;
+import app.schedule.datatypes.Node;
 import app.schedule.serial.SerialScheduler;
 import org.junit.Assert;
 import org.junit.Test;

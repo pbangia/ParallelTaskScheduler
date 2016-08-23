@@ -1,4 +1,4 @@
-package app.data;
+package app.schedule.datatypes;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

@@ -1,12 +1,7 @@
 package app.schedule;
 
-import app.data.Node;
-import app.data.PartialSolution;
-import app.data.Processor;
-import app.exceptions.AppException;
-import org.junit.Assert;
+import app.schedule.datatypes.Node;
 import org.junit.Before;
-import org.junit.Test;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

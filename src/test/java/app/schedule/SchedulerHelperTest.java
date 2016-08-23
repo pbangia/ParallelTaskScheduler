@@ -1,8 +1,8 @@
 package app.schedule;
 
-import app.data.Node;
-import app.data.PartialSolution;
-import app.data.Processor;
+import app.schedule.datatypes.Node;
+import app.schedule.datatypes.PartialSolution;
+import app.schedule.datatypes.Processor;
 import app.exceptions.AppException;
 import app.exceptions.utils.NoRootFoundException;
 import org.junit.Before;

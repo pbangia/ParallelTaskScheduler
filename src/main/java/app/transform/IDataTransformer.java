@@ -1,6 +1,6 @@
 package app.transform;
 
-import app.data.Node;
+import app.schedule.datatypes.Node;
 import app.exceptions.transform.EmptyMapException;
 
 import java.util.List;

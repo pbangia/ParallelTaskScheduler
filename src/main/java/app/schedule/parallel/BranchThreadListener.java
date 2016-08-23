@@ -1,6 +1,6 @@
 package app.schedule.parallel;
 
-import app.data.PartialSolution;
+import app.schedule.datatypes.PartialSolution;
 
 public interface BranchThreadListener {
 

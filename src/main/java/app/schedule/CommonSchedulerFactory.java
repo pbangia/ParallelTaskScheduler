@@ -1,6 +1,6 @@
 package app.schedule;
 
-import app.data.Node;
+import app.schedule.datatypes.Node;
 import app.schedule.parallel.BranchThread;
 import app.schedule.parallel.ParallelScheduler;
 import app.schedule.parallel.ThreadManager;

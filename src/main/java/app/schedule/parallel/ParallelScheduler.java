@@ -1,8 +1,8 @@
 package app.schedule.parallel;
 
 
-import app.data.Node;
-import app.data.PartialSolution;
+import app.schedule.datatypes.Node;
+import app.schedule.datatypes.PartialSolution;
 import app.schedule.CommonScheduler;
 import app.schedule.SchedulerHelper;
 import org.slf4j.Logger;

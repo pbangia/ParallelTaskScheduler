@@ -1,6 +1,6 @@
 package app.utils;
 
-import app.data.Node;
+import app.schedule.datatypes.Node;
 import java.util.Comparator;
 
 public class NodeComparator implements Comparator<Node> {

@@ -1,7 +1,7 @@
 package app.schedule;
 
-import app.data.Node;
-import app.data.PartialSolution;
+import app.schedule.datatypes.Node;
+import app.schedule.datatypes.PartialSolution;
 import app.exceptions.utils.NoRootFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,7 @@ public class SchedulerHelper {
     private static Logger logger = LoggerFactory.getLogger(SchedulerHelper.class);
 
     /**
-     * Finds the roots of a provided digraph represented in a data map.
+     * Finds the roots of a provided digraph represented in a datatypes map.
      * Algorithm:
      * 1. All all of the Nodes to a set of Nodes.
      * 2. Iterate through each Node in that set

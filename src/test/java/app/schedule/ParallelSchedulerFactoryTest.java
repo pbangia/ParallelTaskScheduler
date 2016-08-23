@@ -1,6 +1,6 @@
 package app.schedule;
 
-import app.data.Node;
+import app.schedule.datatypes.Node;
 import app.schedule.parallel.ParallelScheduler;
 import org.junit.Assert;
 import org.junit.Test;
