@@ -24,6 +24,14 @@ public class DataTransformer {
         this.toMapTransformation = stringToMapTransformation;
     }
 
+    /**
+     * This method changes the contents of the file into the Node objects
+     *
+     * @param data the contents of the file written into a string
+     * @return the data, transformed into a map with the key being the name of the node, as a string and the value
+     *         being the actual Node object
+     * @throws EmptyMapException if the size of the map is 0 i.e. has no data in it, then this exception is thrown
+     */
     public Map<String, Node> transformIntoMap(String data) throws EmptyMapException {
         logger.info("Starting transformation of io to map representation.");
         Map<String, Node> dataMap = new ConcurrentHashMap<String, Node>();
