@@ -13,7 +13,7 @@ public class ThreadPanel extends JPanel {
     private JScrollPane tableContainer;
     private HashMap<String, Integer> columnNameMap;
     private int rowIndexOfPrevious;
-    private int colIndexOfPrevious;
+    private int colIndexOfPrevious = 1;
 
     public ThreadPanel() {
         this.setLayout(new BorderLayout());
