@@ -21,7 +21,7 @@ public class CommonSchedulerFactory {
      */
     public static CommonScheduler createTaskScheduler(Map<String, Node> dataMap, int numProcessors, int numThreads) {
 
-        if (numThreads < 2) {
+        if (numThreads < 1) {
             return new SerialScheduler(dataMap.values(), numProcessors);
         }
 
