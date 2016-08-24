@@ -55,11 +55,15 @@ public class SerialScheduler extends CommonScheduler {
                 bestPartialSolution = currentPartialSolution;
                 if (guiRequired){
                     MainGUI.get().updateCurrentBestLength(bestPartialSolution.length());
+                    MainGUI.get().getBestSolutionPanel().updateSolutionTable(bestPartialSolution);
                 }
                 continue;
             }
 
             for (Node availableNode : nextAvailableNodes) {
+                if (guiRequired){
+                    MainGUI.get().getThreadPanel().colorCell("0", availableNode.getName());
+                }
                 List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution);
                 solutionStack.addAll(availablePartialSolutions);
             }

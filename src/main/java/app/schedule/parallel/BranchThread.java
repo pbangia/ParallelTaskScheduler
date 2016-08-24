@@ -1,5 +1,6 @@
 package app.schedule.parallel;
 
+import app.Main;
 import app.graphvisualization.MainGUI;
 import app.schedule.SchedulerHelper;
 import app.schedule.datatypes.Node;
@@ -63,11 +64,19 @@ public class BranchThread extends Thread {
 
             if (nextAvailableNodes.isEmpty()) {
                 bestPartialSolution = currentPartialSolution;
+                if (guiRequired){
+                    MainGUI.get().updateCurrentBestLength(bestPartialSolution.length());
+                    MainGUI.get().getBestSolutionPanel().updateSolutionTable(bestPartialSolution);
+                }
                 branchThreadListener.onLeafReached(bestPartialSolution);
                 continue;
             }
 
             for (Node availableNode : nextAvailableNodes) {
+                if (guiRequired){
+                    MainGUI.get().updateNumberOfSolutionsExplored();
+                }
+                MainGUI.get().getThreadPanel().colorCell(Thread.currentThread().getName(), availableNode.getName());
                 List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution);
                 solutionStack.addAll(availablePartialSolutions);
             }

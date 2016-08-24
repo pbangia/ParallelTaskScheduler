@@ -62,6 +62,7 @@ public class BranchAndBoundApp {
         if (graphRequired){
             MainGUI.get().setVisible(true);
             MainGUI.get().setGraphPanel(numThreads, dataMap);
+            MainGUI.get().setUpTableModel(dataMap);
             MainGUI.get().setStatisticsInfo(inputFile.getName(), dataMap.size(), dataTransformer.getDependencies().size(), numProcessors);
         }
     }

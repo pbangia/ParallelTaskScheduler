@@ -11,7 +11,7 @@ public class ThreadPanel extends JPanel {
     private JTable threadTable;
     private DefaultTableModel model;
     private JScrollPane tableContainer;
-    private HashMap<String, Integer> setColumnNameMap;
+    private HashMap<String, Integer> columnNameMap;
     private int rowIndexOfPrevious;
     private int colIndexOfPrevious;
 
@@ -28,12 +28,15 @@ public class ThreadPanel extends JPanel {
         this.add(threadPanelTitle, BorderLayout.NORTH);
     }
 
-    public void colorCell(int threadNumber, String nodeName) {
-        System.out.println("inside colorCell");
-        int colIndex = setColumnNameMap.get(nodeName);
-        int rowIndex = threadNumber;
+    public synchronized void colorCell(String threadNumber, String nodeName) {
+        int colIndex = columnNameMap.get(nodeName);
+        int rowIndex = Integer.valueOf(threadNumber);
 
-        threadTable.setValueAt("Analysing", rowIndex, colIndex);
+        threadTable.setValueAt("", rowIndexOfPrevious, colIndexOfPrevious);
+        threadTable.setValueAt("Scheduling", rowIndex, colIndex);
+
+        this.rowIndexOfPrevious = rowIndex;
+        this.colIndexOfPrevious = colIndex;
     }
 
     public void setTableModel(DefaultTableModel model) {
@@ -44,6 +47,6 @@ public class ThreadPanel extends JPanel {
     }
 
     public void setColumnNameMap(HashMap<String, Integer> columnNameMap) {
-        this.setColumnNameMap = columnNameMap;
+        this.columnNameMap = columnNameMap;
     }
 }

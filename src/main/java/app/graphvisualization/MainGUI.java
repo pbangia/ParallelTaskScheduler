@@ -7,16 +7,16 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class MainGUI extends JFrame {
 
     public static MainGUI mainWindow;
     private StatisticsPanel statisticsPanel;
     private BestSolutionPanel bestSolutionPanel;
+    private ThreadPanel threadPanel;
     private int numberOfCores = 1;
     private Map<String, Node> dataMap;
     private GraphPanel graphPanel;
@@ -40,9 +40,11 @@ public class MainGUI extends JFrame {
 
         statisticsPanel = new StatisticsPanel("file name",1,2,3);
         bestSolutionPanel = new BestSolutionPanel();
+        threadPanel = new ThreadPanel();
 
         this.add(statisticsPanel);
         this.add(bestSolutionPanel);
+        this.add(threadPanel);
     }
 
     private Graph makeInputGraph(Map<String, Node> dataMap){
@@ -119,6 +121,26 @@ public class MainGUI extends JFrame {
         validate();
     }
 
+    public void setUpTableModel(Map<String, Node> dataMap) {
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"Thread"}, 0);
+        Set<String> nodeNames = dataMap.keySet();
+        HashMap<String, Integer> columnNameMap = new HashMap<>();
+        int j =1;
+
+        for (String nodeName : nodeNames) {
+            model.addColumn(nodeName);
+            columnNameMap.put(nodeName, j);
+            j++;
+        }
+        // add rows for number of threads
+        for (int i = 0; i < this.numberOfCores; i++) {
+            model.addRow(new Object[]{i});
+        }
+
+        threadPanel.setTableModel(model);
+        threadPanel.setColumnNameMap(columnNameMap);
+    }
+
 
     public void updateCurrentBestLength(int endTime) {
         statisticsPanel.updateCurrentBestLength(endTime);
@@ -127,6 +149,7 @@ public class MainGUI extends JFrame {
     public void updateNumberOfSolutionsExplored() {
         statisticsPanel.updateNumberOfSolutionsExplored();
     }
+
 
     public void setStatisticsInfo(String inputFileName, int numberOfNodes, int numberOfEdges, int numberOfCores) {
         statisticsPanel.setInputFileName(inputFileName);
@@ -152,5 +175,8 @@ public class MainGUI extends JFrame {
     public BestSolutionPanel getBestSolutionPanel() {
         return this.bestSolutionPanel;
     }
+    public ThreadPanel getThreadPanel() { return this.threadPanel;}
 }
+
+
 
