@@ -28,7 +28,7 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
     public PartialSolution scheduleTasks() {
 
         Queue<PartialSolution> solutionQueue = new LinkedList<>();
-        solutionQueue.add(new PartialSolution(numberOfProcessors, nodes, 0));
+        solutionQueue.add(new PartialSolution(numberOfProcessors, nodes));
 
         runBFS(solutionQueue);
         distributePartialSolutions(solutionQueue);

@@ -15,8 +15,6 @@ import java.util.Stack;
  */
 public class SerialScheduler extends CommonScheduler {
 
-
-    // Constructor For Class
     public SerialScheduler(Collection<Node> nodes, int numberOfProcessors) {
         this.nodes = nodes;
         this.numberOfProcessors = numberOfProcessors;
@@ -36,22 +34,20 @@ public class SerialScheduler extends CommonScheduler {
             Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
             List<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
 
-
             nextAvailableNodes = SchedulerHelper.getAvailableNodes(scheduledNodes, unscheduledNodes);
 
-            // Hit if clause when leaf is reached
-            if (nextAvailableNodes.isEmpty()) {
-                if (currentPartialSolution.isBetterThan(bestPartialSolution)) {
-                    bestPartialSolution = currentPartialSolution;
-                }
+            if (currentPartialSolution.isWorseThan(bestPartialSolution)){
                 continue;
             }
 
-            if (currentPartialSolution.isBetterThan(bestPartialSolution)) {
-                for (Node availableNode : nextAvailableNodes) {
-                    List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution);
-                    solutionStack.addAll(availablePartialSolutions);
-                }
+            if (nextAvailableNodes.isEmpty()) {
+                bestPartialSolution = currentPartialSolution;
+                continue;
+            }
+
+            for (Node availableNode : nextAvailableNodes) {
+                List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution);
+                solutionStack.addAll(availablePartialSolutions);
             }
         }
 
