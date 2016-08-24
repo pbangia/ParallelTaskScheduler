@@ -18,6 +18,10 @@ public class DigraphFileWriter {
         this.outputFile = new File(outputFilename);
     }
 
+    /**
+     * Writes the input String to the output file.
+     * @param solutionMap input String to write to the file.
+     */
     public void writeDigraphFile(String solutionMap) {
         try {
             FileUtils.writeStringToFile(outputFile, solutionMap);

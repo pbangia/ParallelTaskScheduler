@@ -36,6 +36,11 @@ public class PartialSolution {
         }
     }
 
+    /**
+     * Compares this PartialSolution to the input PartialSolution
+     * @param otherPartialSolution input PartialSolution
+     * @return true if the this is better than the input PartialSolution
+     */
     public boolean isBetterThan(PartialSolution otherPartialSolution) {
         if (otherPartialSolution == null) {
             return true;
@@ -46,6 +51,10 @@ public class PartialSolution {
         return thisValue < otherPartialSolution.length();
     }
 
+    /**
+     * Computes the finish time of this PartialSolution
+     * @return finish time of the longest running processor
+     */
     public int length() {
         int maxDuration = 0;
 
@@ -58,6 +67,10 @@ public class PartialSolution {
         return maxDuration;
     }
 
+    /**
+     * Minimum length that this PartialSolution can finish within.
+     * @return minimum finish time
+     */
     public int minLength() {
         int minDuration = MAX_VALUE;
 
@@ -77,10 +90,21 @@ public class PartialSolution {
 
     }
 
+    /**
+     * Returns the boolean opposite of the isBetterThan method.
+     * @param bestPartialSolution PartialSolution to compare to
+     * @return true if this PartialSolution is worse than the input Partial Solution
+     */
     public boolean isWorseThan(PartialSolution bestPartialSolution) {
         return !isBetterThan(bestPartialSolution);
     }
 
+    /**
+     * Adds a Node to the Processor object specified, by computing the timestamp as to when to
+     * add that Node.
+     * @param nodeToAdd Node that is to be added.
+     * @param processorNumber Processor to add the Node to
+     */
     public void addNodeToProcessor(Node nodeToAdd, int processorNumber) {
         scheduledNodes.add(nodeToAdd);
         unscheduledNodes.remove(nodeToAdd);
@@ -108,6 +132,10 @@ public class PartialSolution {
         processors[processorNumber].addNodeToQueue(nodeToAdd, minTimeToStart);
     }
 
+    /**
+     * Clones this PartialSolution to match the input PartialSolution
+     * @param solutionToClone
+     */
     private void clone(PartialSolution solutionToClone) {
 
         this.scheduledNodes = new HashSet<>(solutionToClone.scheduledNodes);

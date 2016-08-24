@@ -66,6 +66,12 @@ public class Node {
         return parentMap;
     }
 
+    /**
+     * Adds a child dependency to the current Node, as well as ensuring
+     * that the child has a parent dependency to this current Node.
+     * @param child Child Node
+     * @param dependencyWeight Dependency weight
+     */
     public void addChild(Node child, int dependencyWeight) {
         childrenMap.put(child, dependencyWeight);
         if (!child.getParentMap().containsKey(this)) {
@@ -73,6 +79,12 @@ public class Node {
         }
     }
 
+    /**
+     * Adds a parent dependency to the current Node, as well as ensuring
+     * that the parent has a child dependency to this current Node.
+     * @param parent Parent Node
+     * @param dependencyWeight Dependency weight
+     */
     public void addParent(Node parent, int dependencyWeight) {
         parentMap.put(parent, dependencyWeight);
         if (!parent.getChildrenMap().containsKey(this)) {

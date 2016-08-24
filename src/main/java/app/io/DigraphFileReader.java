@@ -19,6 +19,13 @@ public class DigraphFileReader {
         this.digraphFile = inputFile;
     }
 
+    /**
+     * Reads the input file to a String object.
+     * @return String representation of the input file.
+     * @throws EmptyFileContentsException
+     * @throws InvalidFileContentsException
+     * @throws IOException
+     */
     public String readDigraphFile() throws EmptyFileContentsException, InvalidFileContentsException, IOException {
         String fileText = FileUtils.readFileToString(digraphFile);
 
@@ -29,6 +36,12 @@ public class DigraphFileReader {
         return parse(fileText);
     }
 
+    /**
+     * Strips the input file to return the text representing only relevant information.
+     * @param fileText Raw string representation of the input file.
+     * @return Stripped string representation of the input file.
+     * @throws InvalidFileContentsException
+     */
     private String parse(String fileText) throws InvalidFileContentsException {
         if (!validFileText(fileText)) {
             throw new InvalidFileContentsException("Invalid text found in file.");
@@ -38,14 +51,9 @@ public class DigraphFileReader {
     }
 
     private boolean validFileText(String fileText) {
-        // TODO more guard clauses required
-        if (!fileText.contains("{")) {
+        if (!fileText.contains("{") || !fileText.contains("}")) {
             return false;
         }
-        if (!fileText.contains("}")) {
-            return false;
-        }
-
         return true;
     }
 
