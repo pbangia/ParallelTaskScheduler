@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class ThreadCellRenderer extends DefaultTableCellRenderer{
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+    public synchronized Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
 
         Object valueAt = table.getModel().getValueAt(row, col);
