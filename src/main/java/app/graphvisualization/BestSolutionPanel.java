@@ -39,37 +39,31 @@ public class BestSolutionPanel extends JPanel {
      */
     public synchronized void updateSolutionTable(PartialSolution newBestSolution) {
         DefaultTableModel model = (DefaultTableModel) solutionTable.getModel();
-        int rowCount = model.getRowCount();
 
         String output = newBestSolution.toString();
         String[] definitions = output.split(NEW_LINE);
 
-        if (rowCount == 0){
-            for (String definition : definitions) {
-                String nodeName = definition.substring(0, definition.indexOf("[")).trim();
-                String weight = definition.substring(definition.indexOf("Weight=") + 7, definition.indexOf(",Start"));
-                String start = definition.substring(definition.indexOf("Start=") + 6, definition.indexOf(",Processor"));
-                String processor = definition.substring(definition.indexOf("Processor=") + 10, definition.indexOf("]"));
-                model.addRow(new Object[]{nodeName, weight, start, processor});
+        for (int i = 0; i < definitions.length; i++) {
+            String[] parts = parseDefinition(definitions[i]);
+            if (model.getRowCount() > i) {  //if model already has this row, just replace the values
+                for (int j = 0; j < parts.length; j++) {
+                    model.setValueAt(parts[j], i, j);
+                }
+            } else {
+                model.addRow(parts);
             }
         }
 
-        int j = 0;
-        for (int i = rowCount - 1; i >= 0; i--) {
-            model.removeRow(i);
+        model.fireTableDataChanged();
+    }
 
-            String nodeName = definitions[j].substring(0, definitions[j].indexOf("[")).trim();
-            String weight = definitions[j].substring(definitions[j].indexOf("Weight=") + 7, definitions[j].indexOf(",Start"));
-            String start = definitions[j].substring(definitions[j].indexOf("Start=") + 6, definitions[j].indexOf(",Processor"));
-            String processor = definitions[j].substring(definitions[j].indexOf("Processor=") + 10, definitions[j].indexOf("]"));
-
-            model.addRow(new Object[]{nodeName, weight, start, processor});
-            j++;
-            model.fireTableDataChanged();
-        }
-
-
-
+    private static String[] parseDefinition(String definition) {
+        String[] parts = new String[4];
+        parts[0] = definition.substring(0, definition.indexOf("[")).trim();
+        parts[1] = definition.substring(definition.indexOf("Weight=") + 7, definition.indexOf(",Start"));
+        parts[2] = definition.substring(definition.indexOf("Start=") + 6, definition.indexOf(",Processor"));
+        parts[3] = definition.substring(definition.indexOf("Processor=") + 10, definition.indexOf("]"));
+        return parts;
     }
 }
 
