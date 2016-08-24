@@ -50,6 +50,7 @@ public class MainGUI extends JFrame {
     private Graph makeInputGraph(Map<String, Node> dataMap){
         this.dataMap = dataMap;
 
+
         Graph inputGraph = new SingleGraph("InputGraph");
 
         Iterator<Map.Entry<String, Node>> entryIterator = dataMap.entrySet().iterator();
@@ -63,7 +64,7 @@ public class MainGUI extends JFrame {
                 org.graphstream.graph.Node node = inputGraph.addNode(nodeName);
                 try {
                     Thread.sleep(10);
-                    node.addAttribute("ui.label",nodeName);
+                    node.addAttribute("ui.label",nodeName+" ("+currentEntry.getValue().getWeight()+")");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -74,6 +75,7 @@ public class MainGUI extends JFrame {
             Iterator<Map.Entry<Node, Integer>> childIterator = childMap.entrySet().iterator();
             while (childIterator.hasNext()) {
                 Map.Entry<Node, Integer> childEntry = childIterator.next();
+                int dependancy = childEntry.getValue();
                 String childName = childEntry.getKey().getName();
 
                 if(inputGraph.getNode(childName) == null){
@@ -81,17 +83,24 @@ public class MainGUI extends JFrame {
                     org.graphstream.graph.Node childNode = inputGraph.addNode(childName);
                     try {
                         Thread.sleep(10);
-                        childNode.addAttribute("ui.label",childName);
-                        childNode.addAttribute("ui.style","text-size:15px;");
+                        System.out.println(childName+" ("+childEntry.getKey().getWeight()+")");
+                        childNode.addAttribute("ui.label",childName+" ("+childEntry.getKey().getWeight()+")");
+                        childNode.addAttribute("ui.style","text-size:10px; fill-color: #333333;");
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                 }
                 String edgeName = nodeName + " -> " + childName;
-                inputGraph.addEdge(edgeName, nodeName, childName,true);
+
+                org.graphstream.graph.Edge edge = inputGraph.addEdge(edgeName, nodeName, childName,true);
+                edge.addAttribute("ui.label", dependancy);
+                edge.addAttribute("ui.style", "arrow-size:4px; fill-color: #737373; text-size:8px;");
+
 
             }
+
         }
 
         try {
@@ -163,6 +172,10 @@ public class MainGUI extends JFrame {
         statisticsPanel.setNumberOfNodes(numberOfNodes);
         statisticsPanel.setNumberOfEdges(numberOfEdges);
         statisticsPanel.setNumberOfProcessors(numberOfCores);
+    }
+
+    public void setCompleteStatus(){
+        statisticsPanel.updateStatus("Status: Complete");
     }
 
     /**

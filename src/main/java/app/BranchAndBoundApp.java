@@ -107,6 +107,7 @@ public class BranchAndBoundApp {
         PartialSolution bestSolution = taskScheduler.scheduleTasks();
         stopwatch.stop();
         logger.info("Algorithm completed in " + stopwatch.getTimeString() + ".");
+        MainGUI.get().setCompleteStatus();
         return bestSolution;
     }
 

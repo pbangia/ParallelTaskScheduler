@@ -13,6 +13,7 @@ public class StatisticsPanel extends JPanel {
     private JLabel numberOfProcessors;
     private JLabel currentBestLength;
     private JLabel numberOfSolutionsExplored;
+    private JLabel status;
     private int solutionsExploredCount;
 
     public StatisticsPanel(String inputFileName, int numberOfNodes, int numberOfEdges, int numberOfProcessors) {
@@ -27,6 +28,7 @@ public class StatisticsPanel extends JPanel {
         this.numberOfProcessors = new JLabel("Number of Processes:  " + numberOfProcessors);
         this.currentBestLength = new JLabel("Current best time:  ");
         this.numberOfSolutionsExplored = new JLabel("Solutions explored:  ");
+        this.status = new JLabel("Status: Computing...");
         this.solutionsExploredCount = 0;
 
         this.add(statisticsPanelTitle);
@@ -37,6 +39,12 @@ public class StatisticsPanel extends JPanel {
         this.add(this.numberOfProcessors);
         this.add(this.currentBestLength);
         this.add(this.numberOfSolutionsExplored);
+        this.add(this.status);
+    }
+
+    public void updateStatus(String status){
+        this.status.setText(status);
+
     }
 
     public void updateCurrentBestLength(int endTime) {
