@@ -12,8 +12,6 @@ public class GraphPanel extends JPanel {
 
 
     public GraphPanel(Graph inputGraph) {
-
-
         this.inputGraph=inputGraph;
 
         this.inputGraph.setAutoCreate(true);

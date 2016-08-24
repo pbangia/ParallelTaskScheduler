@@ -32,10 +32,10 @@ public class MainGUI extends JFrame {
         // creates initial frame
         setBackground(Color.WHITE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 950, 500);
+        setBounds(100, 100, 1200, 600);
         setMinimumSize(new Dimension(1200, 600));
         this.setTitle("Graph Visualisation");
-        this.setLayout(new GridLayout(0, 4, 0, 0));
+        this.setLayout(new GridLayout(2, 2, 0, 0));
         // TODO Find a better layout for this JFrame
 
         statisticsPanel = new StatisticsPanel("file name",1,2,3);

@@ -24,7 +24,7 @@ public class ThreadPanel extends JPanel {
         tableContainer = new JScrollPane(threadTable);
         this.add(tableContainer, BorderLayout.CENTER);
 
-        this.threadPanelTitle = new JLabel("Threads");
+        this.threadPanelTitle = new JLabel("Threads (row) Nodes (column)");
         this.add(threadPanelTitle, BorderLayout.NORTH);
     }
 
