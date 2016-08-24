@@ -75,8 +75,9 @@ public class BranchThread extends Thread {
             for (Node availableNode : nextAvailableNodes) {
                 if (guiRequired){
                     MainGUI.get().updateNumberOfSolutionsExplored();
+                    MainGUI.get().getThreadPanel().colorCell(Thread.currentThread().getName(), availableNode.getName());
                 }
-                MainGUI.get().getThreadPanel().colorCell(Thread.currentThread().getName(), availableNode.getName());
+
                 List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution);
                 solutionStack.addAll(availablePartialSolutions);
             }

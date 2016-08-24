@@ -45,7 +45,7 @@ public class GraphPanel extends JPanel {
 
         try {
             Thread.sleep(10);
-            node.addAttribute("ui.style", "fill-color: " + color + ";fill-mode: plain;");
+            node.addAttribute("ui.style", "fill-color: " + color + ";fill-mode: plain; size: 20px; text-size: 20px;");
         } catch (Exception e) {}
 
     }
