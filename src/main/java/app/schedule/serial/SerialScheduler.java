@@ -1,5 +1,6 @@
 package app.schedule.serial;
 
+import app.graphvisualization.MainGUI;
 import app.schedule.CommonScheduler;
 import app.schedule.SchedulerHelper;
 import app.schedule.datatypes.Node;
@@ -15,9 +16,10 @@ import java.util.Stack;
  */
 public class SerialScheduler extends CommonScheduler {
 
-    public SerialScheduler(Collection<Node> nodes, int numberOfProcessors) {
+    public SerialScheduler(Collection<Node> nodes, int numberOfProcessors, boolean guiRequired) {
         this.nodes = nodes;
         this.numberOfProcessors = numberOfProcessors;
+        this.guiRequired = guiRequired;
     }
 
     @Override
@@ -35,6 +37,11 @@ public class SerialScheduler extends CommonScheduler {
 
         while (!solutionStack.empty()) {
             PartialSolution currentPartialSolution = solutionStack.pop();
+
+            if (guiRequired){
+                MainGUI.get().updateNumberOfSolutionsExplored();
+            }
+
             Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
             List<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
 
@@ -46,10 +53,17 @@ public class SerialScheduler extends CommonScheduler {
 
             if (nextAvailableNodes.isEmpty()) {
                 bestPartialSolution = currentPartialSolution;
+                if (guiRequired){
+                    MainGUI.get().updateCurrentBestLength(bestPartialSolution.length());
+                    MainGUI.get().getBestSolutionPanel().updateSolutionTable(bestPartialSolution);
+                }
                 continue;
             }
 
             for (Node availableNode : nextAvailableNodes) {
+                if (guiRequired){
+                    MainGUI.get().getThreadPanel().colorCell("1", availableNode.getName());
+                }
                 List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution);
                 solutionStack.addAll(availablePartialSolutions);
             }

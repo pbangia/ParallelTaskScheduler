@@ -1,6 +1,7 @@
 package app.schedule.parallel;
 
 
+import app.graphvisualization.MainGUI;
 import app.schedule.CommonScheduler;
 import app.schedule.SchedulerHelper;
 import app.schedule.datatypes.Node;
@@ -20,11 +21,12 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
     private List<BranchThread> branchThreadList;
     private ThreadManager threadManager;
 
-    public ParallelScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList, ThreadManager threadManager) {
+    public ParallelScheduler(Collection<Node> nodes, int numberOfProcessors, List<BranchThread> branchThreadList, ThreadManager threadManager, boolean guiRequired) {
         this.nodes = nodes;
         this.numberOfProcessors = numberOfProcessors;
         this.branchThreadList = branchThreadList;
         this.threadManager = threadManager;
+        this.guiRequired = guiRequired;
         threadManager.setListener(this);
     }
 
@@ -92,6 +94,7 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
     private void runThreads() {
         for (BranchThread thread : branchThreadList) {
             thread.setBranchThreadListener(this);
+            thread.setGUIRequired(guiRequired);
             thread.start();
         }
     }
@@ -124,6 +127,9 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
     public synchronized void onLeafReached(PartialSolution completeSolution) {
         if (completeSolution.isBetterThan(bestPartialSolution)) {
             bestPartialSolution = completeSolution;
+            if (guiRequired){
+                MainGUI.get().updateCurrentBestLength(bestPartialSolution.length());
+            }
             logger.debug("Thread " + Thread.currentThread().getName() + " found new optimal solution: \n" + bestPartialSolution.toString());
         }
     }

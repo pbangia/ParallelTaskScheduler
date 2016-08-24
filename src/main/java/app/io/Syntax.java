@@ -2,6 +2,7 @@ package app.io;
 
 public class Syntax {
 
+    public static final String NEW_LINE = "\n";
     public static final String DEFINITION_DELIMITER = ";";
     public static final String DEPENDENCY_ARROW = "->";
     public static final String OPENING_BRACE = "[";

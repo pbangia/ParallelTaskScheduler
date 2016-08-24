@@ -1,6 +1,7 @@
 package app;
 
 import app.exceptions.AppException;
+import app.graphvisualization.MainGUI;
 import app.io.DigraphFileReader;
 import app.io.DigraphFileWriter;
 import app.io.OutputGenerator;
@@ -36,6 +37,7 @@ public class BranchAndBoundApp {
     private CommonScheduler taskScheduler;
     private OutputGenerator outputGenerator;
 
+
     public BranchAndBoundApp(File inputFile, String outputFilename, int numProcessors,
                              int numThreads, boolean graphRequired) {
         this.inputFile = inputFile;
@@ -51,8 +53,19 @@ public class BranchAndBoundApp {
     public void start() throws AppException, IOException, InterruptedException {
         loadModules();
         Map<String, Node> dataMap = readInput();
+        setupGUI(dataMap);
         PartialSolution bestSolution = run(dataMap);
         writeOutput(bestSolution);
+        //JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Eggs are not supposed to be green.");
+    }
+
+    private void setupGUI(Map<String, Node> dataMap) {
+        if (graphRequired){
+            MainGUI.get().setVisible(true);
+            MainGUI.get().setGraphPanel(numThreads, dataMap);
+            MainGUI.get().setUpThreadTableModel(dataMap);
+            MainGUI.get().setStatisticsInfo(inputFile.getName(), dataMap.size(), dataTransformer.getDependencies().size(), numProcessors);
+        }
     }
 
     /**
@@ -88,12 +101,13 @@ public class BranchAndBoundApp {
      */
     private PartialSolution run(Map<String, Node> dataMap) throws AppException, InterruptedException {
         logger.info("Starting branch and bound algorithm to find optimal schedule.");
-        taskScheduler = CommonSchedulerFactory.createTaskScheduler(dataMap, numProcessors, numThreads);
+        taskScheduler = CommonSchedulerFactory.createTaskScheduler(dataMap, numProcessors, numThreads, graphRequired);
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.start();
         PartialSolution bestSolution = taskScheduler.scheduleTasks();
         stopwatch.stop();
         logger.info("Algorithm completed in " + stopwatch.getTimeString() + ".");
+        MainGUI.get().setCompleteStatus();
         return bestSolution;
     }
 

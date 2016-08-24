@@ -19,10 +19,10 @@ public class CommonSchedulerFactory {
      * @param numThreads number of threads to be used
      * @return Either the parallel or serial scheduler based on the number of threads specified.
      */
-    public static CommonScheduler createTaskScheduler(Map<String, Node> dataMap, int numProcessors, int numThreads) {
+    public static CommonScheduler createTaskScheduler(Map<String, Node> dataMap, int numProcessors, int numThreads, boolean guiRequired) {
 
-        if (numThreads < 2) {
-            return new SerialScheduler(dataMap.values(), numProcessors);
+        if (numThreads < 1) {
+            return new SerialScheduler(dataMap.values(), numProcessors, guiRequired);
         }
 
         List<BranchThread> branchThreads = new ArrayList<>(numThreads);
@@ -32,7 +32,7 @@ public class CommonSchedulerFactory {
 
         ThreadManager threadManager = new ThreadManager(branchThreads);
 
-        return new ParallelScheduler(dataMap.values(), numProcessors, branchThreads, threadManager);
+        return new ParallelScheduler(dataMap.values(), numProcessors, branchThreads, threadManager, guiRequired);
 
 
     }
