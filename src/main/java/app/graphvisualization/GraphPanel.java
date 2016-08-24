@@ -37,15 +37,13 @@ public class GraphPanel extends JPanel {
     public void colorRootNodes(String name, Color c) {
         String color = "#000000";
         org.graphstream.graph.Node node = inputGraph.getNode(name);
-
-
         if (c == Color.green){
             color = "#5fec18";
         }
 
         try {
             Thread.sleep(10);
-            node.addAttribute("ui.style", "fill-color: " + color + ";fill-mode: plain; size: 20px; text-size: 20px;");
+            node.addAttribute("ui.style", "fill-color: " + color + ";fill-mode: plain; size: 20px; text-size: 16px;");
         } catch (Exception e) {}
 
     }
