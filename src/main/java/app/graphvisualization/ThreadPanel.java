@@ -32,6 +32,8 @@ public class ThreadPanel extends JPanel {
         int colIndex = columnNameMap.get(nodeName);
         int rowIndex = Integer.valueOf(threadNumber) - 1;
 
+        //System.out.println("Row size=" + threadTable.getRowCount());
+
         threadTable.setValueAt("", rowIndexOfPrevious, colIndexOfPrevious);
         threadTable.setValueAt("Scheduling", rowIndex, colIndex);
 
@@ -40,7 +42,6 @@ public class ThreadPanel extends JPanel {
     }
 
     public void setTableModel(DefaultTableModel model) {
-        System.out.println("Inside setTableModel");
         this.model = model;
         this.threadTable.setModel(model);
         model.fireTableDataChanged();

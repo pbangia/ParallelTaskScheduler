@@ -112,6 +112,9 @@ public class MainGUI extends JFrame {
     }
 
     public void setGraphPanel(int numberOfCores, Map<String, Node> dataMap){
+        if (numberOfCores == 0) {
+            numberOfCores = 1;
+        }
         this.numberOfCores = numberOfCores;
 
         Graph inputGraph = this.makeInputGraph(dataMap);
@@ -155,11 +158,11 @@ public class MainGUI extends JFrame {
     }
 
 
-    public void updateCurrentBestLength(int endTime) {
+    public synchronized void updateCurrentBestLength(int endTime) {
         statisticsPanel.updateCurrentBestLength(endTime);
     }
 
-    public void updateNumberOfSolutionsExplored() {
+    public synchronized void updateNumberOfSolutionsExplored() {
         statisticsPanel.updateNumberOfSolutionsExplored();
     }
 
