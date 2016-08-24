@@ -42,7 +42,6 @@ public class ThreadPanel extends JPanel {
     }
 
     public void setTableModel(DefaultTableModel model) {
-        System.out.println("Inside setTableModel");
         this.model = model;
         this.threadTable.setModel(model);
         model.fireTableDataChanged();
