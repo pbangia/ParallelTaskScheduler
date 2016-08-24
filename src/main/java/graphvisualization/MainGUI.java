@@ -5,37 +5,21 @@ import app.exceptions.utils.NoRootFoundException;
 import app.schedule.SchedulerHelper;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
-import org.graphstream.ui.swingViewer.View;
-import org.graphstream.ui.swingViewer.Viewer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 public class MainGUI extends JFrame {
 
     public static MainGUI mainWindow;
-    private HashMap<Integer, GraphPanel> graphPanelsMap = new HashMap<>();
     private StatisticsPanel statisticsPanel;
     private BestSolutionPanel bestSolutionPanel;
     private int numberOfCores = 1;
     private Map<String, app.data.Node> dataMap;
-
-//    public static void main(String[] args) {
-//        try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); } catch (Exception ex) { ex.printStackTrace(); }
-//
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    MainGUI.getInstance().setVisible(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
+    private GraphPanel graphPanel;
 
     /**
      * MainGUI constructor that sets up the main JFrame which
@@ -63,6 +47,7 @@ public class MainGUI extends JFrame {
 
     private Graph makeInputGraph(Map<String, app.data.Node> dataMap){
         this.dataMap = dataMap;
+
         Graph inputGraph = new SingleGraph("InputGraph");
 
         Iterator<Map.Entry<String, app.data.Node>> entryIterator = dataMap.entrySet().iterator();
@@ -79,8 +64,6 @@ public class MainGUI extends JFrame {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
             }
 
             Map<app.data.Node, Integer> childMap = currentEntry.getValue().getChildrenMap();
@@ -102,47 +85,41 @@ public class MainGUI extends JFrame {
 
                 }
                 String edgeName = nodeName + " -> " + childName;
-                inputGraph.addEdge(edgeName, nodeName, childName);
+                inputGraph.addEdge(edgeName, nodeName, childName,true);
+
             }
         }
+
+        try {
+            Thread.sleep(10);
+        } catch (Exception e) {}
+        inputGraph.addAttribute("ui.antialias");
 
         return inputGraph;
     }
 
-    public void setGraphPanels(int numberOfCores, Map<String, app.data.Node> dataMap){
+    public void setGraphPanel(int numberOfCores, Map<String, app.data.Node> dataMap){
         this.numberOfCores = numberOfCores;
-        for(int i = 0; i < this.numberOfCores; i++){
-            Graph inputGraph = this.makeInputGraph(dataMap);
-            GraphPanel inputGraphPanel = new GraphPanel(inputGraph,i);
-            this.graphPanelsMap.put(i, inputGraphPanel);
-            System.out.println(this.graphPanelsMap.size()+" update size");
-            this.add(inputGraphPanel);
-        }
+
+        Graph inputGraph = this.makeInputGraph(dataMap);
+        GraphPanel inputGraphPanel = new GraphPanel(inputGraph);
+        this.graphPanel = inputGraphPanel;
+        this.add(inputGraphPanel);
+
+        SchedulerHelper helper = new SchedulerHelper();
+
+        try {
+            ArrayList<Node> roots = helper.findRoots(dataMap);
+            for (Node root : roots) {
+                this.graphPanel.colorRootNodes(root.getName(), Color.green);
+            }
+        } catch (NoRootFoundException e){}
 
         int numberOfElements = numberOfCores + 2;
         this.setLayout(new GridLayout(0, numberOfElements, 0, 0));
-
         this.validate();
     }
 
-    public void changeColor(int threadIndex, String node, Color c){
-       // if (this.graphPanelsMap.get(threadIndex)==null){ System.out.println(graphPanelsMap.size());}
-        //this.graphPanelsMap.get(threadIndex).colorNode(node);
-//        SchedulerHelper helper = new SchedulerHelper();
-//
-//        try {
-//            ArrayList<Node> roots = helper.findRoots(dataMap);
-//            System.out.println(roots.size());
-//            for (Node root : roots) {
-//                this.graphPanelsMap.get(threadIndex).colorNode(root.getName());
-//            }
-//
-//
-//        } catch (NoRootFoundException e){}
-
-        graphPanelsMap.get(threadIndex).colorNode(node, c);
-        this.validate();
-    }
 
     public void updateCurrentBestLength(int endTime) {
         statisticsPanel.updateCurrentBestLength(endTime);

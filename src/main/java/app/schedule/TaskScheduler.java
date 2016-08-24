@@ -70,10 +70,6 @@ public class TaskScheduler {
 
             for (Node availableNode : nextAvailableNodes) {
 
-                MainGUI.getInstance().changeColor(0, availableNode.getName(), Color.green);
-                if (previousNode != null){
-                    MainGUI.getInstance().changeColor(0, previousNode, Color.black);
-                }
                 previousNode = availableNode.getName();
 
                 List<PartialSolution> availablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution, numberOfProcessors, idCounter);
@@ -83,10 +79,7 @@ public class TaskScheduler {
 
                     MainGUI.getInstance().updateNumberOfSolutionsExplored();
                     idCounter++;
-                    try {
-                        Thread.sleep(100);
-                    } catch (Exception e){}
-                    MainGUI.getInstance().validate();
+
                 }
             }
         }

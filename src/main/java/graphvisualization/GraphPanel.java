@@ -11,11 +11,11 @@ import java.util.Map;
 public class GraphPanel extends JPanel {
 
     private Graph inputGraph;
-    private int number;
 
-    public GraphPanel(Graph inputGraph, int i) {
 
-        this.number = i;
+    public GraphPanel(Graph inputGraph) {
+
+
         this.inputGraph=inputGraph;
 
         this.inputGraph.setAutoCreate(true);
@@ -27,7 +27,7 @@ public class GraphPanel extends JPanel {
 
         //defaultView.setSize(400,400);
         //defaultView.setSize(new Dimension(500,400));
-        JLabel label = new JLabel("Thread: " + Integer.toString(this.number));
+        JLabel label = new JLabel("Input Graph");
         //JPanel panel = new JPanel();
         //panel.add(defaultView);
         this.setLayout(new BoxLayout(this,1));
@@ -36,21 +36,18 @@ public class GraphPanel extends JPanel {
 
     }
 
-    public void colorNode(String name, Color c) {
+    public void colorRootNodes(String name, Color c) {
         String color = "#000000";
         org.graphstream.graph.Node node = inputGraph.getNode(name);
 
-        if(c == Color.black){
-            color="#000000";
-            node.removeAttribute("ui.style");
-        } else if (c == Color.green){
+
+        if (c == Color.green){
             color = "#5fec18";
         }
 
-
         try {
             Thread.sleep(10);
-            node.addAttribute("ui.style", "fill-color: " + color + ";fill-mode: dyn-plain; z-index:1;");
+            node.addAttribute("ui.style", "fill-color: " + color + ";fill-mode: plain;");
         } catch (Exception e) {}
 
     }

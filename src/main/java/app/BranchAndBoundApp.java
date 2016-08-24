@@ -14,16 +14,12 @@ import app.transform.TransformModuleFactory;
 import app.transform.TransformModuleFactory2;
 import app.utils.Stopwatch;
 import graphvisualization.MainGUI;
-import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class BranchAndBoundApp {
 
@@ -60,7 +56,7 @@ public class BranchAndBoundApp {
         loadModules();
         Map<String, Node> dataMap = readInput();
         MainGUI.getInstance().setVisible(true);
-        MainGUI.getInstance().setGraphPanels(numThreads, dataMap);
+        MainGUI.getInstance().setGraphPanel(numThreads, dataMap);
         MainGUI.getInstance().setStatisticsInfo(this.inputFile.getName(), dataMap.size(), dataTransformer.getDependencies().size(), this.numProcessors);
         PartialSolution bestSolution = run(dataMap);
         String output = outputGenerator.generateOutput(bestSolution, dataTransformer.getDependencies());
