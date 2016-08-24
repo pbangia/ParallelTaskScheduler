@@ -121,7 +121,7 @@ public class MainGUI extends JFrame {
         validate();
     }
 
-    public void setUpTableModel(Map<String, Node> dataMap) {
+    public void setUpThreadTableModel(Map<String, Node> dataMap) {
         DefaultTableModel model = new DefaultTableModel(new Object[]{"Thread"}, 0);
         Set<String> nodeNames = dataMap.keySet();
         HashMap<String, Integer> columnNameMap = new HashMap<>();
@@ -137,8 +137,10 @@ public class MainGUI extends JFrame {
             model.addRow(new Object[]{i});
         }
 
+
         threadPanel.setTableModel(model);
         threadPanel.setColumnNameMap(columnNameMap);
+        threadPanel.getTable().setDefaultRenderer(Object.class, new ThreadCellRenderer());
     }
 
 

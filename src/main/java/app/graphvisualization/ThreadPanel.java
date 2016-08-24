@@ -46,6 +46,10 @@ public class ThreadPanel extends JPanel {
         model.fireTableDataChanged();
     }
 
+    public JTable getTable() {
+        return this.threadTable;
+    }
+
     public void setColumnNameMap(HashMap<String, Integer> columnNameMap) {
         this.columnNameMap = columnNameMap;
     }

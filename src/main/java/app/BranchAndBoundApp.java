@@ -15,7 +15,6 @@ import app.utils.Stopwatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -64,7 +63,7 @@ public class BranchAndBoundApp {
         if (graphRequired){
             MainGUI.get().setVisible(true);
             MainGUI.get().setGraphPanel(numThreads, dataMap);
-            MainGUI.get().setUpTableModel(dataMap);
+            MainGUI.get().setUpThreadTableModel(dataMap);
             MainGUI.get().setStatisticsInfo(inputFile.getName(), dataMap.size(), dataTransformer.getDependencies().size(), numProcessors);
         }
     }
