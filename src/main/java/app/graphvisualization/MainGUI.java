@@ -1,8 +1,8 @@
-package graphvisualization;
+package app.graphvisualization;
 
-import app.data.Node;
 import app.exceptions.utils.NoRootFoundException;
 import app.schedule.SchedulerHelper;
+import app.schedule.datatypes.Node;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 
@@ -18,7 +18,7 @@ public class MainGUI extends JFrame {
     private StatisticsPanel statisticsPanel;
     private BestSolutionPanel bestSolutionPanel;
     private int numberOfCores = 1;
-    private Map<String, app.data.Node> dataMap;
+    private Map<String, Node> dataMap;
     private GraphPanel graphPanel;
 
     /**
@@ -45,14 +45,14 @@ public class MainGUI extends JFrame {
         this.add(bestSolutionPanel);
     }
 
-    private Graph makeInputGraph(Map<String, app.data.Node> dataMap){
+    private Graph makeInputGraph(Map<String, Node> dataMap){
         this.dataMap = dataMap;
 
         Graph inputGraph = new SingleGraph("InputGraph");
 
-        Iterator<Map.Entry<String, app.data.Node>> entryIterator = dataMap.entrySet().iterator();
+        Iterator<Map.Entry<String, Node>> entryIterator = dataMap.entrySet().iterator();
         while (entryIterator.hasNext()) {
-            Map.Entry<String, app.data.Node> currentEntry = entryIterator.next();
+            Map.Entry<String, Node> currentEntry = entryIterator.next();
             String nodeName = currentEntry.getValue().getName();
 
             if(inputGraph.getNode(nodeName) == null ){
@@ -66,11 +66,11 @@ public class MainGUI extends JFrame {
                 }
             }
 
-            Map<app.data.Node, Integer> childMap = currentEntry.getValue().getChildrenMap();
+            Map<Node, Integer> childMap = currentEntry.getValue().getChildrenMap();
 
-            Iterator<Map.Entry<app.data.Node, Integer>> childIterator = childMap.entrySet().iterator();
+            Iterator<Map.Entry<Node, Integer>> childIterator = childMap.entrySet().iterator();
             while (childIterator.hasNext()) {
-                Map.Entry<app.data.Node, Integer> childEntry = childIterator.next();
+                Map.Entry<Node, Integer> childEntry = childIterator.next();
                 String childName = childEntry.getKey().getName();
 
                 if(inputGraph.getNode(childName) == null){
@@ -98,7 +98,7 @@ public class MainGUI extends JFrame {
         return inputGraph;
     }
 
-    public void setGraphPanel(int numberOfCores, Map<String, app.data.Node> dataMap){
+    public void setGraphPanel(int numberOfCores, Map<String, Node> dataMap){
         this.numberOfCores = numberOfCores;
 
         Graph inputGraph = this.makeInputGraph(dataMap);
@@ -109,7 +109,7 @@ public class MainGUI extends JFrame {
         SchedulerHelper helper = new SchedulerHelper();
 
         try {
-            ArrayList<Node> roots = helper.findRoots(dataMap);
+            ArrayList<Node> roots = (ArrayList<Node>) helper.findRoots(dataMap);
             for (Node root : roots) {
                 this.graphPanel.colorRootNodes(root.getName(), Color.green);
             }

@@ -1,4 +1,4 @@
-package graphvisualization;
+package app.graphvisualization;
 
 import javax.swing.*;
 import java.awt.*;

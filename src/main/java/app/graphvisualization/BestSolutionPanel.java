@@ -1,6 +1,7 @@
-package graphvisualization;
+package app.graphvisualization;
 
-import app.data.PartialSolution;
+
+import app.schedule.datatypes.PartialSolution;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

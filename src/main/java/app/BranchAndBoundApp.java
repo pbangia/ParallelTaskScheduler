@@ -1,6 +1,7 @@
 package app;
 
 import app.exceptions.AppException;
+import app.graphvisualization.MainGUI;
 import app.io.DigraphFileReader;
 import app.io.DigraphFileWriter;
 import app.io.OutputGenerator;
@@ -36,6 +37,7 @@ public class BranchAndBoundApp {
     private CommonScheduler taskScheduler;
     private OutputGenerator outputGenerator;
 
+
     public BranchAndBoundApp(File inputFile, String outputFilename, int numProcessors,
                              int numThreads, boolean graphRequired) {
         this.inputFile = inputFile;
@@ -51,8 +53,15 @@ public class BranchAndBoundApp {
     public void start() throws AppException, IOException, InterruptedException {
         loadModules();
         Map<String, Node> dataMap = readInput();
+        setupGUI(dataMap);
         PartialSolution bestSolution = run(dataMap);
         writeOutput(bestSolution);
+    }
+
+    private void setupGUI(Map<String, Node> dataMap) {
+        MainGUI.getInstance().setVisible(true);
+        MainGUI.getInstance().setGraphPanel(numThreads, dataMap);
+        MainGUI.getInstance().setStatisticsInfo(inputFile.getName(), dataMap.size(), dataTransformer.getDependencies().size(), numProcessors);
     }
 
     /**

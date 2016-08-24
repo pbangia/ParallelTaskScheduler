@@ -1,6 +1,4 @@
-package graphvisualization;
-
-import app.data.Node;
+package app.graphvisualization;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

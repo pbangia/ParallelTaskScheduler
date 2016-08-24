@@ -13,7 +13,7 @@ public class TestRunner {
         String outputFileName = "output.dot";
         int numProcessors = 2;
         int numThreads = 10;
-        boolean visualiseSearch = false;
+        boolean visualiseSearch = true;
 
         File inputFile = new File(TestRunner.class.getClass().getResource(inputFileName).toURI());
         BranchAndBoundApp app = new BranchAndBoundApp(inputFile, outputFileName, numProcessors, numThreads, visualiseSearch);
