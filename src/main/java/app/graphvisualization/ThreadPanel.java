@@ -35,7 +35,7 @@ public class ThreadPanel extends JPanel {
         //System.out.println("Row size=" + threadTable.getRowCount());
 
         threadTable.setValueAt("", rowIndexOfPrevious, colIndexOfPrevious);
-        threadTable.setValueAt("Scheduling", rowIndex, colIndex);
+        threadTable.setValueAt("S", rowIndex, colIndex);
 
         this.rowIndexOfPrevious = rowIndex;
         this.colIndexOfPrevious = colIndex;

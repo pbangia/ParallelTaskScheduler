@@ -16,7 +16,7 @@ public class ThreadCellRenderer extends DefaultTableCellRenderer{
             s = valueAt.toString();
         }
 
-        if (s.equalsIgnoreCase("scheduling")) {
+        if (s.equalsIgnoreCase("s")) {
             c.setBackground(Color.GREEN);
         } else {
             c.setBackground(Color.WHITE);
