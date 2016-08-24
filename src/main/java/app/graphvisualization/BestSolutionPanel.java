@@ -39,7 +39,7 @@ public class BestSolutionPanel extends JPanel {
      * @param newBestSolution PartialSolution object containing info for
      *                        new best solution.
      */
-    public void updateSolutionTable(PartialSolution newBestSolution) {
+    public synchronized void updateSolutionTable(PartialSolution newBestSolution) {
         DefaultTableModel model = (DefaultTableModel) solutionTable.getModel();
         int rowCount = model.getRowCount();
         // Remove rows one by one from the end of the table
@@ -49,6 +49,8 @@ public class BestSolutionPanel extends JPanel {
 
         String output = newBestSolution.toString();
         String[] definitions = output.split(NEW_LINE);
+        System.out.println("size = " + definitions.length);
+
         for (String definition : definitions) {
             String nodeName = definition.substring(0, definition.indexOf("[")).trim();
             String weight = definition.substring(definition.indexOf("Weight=") + 7, definition.indexOf(",Start"));
@@ -56,6 +58,11 @@ public class BestSolutionPanel extends JPanel {
             String processor = definition.substring(definition.indexOf("Processor=") + 10, definition.indexOf("]"));
 
             model.addRow(new Object[]{nodeName, weight, start, processor});
+
+            try {
+                //model.addRow(new Object[]{nodeName, weight, start, processor});
+            } catch (Exception e) {}
+
         }
 
         model.fireTableDataChanged();

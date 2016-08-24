@@ -30,7 +30,7 @@ public class ThreadPanel extends JPanel {
 
     public synchronized void colorCell(String threadNumber, String nodeName) {
         int colIndex = columnNameMap.get(nodeName);
-        int rowIndex = Integer.valueOf(threadNumber);
+        int rowIndex = Integer.valueOf(threadNumber) - 1;
 
         threadTable.setValueAt("", rowIndexOfPrevious, colIndexOfPrevious);
         threadTable.setValueAt("Scheduling", rowIndex, colIndex);

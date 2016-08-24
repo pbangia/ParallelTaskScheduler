@@ -125,7 +125,7 @@ public class MainGUI extends JFrame {
         DefaultTableModel model = new DefaultTableModel(new Object[]{"Thread"}, 0);
         Set<String> nodeNames = dataMap.keySet();
         HashMap<String, Integer> columnNameMap = new HashMap<>();
-        int j =1;
+        int j = 1;
 
         for (String nodeName : nodeNames) {
             model.addColumn(nodeName);
@@ -133,7 +133,7 @@ public class MainGUI extends JFrame {
             j++;
         }
         // add rows for number of threads
-        for (int i = 0; i < this.numberOfCores; i++) {
+        for (int i = 1; i < this.numberOfCores + 1; i++) {
             model.addRow(new Object[]{i});
         }
 

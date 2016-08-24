@@ -15,6 +15,7 @@ import app.utils.Stopwatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -56,6 +57,7 @@ public class BranchAndBoundApp {
         setupGUI(dataMap);
         PartialSolution bestSolution = run(dataMap);
         writeOutput(bestSolution);
+        //JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "Eggs are not supposed to be green.");
     }
 
     private void setupGUI(Map<String, Node> dataMap) {
