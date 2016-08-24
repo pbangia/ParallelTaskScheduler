@@ -25,7 +25,8 @@ public class DataTransformer {
     }
 
     /**
-     * This method changes the contents of the file into the Node objects
+     * This method reads the contents of the file and creates Node objects and the dependencies
+     * between each node by updating the respective child maps and parent maps where appropriate.
      *
      * @param data the contents of the file written into a string
      * @return the data, transformed into a map with the key being the name of the node, as a string and the value
