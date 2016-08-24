@@ -55,7 +55,8 @@ public class MainGUI extends JFrame {
         Iterator<Map.Entry<String, Node>> entryIterator = dataMap.entrySet().iterator();
         while (entryIterator.hasNext()) {
             Map.Entry<String, Node> currentEntry = entryIterator.next();
-            String nodeName = currentEntry.getValue().getName();
+            String nodeName = currentEntry.getKey();
+
 
             if(inputGraph.getNode(nodeName) == null ){
 
@@ -81,6 +82,7 @@ public class MainGUI extends JFrame {
                     try {
                         Thread.sleep(10);
                         childNode.addAttribute("ui.label",childName);
+                        childNode.addAttribute("ui.style","text-size:15px;");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
