@@ -62,7 +62,7 @@ public class SerialScheduler extends CommonScheduler {
 
             for (Node availableNode : nextAvailableNodes) {
                 if (guiRequired){
-                    MainGUI.get().getThreadPanel().colorCell("0", availableNode.getName());
+                    MainGUI.get().getThreadPanel().colorCell("1", availableNode.getName());
                 }
                 List<PartialSolution> availablePartialSolutions = SchedulerHelper.getAvailablePartialSolutions(availableNode, currentPartialSolution);
                 solutionStack.addAll(availablePartialSolutions);
