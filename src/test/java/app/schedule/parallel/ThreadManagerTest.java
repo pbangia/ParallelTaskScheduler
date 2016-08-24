@@ -29,7 +29,7 @@ public class ThreadManagerTest {
             branchThreads.add(i, new BranchThread());
         }
 
-        return null;
+        return branchThreads;
     }
 
 }
