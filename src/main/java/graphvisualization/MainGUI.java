@@ -153,8 +153,5 @@ public class MainGUI extends JFrame {
     public BestSolutionPanel getBestSolutionPanel() {
         return this.bestSolutionPanel;
     }
-
-
-
 }
 

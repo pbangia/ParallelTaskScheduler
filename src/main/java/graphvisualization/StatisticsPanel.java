@@ -15,13 +15,13 @@ public class StatisticsPanel extends JPanel {
     private JLabel numberOfSolutionsExplored;
     private int solutionsExploredCount;
 
-    public StatisticsPanel(String inputNameFile, int numberOfNodes, int numberOfEdges, int numberOfProcessors) {
+    public StatisticsPanel(String inputFileName, int numberOfNodes, int numberOfEdges, int numberOfProcessors) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setPreferredSize(new Dimension(250, 300));
         this.setBorder(BorderFactory.createLineBorder(Color.gray));
 
         this.statisticsPanelTitle = new JLabel("Statistics");
-        this.inputFileName = new JLabel("Input file name:  " + inputNameFile);
+        this.inputFileName = new JLabel("Input file name:  " + inputFileName);
         this.numberOfNodes = new JLabel("Number of Nodes:  " + numberOfNodes);
         this.numberOfEdges = new JLabel("Number of Edges:  " + numberOfEdges);
         this.numberOfProcessors = new JLabel("Number of Processes:  " + numberOfProcessors);

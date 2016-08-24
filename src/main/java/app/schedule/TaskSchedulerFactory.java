@@ -1,7 +1,6 @@
 package app.schedule;
 
 import app.data.Node;
-
 import java.util.Map;
 
 public class TaskSchedulerFactory {

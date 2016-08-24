@@ -30,10 +30,6 @@ public class BestSolutionPanel extends JPanel {
 
         this.bestSolutionTitle = new JLabel("Current Best Solution");
         this.add(bestSolutionTitle, BorderLayout.NORTH);
-
-
-        DefaultTableModel model = (DefaultTableModel) solutionTable.getModel();
-        model.addRow(new Object[]{"a", "2", "0", "0"});
     }
 
     /**

@@ -37,10 +37,6 @@ public class TaskScheduler {
 
     public PartialSolution scheduleTasks() throws NoRootFoundException {
 
-
-
-        Graph g = new SingleGraph("SolutionTree");
-
         PartialSolution bestPartialSolution = null;
         Stack<PartialSolution> solutionStack = new Stack<>();
         List<Node> nextAvailableNodes;
@@ -64,6 +60,7 @@ public class TaskScheduler {
                 bestPartialSolution = currentPartialSolution;
                 MainGUI.getInstance().updateCurrentBestLength(bestPartialSolution.length());
                 MainGUI.getInstance().getBestSolutionPanel().updateSolutionTable(currentPartialSolution);
+                //MainGUI.getInstance().getThreadPanel().colorCell(0, "b");
                 logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
                 continue;
             }
