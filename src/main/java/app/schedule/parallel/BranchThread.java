@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
+/**
+ * Represents the DFS task that is to be completed by each instance of this class.
+ */
 public class BranchThread extends Thread {
 
     private static Logger logger = LoggerFactory.getLogger(BranchThread.class);
@@ -30,6 +33,9 @@ public class BranchThread extends Thread {
         logger.debug("Thread : " + Thread.currentThread().getName() + " completed.");
     }
 
+    /**
+     * Runs the Branch and Bound DFS algorithm.
+     */
     private void scheduleTasks() {
 
         while (!solutionStack.empty()) {

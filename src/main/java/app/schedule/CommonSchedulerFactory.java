@@ -12,6 +12,13 @@ import java.util.Map;
 
 public class CommonSchedulerFactory {
 
+    /**
+     * Creates the scheduler to be run based on the number of threads specified.
+     * @param dataMap Input data map
+     * @param numProcessors number of processors for the scheduling
+     * @param numThreads number of threads to be used
+     * @return Either the parallel or serial scheduler based on the number of threads specified.
+     */
     public static CommonScheduler createTaskScheduler(Map<String, Node> dataMap, int numProcessors, int numThreads) {
 
         if (numThreads < 2) {

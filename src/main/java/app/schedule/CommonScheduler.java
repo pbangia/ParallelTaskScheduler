@@ -6,7 +6,7 @@ import app.schedule.datatypes.PartialSolution;
 import java.util.Collection;
 
 /**
- * Created by User on 23/08/2016.
+ * Abstract class that the Parallel and Serial schedulers extend from.
  */
 public abstract class CommonScheduler {
 

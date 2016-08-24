@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.Stack;
 
 /**
- * Created by User on 23/08/2016.
+ * SerialScheduler is in charge of running the branch and bound dfs algorithm in serial (i.e. no extra threads.)
  */
 public class SerialScheduler extends CommonScheduler {
 
@@ -21,6 +21,10 @@ public class SerialScheduler extends CommonScheduler {
     }
 
     @Override
+    /**
+     * Starts the dfs algorithm to find the optimal schedule.
+     * @return PartialSolution the optimal schedule
+     */
     public PartialSolution scheduleTasks() {
 
         PartialSolution bestPartialSolution = null;

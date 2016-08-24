@@ -10,6 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
+/**
+ * ParallelScheduler is in charge of executing the branch and bound dfs algorithm in parallel.
+ */
 public class ParallelScheduler extends CommonScheduler implements BranchThreadListener {
 
     private static Logger logger = LoggerFactory.getLogger(ParallelScheduler.class);
@@ -25,6 +28,10 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
         threadManager.setListener(this);
     }
 
+    /**
+     * Runs the parallel DFS algorithm for finding the optimal schedule.
+     * @return Optimal Schedule
+     */
     public PartialSolution scheduleTasks() {
 
         Queue<PartialSolution> solutionQueue = new LinkedList<>();
@@ -38,6 +45,11 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
         return bestPartialSolution;
     }
 
+    /**
+     * Runs a BFS algorithm to grow the input solution queue to allow
+     * for a better distribution of tasks to each Thread.
+     * @param solutionQueue
+     */
     private void runBFS(Queue<PartialSolution> solutionQueue) {
 
         while (solutionQueue.size() < branchThreadList.size()) {
@@ -60,6 +72,9 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
         logger.debug("Solution queue has size : " + solutionQueue.size() + " before parallel execution.");
     }
 
+    /**
+     * Distributes the PartialSolutions inside the input queue to the Threads.
+     */
     private void distributePartialSolutions(Queue<PartialSolution> solutionQueue) {
         int threadIndex = 0;
         while (!solutionQueue.isEmpty()) {
@@ -71,6 +86,9 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
         }
     }
 
+    /**
+     * Starts each Thread
+     */
     private void runThreads() {
         for (BranchThread thread : branchThreadList) {
             thread.setBranchThreadListener(this);
@@ -78,6 +96,9 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
         }
     }
 
+    /**
+     * Waits until notified to wake.
+     */
     private void sleep() {
         synchronized (this) {
             try {
@@ -97,6 +118,9 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
     }
 
     @Override
+    /**
+     * Updates the best PartialSolution if the input PartialSolution is better.
+     */
     public synchronized void onLeafReached(PartialSolution completeSolution) {
         if (completeSolution.isBetterThan(bestPartialSolution)) {
             bestPartialSolution = completeSolution;
@@ -105,6 +129,9 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
     }
 
     @Override
+    /**
+     * Returns the current best PartialSolution.
+     */
     public synchronized PartialSolution currentBest() {
         return bestPartialSolution;
     }

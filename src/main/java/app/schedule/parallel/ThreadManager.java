@@ -4,6 +4,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * ThreadManager in charge of determining how many threads are active
+ * at any given point in time. Each Thread notifies this manager when it has completed.
+ * This ThreadManager notifies the master scheduler once all threads have finished.
+ */
 public class ThreadManager implements ThreadCompletionListener {
 
     private ParallelScheduler scheduler;
