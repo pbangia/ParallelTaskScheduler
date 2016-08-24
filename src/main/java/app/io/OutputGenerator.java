@@ -1,8 +1,8 @@
 package app.io;
 
-import app.data.Node;
-import app.data.PartialSolution;
-import app.data.Processor;
+import app.schedule.datatypes.Node;
+import app.schedule.datatypes.PartialSolution;
+import app.schedule.datatypes.Processor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +19,12 @@ public class OutputGenerator {
         this.outputName = outputName;
     }
 
+    /**
+     * Generates a String output representation of the final best partial solution.
+     * @param solution Best partial solution.
+     * @param dependencies List of dependencies to add to the end of the output.
+     * @return String output containing the partial solution and list of dependencies.
+     */
     public String generateOutput(PartialSolution solution, List<String> dependencies) {
 
         StringBuilder sb = new StringBuilder();

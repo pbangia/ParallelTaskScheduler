@@ -1,13 +1,8 @@
-package app.data;
+package app.schedule.datatypes;
 
 import app.exceptions.AppException;
-import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static org.apache.commons.collections4.CollectionUtils.isEqualCollection;
 import static org.junit.Assert.assertEquals;
@@ -64,11 +59,17 @@ public class ProcessorTest {
     }
 
     @Test
-    public void testGetTimeStamp(){
+    public void testGetTimeStamp() {
         Node node = new Node("A", 1);
         processor.addNodeToQueue(node, 1);
         assertEquals(1, processor.getTimeStamp(node));
     }
 
+    @Test
+    public void testGetTimeStamp_Null() {
+        Node node = new Node("B", 2);
+
+        assertEquals(-1, processor.getTimeStamp(node));
+    }
 
 }

@@ -1,7 +1,7 @@
 package app.transform;
 
-import app.data.Node;
 import app.exceptions.transform.EmptyMapException;
+import app.schedule.datatypes.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import static app.io.Syntax.DEFINITION_DELIMITER;
 import static app.io.Syntax.DEPENDENCY_ARROW;
 
-public class DataTransformer implements IDataTransformer {
+public class DataTransformer {
 
     private static Logger logger = LoggerFactory.getLogger(DataTransformer.class);
 
@@ -24,6 +24,15 @@ public class DataTransformer implements IDataTransformer {
         this.toMapTransformation = stringToMapTransformation;
     }
 
+    /**
+     * This method reads the contents of the file and creates Node objects and the dependencies
+     * between each node by updating the respective child maps and parent maps where appropriate.
+     *
+     * @param data the contents of the file written into a string
+     * @return the data, transformed into a map with the key being the name of the node, as a string and the value
+     *         being the actual Node object
+     * @throws EmptyMapException if the size of the map is 0 i.e. has no data in it, then this exception is thrown
+     */
     public Map<String, Node> transformIntoMap(String data) throws EmptyMapException {
         logger.info("Starting transformation of io to map representation.");
         Map<String, Node> dataMap = new ConcurrentHashMap<String, Node>();

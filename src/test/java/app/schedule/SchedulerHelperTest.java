@@ -1,8 +1,8 @@
 package app.schedule;
 
-import app.data.Node;
-import app.data.PartialSolution;
-import app.data.Processor;
+import app.schedule.datatypes.Node;
+import app.schedule.datatypes.PartialSolution;
+import app.schedule.datatypes.Processor;
 import app.exceptions.AppException;
 import app.exceptions.utils.NoRootFoundException;
 import org.junit.Before;
@@ -19,14 +19,14 @@ public class SchedulerHelperTest {
     private Map<String, Node> dataMap;
     private SchedulerHelper schedulerHelper;
     private Set<Node> scheduledNodes;
-    private Set<Node> unscheduledNodes;
+    private List<Node> unscheduledNodes;
 
     @Before
     public void setup(){
         dataMap = new ConcurrentHashMap<>();
         this.schedulerHelper = new SchedulerHelper();
         this.scheduledNodes = new HashSet<>();
-        this.unscheduledNodes = new HashSet<>();
+        this.unscheduledNodes = new ArrayList<>();
     }
 
     @Test
@@ -268,7 +268,7 @@ public class SchedulerHelperTest {
 
         Node a = new Node("a", 1);
 
-        List<PartialSolution> actualAvailablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(a, currentPartialSolution, 1);
+        List<PartialSolution> actualAvailablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(a, currentPartialSolution);
 
         Processor processor = actualAvailablePartialSolutions.get(0).getProcessors()[0];
         Queue<Node> nodeQueue = processor.getNodeQueue();
@@ -289,7 +289,7 @@ public class SchedulerHelperTest {
 
         Node a = new Node("a", 1);
 
-        List<PartialSolution> actualAvailablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(a, currentPartialSolution, 2);
+        List<PartialSolution> actualAvailablePartialSolutions = schedulerHelper.getAvailablePartialSolutions(a, currentPartialSolution);
 
         for (int i = 0; i < actualAvailablePartialSolutions.size(); i++){
             Processor processor = actualAvailablePartialSolutions.get(i).getProcessors()[i];

@@ -1,4 +1,4 @@
-package app.data;
+package app.schedule.datatypes;
 
 import org.junit.Before;
 import org.junit.Test;

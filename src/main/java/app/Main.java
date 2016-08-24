@@ -2,12 +2,16 @@ package app;
 
 import app.argumentparsing.CommandLineArguments;
 import app.exceptions.AppException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class Main {
+
+    private static Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws URISyntaxException, AppException {
 
@@ -22,14 +26,11 @@ public class Main {
 
         File inputFile = new File(inputFileName);
         BranchAndBoundApp app = new BranchAndBoundApp(inputFile, outputFileName, numProcessors, numThreads, visualiseSearch);
+
         try {
             app.start();
-        } catch (IOException e) {
-            // add error log message
-            e.printStackTrace();
-        } catch (AppException e) {
-            // add error log message
-            e.printStackTrace();
+        } catch (IOException | AppException | InterruptedException e) {
+            logger.error("Error : " + e.getMessage());
         }
 
     }

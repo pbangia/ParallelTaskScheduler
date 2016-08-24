@@ -1,8 +1,8 @@
 package app.schedule;
 
-import app.data.Node;
-import app.data.PartialSolution;
 import app.exceptions.utils.NoRootFoundException;
+import app.schedule.datatypes.Node;
+import app.schedule.datatypes.PartialSolution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +13,7 @@ public class SchedulerHelper {
     private static Logger logger = LoggerFactory.getLogger(SchedulerHelper.class);
 
     /**
-     * Finds the roots of a provided digraph represented in a data map.
+     * Finds the roots of a provided digraph represented in a datatypes map.
      * Algorithm:
      * 1. All all of the Nodes to a set of Nodes.
      * 2. Iterate through each Node in that set
@@ -66,18 +66,15 @@ public class SchedulerHelper {
      * 2. For each of these nodes, check their parents are in the set of scheduled nodes.
      * 3. Unscheduled nodes who's parents have all been scheduled will be added to the list of nodes available to be scheduled
      *
-     * @param scheduledNodes set of nodes which have been scheduled
+     * @param scheduledNodes   set of nodes which have been scheduled
      * @param unscheduledNodes set of nodes which haven't been scheduled.
      * @return List nodes available to be scheduled.
      */
-    public List<Node> getAvailableNodes(Set<Node> scheduledNodes, Set<Node> unscheduledNodes) {
+    public static List<Node> getAvailableNodes(Set<Node> scheduledNodes, List<Node> unscheduledNodes) {
 
         List<Node> nextAvailableNodes = new ArrayList<>();
-        Iterator<Node> unscheduledNodesIterator = unscheduledNodes.iterator();
 
-        while (unscheduledNodesIterator.hasNext()) {
-            Node currentNode = unscheduledNodesIterator.next();
-
+        for (Node currentNode : unscheduledNodes) {
             boolean isAvailable = true;
             Map<Node, Integer> dependentParentMap = currentNode.getParentMap();
             for (Node parentNode : dependentParentMap.keySet()) {
@@ -102,25 +99,27 @@ public class SchedulerHelper {
      *
      * @param nodeToAdd              Node to be added to the partial solution provided
      * @param currentPartialSolution the partial solution provided
-     * @param numberOfProcessors     number of processors in each partial solution
      * @return list of all partial solutions that correspond to the next available partial solutions
      */
 
-    public List<PartialSolution> getAvailablePartialSolutions(Node nodeToAdd, PartialSolution currentPartialSolution, int numberOfProcessors) {
+    public static List<PartialSolution> getAvailablePartialSolutions(Node nodeToAdd, PartialSolution currentPartialSolution) {
 
         List<PartialSolution> availablePartialSolutions = new ArrayList<>();
+        int numberOfProcessors = currentPartialSolution.getNumberOfProcessors();
         int loopCounter = numberOfProcessors;
-        if (currentPartialSolution.getId() == 0){
+
+        if (currentPartialSolution.getScheduledNodes().size() == 0){
             loopCounter = 1;
         }
 
         for (int i = 0; i < loopCounter; i++) {
-            int newId = currentPartialSolution.getId() + i + 1;
-            PartialSolution newPartialSolution = new PartialSolution(numberOfProcessors, currentPartialSolution, newId);
+            PartialSolution newPartialSolution = new PartialSolution(numberOfProcessors, currentPartialSolution);
             newPartialSolution.addNodeToProcessor(nodeToAdd, i);
             availablePartialSolutions.add(newPartialSolution);
         }
 
         return availablePartialSolutions;
     }
+
+
 }
