@@ -35,7 +35,7 @@ public class MainGUI extends JFrame {
         setBounds(100, 100, 950, 500);
         setMinimumSize(new Dimension(1200, 600));
         this.setTitle("Graph Visualisation");
-        this.setLayout(new GridLayout(0, numberOfElements, 0, 0));
+        this.setLayout(new GridLayout(0, 4, 0, 0));
         // TODO Find a better layout for this JFrame
 
         statisticsPanel = new StatisticsPanel("file name",1,2,3);
@@ -116,8 +116,7 @@ public class MainGUI extends JFrame {
         } catch (NoRootFoundException e){}
 
         int numberOfElements = numberOfCores + 2;
-        this.setLayout(new GridLayout(0, numberOfElements, 0, 0));
-        this.validate();
+        validate();
     }
 
 
