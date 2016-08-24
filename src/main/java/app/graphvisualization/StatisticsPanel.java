@@ -25,7 +25,7 @@ public class StatisticsPanel extends JPanel {
         this.inputFileName = new JLabel("Input file name:  " + inputFileName);
         this.numberOfNodes = new JLabel("Number of Nodes:  " + numberOfNodes);
         this.numberOfEdges = new JLabel("Number of Edges:  " + numberOfEdges);
-        this.numberOfProcessors = new JLabel("Number of Processes:  " + numberOfProcessors);
+        this.numberOfProcessors = new JLabel("Number of Processors:  " + numberOfProcessors);
         this.currentBestLength = new JLabel("Current best time:  ");
         this.numberOfSolutionsExplored = new JLabel("Solutions explored:  ");
         this.status = new JLabel("Status: Computing...");
@@ -69,7 +69,7 @@ public class StatisticsPanel extends JPanel {
     }
 
     public void setNumberOfProcessors(int numberOfProcessors) {
-        this.numberOfProcessors.setText("Number of Processes:  " + numberOfProcessors);
+        this.numberOfProcessors.setText("Number of Processors:  " + numberOfProcessors);
     }
 }
 

@@ -12,7 +12,6 @@ public class BestSolutionPanel extends JPanel {
 
     private JLabel bestSolutionTitle;
     private JTable solutionTable;
-    private DefaultTableModel model;
     private JScrollPane tableContainer;
 
     /**
@@ -22,7 +21,6 @@ public class BestSolutionPanel extends JPanel {
      */
     public BestSolutionPanel() {
         this.setLayout(new BorderLayout());
-        //this.setPreferredSize(new Dimension(250, 300));
         this.setBorder(BorderFactory.createLineBorder(Color.gray));
 
         solutionTable = new JTable(new DefaultTableModel(new Object[]{"Name", "Weight", "Start time", "Processor"}, 0));

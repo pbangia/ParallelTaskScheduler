@@ -12,7 +12,7 @@ public class TestRunner {
         String inputFileName = "/Nodes_11_OutTree.dot";
         String outputFileName = "output.dot";
         int numProcessors = 1;
-        int numThreads = 1;
+        int numThreads = 8;
         boolean visualiseSearch = true;
 
         File inputFile = new File(TestRunner.class.getClass().getResource(inputFileName).toURI());

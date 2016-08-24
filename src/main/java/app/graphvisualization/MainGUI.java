@@ -26,17 +26,14 @@ public class MainGUI extends JFrame {
      * will be populated by elements to display information
      */
     public MainGUI() {
-        // temp variables that should be passed as arguments
-        int numberOfElements = numberOfCores + 2;
 
         // creates initial frame
         setBackground(Color.WHITE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1200, 600);
         setMinimumSize(new Dimension(1200, 600));
-        this.setTitle("Graph Visualisation");
+        this.setTitle("Scheduler Visualisation");
         this.setLayout(new GridLayout(2, 2, 0, 0));
-        // TODO Find a better layout for this JFrame
 
         statisticsPanel = new StatisticsPanel("file name",1,2,3);
         bestSolutionPanel = new BestSolutionPanel();
@@ -49,7 +46,6 @@ public class MainGUI extends JFrame {
 
     private Graph makeInputGraph(Map<String, Node> dataMap){
         this.dataMap = dataMap;
-
 
         Graph inputGraph = new SingleGraph("InputGraph");
 
@@ -75,7 +71,7 @@ public class MainGUI extends JFrame {
             Iterator<Map.Entry<Node, Integer>> childIterator = childMap.entrySet().iterator();
             while (childIterator.hasNext()) {
                 Map.Entry<Node, Integer> childEntry = childIterator.next();
-                int dependancy = childEntry.getValue();
+                int dependency = childEntry.getValue();
                 String childName = childEntry.getKey().getName();
 
                 if(inputGraph.getNode(childName) == null){
@@ -83,7 +79,6 @@ public class MainGUI extends JFrame {
                     org.graphstream.graph.Node childNode = inputGraph.addNode(childName);
                     try {
                         Thread.sleep(10);
-                        System.out.println(childName+" ("+childEntry.getKey().getWeight()+")");
                         childNode.addAttribute("ui.label",childName+" ("+childEntry.getKey().getWeight()+")");
                         childNode.addAttribute("ui.style","text-size:10px; fill-color: #333333;");
 
@@ -95,9 +90,8 @@ public class MainGUI extends JFrame {
                 String edgeName = nodeName + " -> " + childName;
 
                 org.graphstream.graph.Edge edge = inputGraph.addEdge(edgeName, nodeName, childName,true);
-                edge.addAttribute("ui.label", dependancy);
+                edge.addAttribute("ui.label", dependency);
                 edge.addAttribute("ui.style", "arrow-size:4px; fill-color: #737373; text-size:8px;");
-
 
             }
 
@@ -127,11 +121,10 @@ public class MainGUI extends JFrame {
         try {
             ArrayList<Node> roots = (ArrayList<Node>) helper.findRoots(dataMap);
             for (Node root : roots) {
-                this.graphPanel.colorRootNodes(root.getName(), Color.green);
+                this.graphPanel.colorRootNodes(root.getName());
             }
         } catch (NoRootFoundException e){}
 
-        int numberOfElements = numberOfCores + 2;
         validate();
     }
 
