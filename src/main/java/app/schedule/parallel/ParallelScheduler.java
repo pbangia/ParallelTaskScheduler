@@ -100,7 +100,7 @@ public class ParallelScheduler extends CommonScheduler implements BranchThreadLi
     public synchronized void onLeafReached(PartialSolution completeSolution) {
         if (completeSolution.isBetterThan(bestPartialSolution)) {
             bestPartialSolution = completeSolution;
-            logger.debug("New optimal solution found: \n" + bestPartialSolution.toString());
+            logger.debug("Thread " + Thread.currentThread().getName() + " found new optimal solution: \n" + bestPartialSolution.toString());
         }
     }
 
