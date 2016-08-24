@@ -13,6 +13,7 @@ public abstract class CommonScheduler {
     protected Collection<Node> nodes;
     protected int numberOfProcessors;
     protected PartialSolution bestPartialSolution = null;
+    protected boolean guiRequired = false;
 
     public abstract PartialSolution scheduleTasks();
 

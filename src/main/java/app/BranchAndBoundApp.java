@@ -59,9 +59,11 @@ public class BranchAndBoundApp {
     }
 
     private void setupGUI(Map<String, Node> dataMap) {
-        MainGUI.getInstance().setVisible(true);
-        MainGUI.getInstance().setGraphPanel(numThreads, dataMap);
-        MainGUI.getInstance().setStatisticsInfo(inputFile.getName(), dataMap.size(), dataTransformer.getDependencies().size(), numProcessors);
+        if (graphRequired){
+            MainGUI.get().setVisible(true);
+            MainGUI.get().setGraphPanel(numThreads, dataMap);
+            MainGUI.get().setStatisticsInfo(inputFile.getName(), dataMap.size(), dataTransformer.getDependencies().size(), numProcessors);
+        }
     }
 
     /**
@@ -97,7 +99,7 @@ public class BranchAndBoundApp {
      */
     private PartialSolution run(Map<String, Node> dataMap) throws AppException, InterruptedException {
         logger.info("Starting branch and bound algorithm to find optimal schedule.");
-        taskScheduler = CommonSchedulerFactory.createTaskScheduler(dataMap, numProcessors, numThreads);
+        taskScheduler = CommonSchedulerFactory.createTaskScheduler(dataMap, numProcessors, numThreads, graphRequired);
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.start();
         PartialSolution bestSolution = taskScheduler.scheduleTasks();

@@ -136,12 +136,12 @@ public class MainGUI extends JFrame {
     }
 
     /**
-     * getInstance method for singleton pattern. Will instantiate MainGUI
+     * get method for singleton pattern. Will instantiate MainGUI
      * object if null.
      * @return the MainGUI singleton instance
      */
 
-    public static MainGUI getInstance() {
+    public static MainGUI get() {
         if (mainWindow == null) {
             mainWindow = new MainGUI();
             return mainWindow;

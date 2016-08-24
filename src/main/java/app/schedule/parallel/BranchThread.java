@@ -1,5 +1,6 @@
 package app.schedule.parallel;
 
+import app.graphvisualization.MainGUI;
 import app.schedule.SchedulerHelper;
 import app.schedule.datatypes.Node;
 import app.schedule.datatypes.PartialSolution;
@@ -21,6 +22,7 @@ public class BranchThread extends Thread {
     private BranchThreadListener branchThreadListener;
     private PartialSolution bestPartialSolution = null;
     private ThreadManager threadCompletionListener;
+    private boolean guiRequired = false;
 
     public void addPartialSolution(PartialSolution partialSolution) {
         this.solutionStack.push(partialSolution);
@@ -40,6 +42,11 @@ public class BranchThread extends Thread {
 
         while (!solutionStack.empty()) {
             PartialSolution currentPartialSolution = solutionStack.pop();
+
+            if (guiRequired){
+                MainGUI.get().updateNumberOfSolutionsExplored();
+            }
+
             Set<Node> scheduledNodes = currentPartialSolution.getScheduledNodes();
             List<Node> unscheduledNodes = currentPartialSolution.getUnscheduledNodes();
 
@@ -73,5 +80,9 @@ public class BranchThread extends Thread {
 
     public void setThreadCompletionListener(ThreadManager threadCompletionListener) {
         this.threadCompletionListener = threadCompletionListener;
+    }
+
+    public void setGUIRequired(boolean GUIRequired) {
+        this.guiRequired = GUIRequired;
     }
 }
