@@ -1,4 +1,4 @@
-# bronies
+# Group 3
 SOFTENG306 - Project 1 - Group 3
 
 Overview:
@@ -29,9 +29,6 @@ Build instructions:
 - Clean the project by typing the following command in the terminal: mvn clean
 - Build the project by typing the following command in the terminal: mvn install
 - The jar file will be located in the target file
-
-Link to GIT repo:
-https://github.com/taranpreetkohli/bronies
 
 Location for information:
 https://github.com/taranpreetkohli/bronies/wiki
